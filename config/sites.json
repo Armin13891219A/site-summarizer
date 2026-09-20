@@ -1,16 +1,5 @@
 [
   {
-    "id": "theverge",
-    "name": "د ورج (The Verge)",
-    "url": "https://www.theverge.com",
-    "category": "فرهنگ دیجیتال و رسانه",
-    "tags": [
-      "فناوری",
-      "رسانه",
-      "نقد"
-    ]
-  },
-  {
     "id": "reactbits",
     "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
