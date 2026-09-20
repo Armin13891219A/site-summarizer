@@ -11,18 +11,6 @@
     ]
   },
   {
-    "id": "github-blog",
-    "name": "وبلاگ گیت‌هاب (GitHub Blog)",
-    "url": "https://github.blog",
-    "category": "توسعه نرم‌افزار",
-    "tags": [
-      "گیت",
-      "برنامه‌نویسی",
-      "مهندسی نرم‌افزار",
-      "Copilot"
-    ]
-  },
-  {
     "id": "theverge",
     "name": "د ورج (The Verge)",
     "url": "https://www.theverge.com",
