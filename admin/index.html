@@ -24,6 +24,15 @@
       <p>یک لینک بده، بقیه‌اش با خودمان — نام، دسته، تگ‌ها و خلاصه خودکار ساخته می‌شوند.</p>
     </header>
 
+    <!-- پیام‌های شناور -->
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <!-- دکمه خروج -->
+    <button class="btn btn-ghost" id="logout-btn" style="display:none; margin-bottom: 1.25rem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      خروج
+    </button>
+
     <section class="panel" id="unlock-panel">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -91,6 +100,31 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
         ذخیره تنظیمات
       </button>
+    </section>
+
+    <section class="panel" id="keys-panel" style="display:none">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+        ۴ — کلیدهای API (GitHub Secrets)
+      </h2>
+      <div class="field">
+        <label for="google-key">Google AI Studio Key</label>
+        <input type="password" id="google-key" dir="ltr" placeholder="AIza..." autocomplete="off">
+        <div class="hint">دریافت از <a href="https://aistudio.google.com/api-key" target="_blank" rel="noopener" style="color:var(--brand)">aistudio.google.com/api-key</a></div>
+      </div>
+      <div class="field">
+        <label for="openrouter-key">OpenRouter Key</label>
+        <input type="password" id="openrouter-key" dir="ltr" placeholder="sk-or-..." autocomplete="off">
+        <div class="hint">دریافت از <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:var(--brand)">openrouter.ai/keys</a></div>
+      </div>
+      <button class="btn" id="save-keys-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+        ذخیره کلیدها
+      </button>
+      <div class="token-note">
+        کلیدها در GitHub Secrets ذخیره می‌شوند و در کد قابل مشاهده نیستند.
+        برای حذف یک کلید، فیلدش را خالی کن و دوباره ذخیره کن.
+      </div>
     </section>
 
     <section class="panel" id="sites-panel" style="display:none">

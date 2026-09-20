@@ -379,6 +379,7 @@ main { max-width: 1120px; margin-inline: auto; padding: 0 1.25rem 4rem; }
 
 .card-body { padding: 1.25rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; position: relative; }
 .card-top { display: flex; align-items: center; gap: 0.8rem; }
+.favicon-wrap { position: relative; width: 44px; height: 44px; flex-shrink: 0; }
 .favicon {
   width: 44px; height: 44px;
   border-radius: calc(var(--radius) + 2px);
@@ -386,7 +387,17 @@ main { max-width: 1120px; margin-inline: auto; padding: 0 1.25rem 4rem; }
   background: var(--secondary);
   padding: 6px;
   outline: 1px solid var(--img-outline);
-  flex-shrink: 0;
+  position: absolute; inset: 0;
+}
+.favicon-letter {
+  position: absolute; inset: 0;
+  display: none;
+  align-items: center; justify-content: center;
+  font-size: 1.15rem; font-weight: 800;
+  color: var(--brand);
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
 }
 .card-name { font-weight: 700; font-size: 1.02rem; margin: 0; text-wrap: balance; }
 

@@ -170,8 +170,17 @@ html[dir="ltr"] .switch.on::after { transform: translateX(20px); }
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
-.favicon-mini { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: var(--secondary); padding: 4px; }
-.favicon-mini img { width: 100%; height: 100%; border-radius: 6px; }
+.favicon-mini { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: var(--secondary); padding: 4px; position: relative; }
+.favicon-mini img { width: 100%; height: 100%; border-radius: 6px; position: absolute; inset: 4px; width: calc(100% - 8px); height: calc(100% - 8px); }
+.favicon-letter-mini {
+  position: absolute; inset: 4px;
+  display: none;
+  align-items: center; justify-content: center;
+  font-size: 0.95rem; font-weight: 800;
+  color: var(--brand);
+  background: var(--secondary);
+  border-radius: 6px;
+}
 .site-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
 .site-info b { font-size: 0.9rem; }
 .muted { color: var(--muted-foreground); font-size: 0.72rem; direction: ltr; text-align: end; }
@@ -219,6 +228,46 @@ html[dir="ltr"] .switch.on::after { transform: translateX(20px); }
 }
 .token-note code { color: var(--warning); }
 .token-note a { color: var(--brand); text-decoration: none; }
+
+/* ——— پیام شناور (toast) ——— */
+.toasts {
+  position: fixed;
+  inset-block-start: 1rem;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+  max-width: min(92vw, 460px);
+}
+.toast {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: var(--shadow-card);
+  padding: 0.75rem 1rem;
+  font-size: 0.83rem;
+  color: var(--foreground);
+  pointer-events: auto;
+  animation: toast-in 0.4s var(--ease-out) both;
+}
+.toast.ok { border-color: oklch(from var(--success) l c h / 45%); }
+.toast.err { border-color: oklch(from var(--destructive) l c h / 45%); }
+.toast svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 0.15em; }
+.toast.ok svg { color: var(--success); }
+.toast.err svg { color: var(--destructive); }
+.toast.hide { animation: toast-out 0.3s var(--ease-out) both; }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes toast-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(-8px); }
+}
 
 footer { text-align: center; color: var(--muted-foreground); font-size: 0.75rem; margin-top: 2rem; }
 footer a { color: var(--brand); text-decoration: none; }

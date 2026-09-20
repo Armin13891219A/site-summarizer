@@ -130,6 +130,22 @@
     read();
   }
 
+  /* ——— Favicon fallback چندلایه (گوگل → داکرداک → حرف اول) ——— */
+  function faviconStack(url, name) {
+    var host = "";
+    try { host = new URL(url).hostname.replace(/^www\./, ""); }
+    catch (e) { host = url; }
+    var letter = (name || host).trim().charAt(0).toUpperCase();
+    return (
+      '<span class="favicon-wrap">' +
+        '<img class="favicon" loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=' +
+          encodeURIComponent(host) + '&sz=128" ' +
+          'onerror="this.remove(); this.nextElementSibling.style.display=\'flex\'">' +
+        '<span class="favicon-letter" aria-hidden="true">' + esc(letter) + "</span>" +
+      "</span>"
+    );
+  }
+
   function cardHTML(s, i) {
     var topics = (s.key_topics || s.tags || []).slice(0, 3).map(function (t) {
       return '<span class="topic">' + esc(t) + "</span>";
@@ -143,8 +159,7 @@
       '<article class="card tilt" style="transition-delay:' + Math.min(i * 60, 420) + 'ms">' +
         '<div class="card-body">' +
           '<div class="card-top">' +
-            '<img class="favicon" loading="lazy" alt="" src="' + esc(s.favicon || "") + '" ' +
-              'onerror="this.style.display=\'none\'">' +
+            faviconStack(s.url, s.name) +
             '<div>' +
               '<h2 class="card-name">' + blurWords(s.name || "") + "</h2>" +
               '<div class="card-url">' + esc(hostOf(s.url)) + "</div>" +
