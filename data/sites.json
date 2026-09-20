@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۳۲",
-    "last_updated_iso": "2026-09-20T17:32:13.475688Z",
-    "total_sites": 6,
+    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۳۵",
+    "last_updated_iso": "2026-09-20T17:35:42.605583Z",
+    "total_sites": 5,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -36,36 +36,6 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۴",
       "updated_at_iso": "2026-09-20T17:14:22.085120Z"
-    },
-    {
-      "id": "github-blog",
-      "name": "وبلاگ گیت‌هاب (GitHub Blog)",
-      "url": "https://github.blog",
-      "category": "توسعه نرم‌افزار",
-      "tags": [
-        "گیت",
-        "برنامه‌نویسی",
-        "مهندسی نرم‌افزار",
-        "Copilot"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=github.blog&sz=128",
-      "page_title": "GitHub Blog | Updates, ideas, and inspiration from GitHub",
-      "summary": "وبلاگ رسمی گیت‌هاب مرجع اخبار، آموزش‌ها و دیدگاه‌های دنیای توسعه نرم‌افزار است؛ از معرفی قابلیت‌های جدید گیت‌هاب، Copilot و Codespaces تا راهنماهای گیت، امنیت زنجیره تامین (supply chain) و مهندسی نرم‌افزار. این وبلاگ برای توسعه‌دهندگان، تیم‌های محصول و علاقه‌مندان متن‌باز، هم اخبار محصول را پوشش می‌دهد و هم مقالات عمیق فنی و گزارش‌های تحقیقاتی مثل Octoverse منتشر می‌کند.",
-      "highlights": [
-        "پوشش رسمی قابلیت‌های جدید گیت‌هاب: Copilot، Actions، Codespaces و امنیت",
-        "آموزش‌های کاربردی گیت، همکاری تیمی و بهترین پرکتیس‌های مهندسی نرم‌افزار",
-        "گزارش‌ها و تحلیل‌های اکوسیستم متن‌باز مثل Octoverse و روندهای توسعه‌دهندگان"
-      ],
-      "sentiment": "رسمی، آموزشی و تخصصی توسعه‌دهندگان",
-      "key_topics": [
-        "گیت و مهندسی نرم‌افزار",
-        "هوش مصنوعی و Copilot",
-        "متن‌باز و امنیت"
-      ],
-      "read_time": "۳ دقیقه",
-      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۱۸:۱۵",
-      "updated_at_iso": "2026-09-20T14:45:12.617330Z",
-      "stale": true
     },
     {
       "id": "theverge",
