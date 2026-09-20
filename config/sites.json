@@ -1,16 +1,5 @@
 [
   {
-    "id": "huggingface",
-    "name": "هاگینگ فیس (Hugging Face Blog)",
-    "url": "https://huggingface.co/blog",
-    "category": "هوش مصنوعی",
-    "tags": [
-      "هوش مصنوعی",
-      "یادگیری ماشین",
-      "متن‌باز"
-    ]
-  },
-  {
     "id": "github-blog",
     "name": "وبلاگ گیت‌هاب (GitHub Blog)",
     "url": "https://github.blog",
