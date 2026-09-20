@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>پنل مدیریت — دفتر یادداشت هوشمند</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="./css/panel.css">
 </head>
@@ -15,71 +16,96 @@
 
   <div class="wrap">
     <header>
-      <span class="badge-tag">📓 دفتر یادداشت هوشمند · مدیریت</span>
+      <span class="badge-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15"/></svg>
+        دفتر یادداشت هوشمند · مدیریت
+      </span>
       <h1>پنل افزودن و مدیریت سایت‌ها</h1>
-      <p>یک لینک بده، بقیه‌اش با خودمان. خلاصه فارسی به‌طور خودکار ساخته و منتشر می‌شود.</p>
+      <p>یک لینک بده، بقیه‌اش با خودمان — نام، دسته، تگ‌ها و خلاصه خودکار ساخته می‌شوند.</p>
     </header>
 
-    <!-- مرحله ۱: باز کردن قفل -->
     <section class="panel" id="unlock-panel">
-      <h2>۱ — باز کردن پنل</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        ۱ — ورود
+      </h2>
       <div class="field">
-        <label for="token">توکن گیت‌هاب (Pat/Token کلاسیک با دسترسی <code>repo</code>)</label>
+        <label for="token">توکن گیت‌هاب (دسترسی repo و workflow)</label>
         <input type="text" id="token" autocomplete="off" spellcheck="false" placeholder="ghp_... یا github_pat_..." dir="ltr">
       </div>
-      <button class="btn" id="unlock-btn">🔒 باز کردن پنل</button>
+      <button class="btn" id="unlock-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        باز کردن پنل
+      </button>
       <div class="token-note">
-        توکن فقط در حافظه مرورگر همین صفحه می‌ماند و در هیچ‌کجا ذخیره نمی‌شود. ساختن توکن:<br>
-        <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a> →
+        توکن فقط در حافظه مرورگر همین صفحه می‌ماند و جایی ذخیره نمی‌شود.<br>
+        ساختن توکن: <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a> →
         تیک <code>repo</code> و <code>workflow</code> → Generate
       </div>
     </section>
 
-    <!-- مرحله ۲: پنل فعال -->
     <section class="panel" id="admin-panel" style="display:none">
-      <h2>۲ — افزودن سایت جدید</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        ۲ — افزودن سایت جدید
+      </h2>
       <div class="field">
-        <label for="new-url">آدرس سایت (الزامی)</label>
+        <label for="new-url">آدرس سایت (فقط لینک — بقیه‌اش خودکار)</label>
         <input type="url" id="new-url" placeholder="https://example.com" dir="ltr">
+        <div class="hint">نام، دسته‌بندی و تگ‌ها خودکار از محتوای سایت استخراج می‌شوند.</div>
+      </div>
+      <button class="btn" id="add-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        افزودن سایت
+      </button>
+    </section>
+
+    <section class="panel" id="settings-panel" style="display:none">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+        ۳ — تنظیمات هوش مصنوعی
+      </h2>
+      <div class="field">
+        <label for="ai-provider">پایانه (Provider)</label>
+        <select id="ai-provider" dir="rtl">
+          <option value="g4f">g4f (رایگان)</option>
+          <option value="google">Google AI Studio</option>
+          <option value="openrouter">OpenRouter</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="g4f-models">مدل‌های g4f (هر خط یک مدل)</label>
+        <textarea id="g4f-models" dir="ltr" placeholder="gpt-4"></textarea>
       </div>
       <div class="row-2">
         <div class="field">
-          <label for="new-name">نام نمایشی (اختیاری)</label>
-          <input type="text" id="new-name" placeholder="نام سایت">
+          <label for="google-model">مدل Google AI</label>
+          <input type="text" id="google-model" dir="ltr" placeholder="gemini-1.5-flash">
         </div>
         <div class="field">
-          <label for="new-cat">دسته‌بندی</label>
-          <select id="new-cat" dir="rtl">
-            <option>عمومی</option>
-            <option>فناوری</option>
-            <option>هوش مصنوعی</option>
-            <option>توسعه نرم‌افزار</option>
-<parameter name="content">            <option>فناوری و کسب‌وکار</option>
-            <option>فرهنگ دیجیتال و رسانه</option>
-            <option>استارتاپ و سرمایه‌گذاری</option>
-          </select>
+          <label for="openrouter-model">مدل OpenRouter</label>
+          <input type="text" id="openrouter-model" dir="ltr" placeholder="google/gemini-2.0-flash-exp:free">
         </div>
       </div>
-      <div class="field">
-        <label for="new-tags">برچسب‌ها (با کاما جدا کن)</label>
-        <input type="text" id="new-tags" placeholder="هوش مصنوعی، اخبار، متن‌باز">
-      </div>
-      <div class="switch-row">
-        <button class="switch on" id="gen-summary" role="switch" aria-checked="true" aria-label="تولید خودکار خلاصه"></button>
-        <span>ساخت خودکار خلاصه فارسی با g4f بعد از افزودن</span>
-      </div>
-      <button class="btn" id="add-btn">➕ افزودن سایت</button>
+      <button class="btn" id="save-settings-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
+        ذخیره تنظیمات
+      </button>
     </section>
 
     <section class="panel" id="sites-panel" style="display:none">
-      <h2>۳ — سایت‌های موجود</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        ۴ — سایت‌های موجود
+      </h2>
       <div class="sites-list" id="sites-list"></div>
       <div class="log" id="log" style="margin-top: 1rem"><div class="log-line">آماده.</div></div>
     </section>
   </div>
 
   <footer>
-    ساخته‌شده با <a href="https://github.com/Armin13891219A/site-summarizer">g4f + GitHub Pages</a>
+    <a href="..">بازگشت به سایت</a> ·
+    ساخته‌شده با g4f + Google AI + OpenRouter روی GitHub Pages
   </footer>
 
   <script src="./js/panel.js"></script>

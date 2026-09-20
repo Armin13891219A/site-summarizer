@@ -1,13 +1,10 @@
-/* ————————————————————————————————————————————————
-   پنل ادمین — تم گرافیت (vibefarsi) + پولیش رابط کاربری
-   اصول make-interfaces-feel-better: شعاع هم‌مرکز، سایه لایه‌ای،
-   scale-on-press 0.96، hit area 44px، tabular-nums، transition دقیق
-———————————————————————————————————————————————— */
+/* پنل ادمین — تم گرافایت + light theme + سوییچ RTL صحیح */
 :root {
   color-scheme: dark;
-  --background: oklch(0.115 0.002 81);
+  --background: oklch(0.115 0.002 285);
   --foreground: oklch(0.975 0 0);
-  --card: oklch(0.20 0.005 285);
+  --card: oklch(0.2 0.005 285);
+  --card-foreground: oklch(0.975 0 0);
   --popover: oklch(0.16 0.002 285);
   --secondary: oklch(0.2 0.002 285);
   --muted-foreground: oklch(0.74 0.004 285);
@@ -21,12 +18,32 @@
   --ring: oklch(0.7 0 0);
   --radius: 0.625rem;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 16px 40px -20px oklch(0 0 0 / 80%);
+  --shadow-inset: 0 1px 0 0 oklch(1 0 0 / 8%);
+}
+[data-theme="light"] {
+  color-scheme: light;
+  --background: oklch(0.985 0.002  285);
+  --foreground: oklch(0.18 0.005 285);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.005 285);
+  --popover: oklch(1 0 0);
+  --secondary: oklch(0.96 0.002 285);
+  --muted-foreground: oklch(0.45 0.008 285);
+  --brand: oklch(0.55 0.2 65);
+  --brand-foreground: oklch(0.98 0 0);
+  --success: oklch(0.55  0.16 160);
+  --warning: oklch(0.6 0.16 80);
+  --destructive: oklch(0.5 0.2 25);
+  --border: oklch(0.2  0.005 285 / 12%);
+  --input: oklch(0.2 0.005 285 / 10%);
+  --ring: oklch(0.35 0.01 285);
+  --shadow-card: 0 16px 40px -24px oklch(0.2 0.01 285 / 35%);
+  --shadow-inset: 0 1px 0 0 oklch(1 0 0 / 90%);
 }
 
 * { box-sizing: border-box; }
-
 html { -webkit-font-smoothing: antialiased; letter-spacing: 0; }
-
 body {
   margin: 0;
   background: var(--background);
@@ -36,75 +53,66 @@ body {
   line-height: 1.9;
 }
 
-/* پس‌زمینه شبکه vibefarsi */
 .grid-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background-image:
     linear-gradient(to right, oklch(from var(--foreground) l c h / 5%) 1px, transparent 1px),
     linear-gradient(to bottom, oklch(from var(--foreground) l c h / 5%) 1px, transparent 1px);
   background-size: 56px 56px;
   mask-image: linear-gradient(to bottom, black 40%, transparent);
 }
+.wrap { position: relative; z-index: 1; max-width: 760px; margin-inline: auto; padding: 2.5rem 1.25rem 4rem; }
 
-.wrap { position: relative; z-index: 1; max-width: 720px; margin-inline: auto; padding: 3rem 1.25rem 4rem; }
-
-header { text-align: center; margin-bottom: 2.25rem; }
-header h1 {
-  font-size: clamp(1.5rem, 3.6vw, 2.05rem);
-  font-weight: 800;
-  margin: 0 0 0.35rem;
-  text-wrap: balance;
-}
+header { text-align: center; margin-bottom: 2rem; }
+header h1 { font-size: clamp(1.4rem, 3.4vw, 1.9rem); font-weight: 800; margin: 0 0 0.35rem; text-wrap: balance; }
 header p { color: var(--muted-foreground); margin: 0; font-size: 0.9rem; text-wrap: pretty; }
 
 .badge-tag {
   display: inline-flex; align-items: center; gap: 0.4rem;
-  font-size: 0.75rem; font-weight: 500;
+  font-size: 0.75rem; font-weight: 600;
   color: var(--brand);
   border: 1px solid oklch(from var(--brand) l c h / 35%);
   background: oklch(from var(--brand) l c h / 10%);
   border-radius: 999px; padding: 0.25rem 0.9rem; margin-bottom: 1rem;
 }
+.badge-tag svg { width: 14px; height:: 14px; }
 
-/* کارت اصلی — شعاع بیرونی = درونی + پدینگ */
 .panel {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) + 8px);
-  box-shadow: 0 1px 0 0 oklch(1 0 0 / 8%) inset, 0 20px 50px -24px oklch(0 0 0 / 80%);
+  box-shadow: var(--shadow-inset), var(--shadow-card);
   padding: 1.5rem;
   margin-bottom: 1.25rem;
 }
-.panel h2 { font-size: 1.05rem; margin: 0 0 1.1rem; font-weight: 700; }
+.panel h2 { font-size: 1.05rem; margin: 0 0 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+.panel h2 svg { width: 18px; height: 18px; color: var(--brand); }
 
-/* فیلدها */
 .field { margin-bottom: 1rem; }
 label { display: block; font-size: 0.78rem; color: var(--muted-foreground); margin-bottom: 0.3rem; }
-input[type="text"], input[type="url"], select {
+input[type="text"], input[type="url"], select, textarea {
   width: 100%;
   background: var(--popover);
   border: 1px solid var(--input);
   border-radius: var(--radius);
   color: var(--foreground);
   padding: 0.72rem 0.9rem;
-  font: inherit;
-  font-size: 0.9rem;
-  outline: none;
-  min-height: 44px;
+  font: inherit; font-size: 0.9rem;
+  outline: none; min-height: 44px;
   transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
 }
-input:focus, select:focus {
+textarea { min-height: 70px; resize: vertical; }
+input:focus, select:focus, textarea:focus {
   border-color: var(--ring);
   box-shadow: 0 0 0 3px oklch(from var(--ring) l c h / 18%);
 }
-input::placeholder { color: var(--muted-foreground); }
+input::placeholder, textarea::placeholder { color: var(--muted-foreground); }
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 @media (max-width: 560px) { .row-2 { grid-template-columns: 1fr; } }
 
-/* سوییچ gen-summary */
+.hint { font-size: 0.72rem; color: var(--muted-foreground); margin-top: 0.3rem; }
+
+/* ——— سوییچ RTL — در RTL به سمت چپ حرکت می‌کند ——— */
 .switch-row { display: flex; align-items: center; gap: 0.65rem; margin: 0.9rem 0 1.1rem; }
 .switch {
   position: relative;
@@ -122,13 +130,13 @@ input::placeholder { color: var(--muted-foreground); }
   width: 18px; height: 18px;
   border-radius: 50%;
   background: var(--foreground);
-  transition: translate 0.2s var(--ease-out);
+  transition: transform 0.2s var(--ease-out);
 }
 .switch.on { background: oklch(from var(--brand) l c h / 35%); }
-.switch.on::after { translate: 20px 0; }
+html[dir="rtl"] .switch.on::after { transform: translateX(-20px); }
+html[dir="ltr"] .switch.on::after { transform: translateX(20px); }
 .switch-row span { font-size: 0.83rem; color: var(--muted-foreground); }
 
-/* دکمه اصلی */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   background: var(--brand);
@@ -142,13 +150,13 @@ input::placeholder { color: var(--muted-foreground); }
 .btn:hover { filter: brightness(1.08); }
 .btn:active { scale: 0.96; }
 .btn:disabled { opacity: 0.5; cursor: wait; }
+.btn svg { width: 16px; height: 16px; }
 .btn-ghost {
   background: var(--secondary); color: var(--foreground);
   border: 1px solid var(--border);
 }
 .btn-ghost:hover { border-color: var(--ring); }
 
-/* ردیف‌های سایت */
 .sites-list { display: flex; flex-direction: column; gap: 0.6rem; }
 .site-row {
   display: flex; align-items: center; gap: 0.8rem;
@@ -162,8 +170,8 @@ input::placeholder { color: var(--muted-foreground); }
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
-.favicon-mini { width: 36px; height: 36px; flex-shrink: 0; }
-.favicon-mini img { width: 100%; height: 100%; border-radius: 8px; }
+.favicon-mini { width: 36px; height: 36px; flex-shrink: 0; border-radius: 8px; background: var(--secondary); padding: 4px; }
+.favicon-mini img { width: 100%; height: 100%; border-radius: 6px; }
 .site-info { display: flex; flex-direction: column; flex: 1; min-width: 0; }
 .site-info b { font-size: 0.9rem; }
 .muted { color: var(--muted-foreground); font-size: 0.72rem; direction: ltr; text-align: end; }
@@ -180,14 +188,15 @@ input::placeholder { color: var(--muted-foreground); }
   border-radius: calc(var(--radius) - 2px);
   padding: 0.4rem 0.8rem; font: inherit; font-size: 0.75rem;
   cursor: pointer; min-height: 36px;
+  display: inline-flex; align-items:  center; gap: 0.3rem;
   transition: scale 0.15s var(--ease-out), filter 0.2s var(--ease-out);
 }
 .btn-mini:hover { filter: brightness(1.15); }
 .btn-mini:active { scale: 0.96; }
+.btn-mini svg { width: 13px; height: 13px; }
 
-/* لاگ */
 .log {
-  background: oklch(0.0 0 0 / 40%);
+  background: oklch(0 0 0 / 40%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 0.8rem;
@@ -200,7 +209,6 @@ input::placeholder { color: var(--muted-foreground); }
 .log-ok { color: var(--success); }
 .log-err { color: var(--destructive); }
 
-/* توکن */
 .token-note {
   font-size: 0.72rem; color: var(--muted-foreground);
   border: 1px solid var(--border);
@@ -210,6 +218,7 @@ input::placeholder { color: var(--muted-foreground); }
   line-height: 1.7;
 }
 .token-note code { color: var(--warning); }
+.token-note a { color: var(--brand); text-decoration: none; }
 
 footer { text-align: center; color: var(--muted-foreground); font-size: 0.75rem; margin-top: 2rem; }
 footer a { color: var(--brand); text-decoration: none; }

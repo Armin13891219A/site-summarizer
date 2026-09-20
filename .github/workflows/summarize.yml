@@ -7,15 +7,20 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Regenerate all summaries even if cached"
+        description: "بازتولید همه خلاصه‌ها حتی کش‌شده"
         required: false
         default: "false"
         type: choice
         options: ["false", "true"]
+      add_url:
+        description: "آدرس سایت جدید برای افزودن (خالی = پردازش همه)"
+        required: false
+        default: ""
   push:
     branches: [main]
     paths:
       - "config/sites.json"
+      - "config/settings.json"
       - "scripts/summarize.py"
 
 permissions:
@@ -38,9 +43,15 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Run AI summarizer (g4f)
+      - name: Run AI summarizer
+        env:
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          if [ "${{ inputs.force }}" = "true" ]; then
+          if [ -n "${{ inputs.add_url }}" ]; then
+            python scripts/summarize.py --add "${{ inputs.add_url }}"
+          elif [ "${{ inputs.force }}" = "true" ]; then
             python scripts/summarize.py --force
           else
             python scripts/summarize.py
@@ -50,10 +61,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/sites.json
+          git add data/sites.json config/sites.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "🤖 auto-update: website summaries $(date -u +%Y-%m-%d)"
+            git commit -m "chore: auto-update website summaries $(date -u +%Y-%m-%d)"
             git push
           fi

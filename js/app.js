@@ -1,4 +1,4 @@
-/* داشبورد خلاصه‌ساز — لاجیک رندر، جست‌وجو، فیلتر + reveal و spotlight */
+/* داشبورد دفتر یادداشت هوشمند */
 (function () {
   "use strict";
 
@@ -13,6 +13,23 @@
   var marqueeBox = document.getElementById("marquee");
   var scrollBar = document.getElementById("scroll-bar");
 
+  function icon(name) {
+    var paths = {
+      clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+      cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>',
+      tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/>',
+      ext: '<path d="M14 4h6v6M20 4 10 14M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/>',
+      globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/>',
+      spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/>',
+      book: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5v15"/>',
+      check: '<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.5 2.5L16 9.5"/>',
+      alert: '<path d="M12 3 2 20h20z"/><path d="M12 9v5M12 17.5v.01"/>'
+    };
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      (paths[name] || paths.globe) + "</svg>";
+  }
+
   function faNum(s) {
     return String(s == null ? "" : s).replace(/[0-9]/g, function (d) {
       return "۰۱۲۳۴۵۶۷۸۹"[+d];
@@ -25,44 +42,55 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  function icon(name) {
-    var paths = {
-      clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-      cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>',
-      tag: '<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r="1.5"/>',
-      ext: '<path d="M14 4h6v6M20 4 10 14M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6"/>',
-      globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/>',
-      search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'
-    };
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" ' +
-      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      (paths[name] || paths.globe) + "</svg>";
-  }
-
   function hostOf(url) {
     try { return new URL(url).hostname.replace(/^www\./, ""); }
     catch (e) { return url; }
   }
 
-  /* ——— Typewriter (تایپ‌شونده vibefarsi) — روی عنوان هیرو ——— */
-  function typewriter(el, text, speed) {
-    if (!el || el.dataset.tw) return;
-    el.dataset.tw = "1";
-    el.setAttribute("aria-label", text);
-    var i = 0;
-    el.innerHTML = '<span aria-hidden></span><span class="typewriter-cursor" aria-hidden="true"></span>';
-    var out = el.querySelector("span");
-    (function tick() {
-      if (i <= text.length) {
-        out.textContent = text.slice(0, i++);
-        setTimeout(tick, speed || 70);
-      } else {
-        el.querySelector(".typewriter-cursor").style.display = "none";
+  function initTheme() {
+    var root = document.documentElement;
+    try {
+      var t = localStorage.getItem("ss-theme");
+      var a = localStorage.getItem("ss-accent");
+      if (t === "light" || t === "dark") {
+        root.setAttribute("data-theme", t);
+        document.getElementById("theme-dark").classList.toggle("active", t === "dark");
+        document.getElementById("theme-light").classList.toggle("active", t === "light");
       }
-    })();
+      if (a) {
+        root.setAttribute("data-accent", a);
+        document.querySelectorAll(".accent-btn").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-accent") === a);
+        });
+      }
+    } catch (e) {}
   }
+  initTheme();
 
-  /* ——— Counter (شمارنده vibefarsi) — شمارش عدد با easing ——— */
+  document.getElementById("theme-dark").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", "dark");
+    document.getElementById("theme-dark").classList.add("active");
+    document.getElementById("theme-light").classList.remove("active");
+    try { localStorage.setItem("ss-theme", "dark"); } catch (e) {}
+  });
+
+  document.getElementById("theme-light").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", "light");
+    document.getElementById("theme-light").classList.add("active");
+    document.getElementById("theme-dark").classList.remove("active");
+    try { localStorage.setItem("ss-theme", "light"); } catch (e) {}
+  });
+
+  document.querySelectorAll(".accent-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var a = btn.getAttribute("data-accent");
+      document.documentElement.setAttribute("data-accent", a);
+      document.querySelectorAll(".accent-btn").forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      try { localStorage.setItem("ss-accent", a); } catch (e) {}
+    });
+  });
+
   function counter(el, to, duration) {
     if (!el) return;
     var from = 0, start = null;
@@ -76,24 +104,21 @@
     requestAnimationFrame(tick);
   }
 
-  /* ——— BlurText (ظهور تار vibefarsi) — کلمه‌به‌کلمه ——— */
   function blurWords(text, delay) {
     return text.split(" ").map(function (w, i) {
       return '<span class="blur-word" style="animation-delay:' + (i * (delay || 90)) + 'ms">' + esc(w) + "&nbsp;</span>";
     }).join("");
   }
 
-  /* ——— Marquee (نوار متحرک vibefarsi) — نام سایت‌ها ——— */
   function renderMarquee(sites) {
     if (!marqueeBox) return;
     var one = sites.map(function (s) {
-      return '<span class="marquee-item">📓 ' + esc(s.name) + "</span>";
+      return '<span class="marquee-item">' + icon("book") + esc(s.name) + "</span>";
     }).join("");
     marqueeBox.innerHTML = '<div class="marquee-row" dir="rtl">' + one + "</div>" +
       '<div class="marquee-row" dir="rtl" aria-hidden="true">' + one + "</div>";
   }
 
-  /* ——— ScrollProgress (پیشرفت خواندن vibefarsi) ——— */
   function bindScrollProgress() {
     if (!scrollBar) return;
     function read() {
@@ -110,9 +135,10 @@
       return '<span class="topic">' + esc(t) + "</span>";
     }).join("");
     var highlights = (s.highlights || []).slice(0, 3).map(function (h) {
-      return "<li>" + esc(h) + "</li>";
+      return "<li>" + icon("check") + esc(h) + "</li>";
     }).join("");
-    var stale = s.stale ? '<span class="stale-flag">در انتظار به‌روزرسانی</span>' : "";
+    var stale = s.stale ? '<span class="stale-flag">' + icon("alert") + "در انتظار به‌روزرسانی</span>" : "";
+    var provider = s.provider ? '<span class="provider-pill">' + esc(s.provider) + "</span>" : "";
     return (
       '<article class="card tilt" style="transition-delay:' + Math.min(i * 60, 420) + 'ms">' +
         '<div class="card-body">' +
@@ -124,14 +150,15 @@
               '<div class="card-url">' + esc(hostOf(s.url)) + "</div>" +
             "</div>" +
           "</div>" +
-          '<div><span class="badge">' + icon("tag") + esc(s.category || "عمومی") + "</span> " +
-            '<span class="badge muted">' + icon("globe") + esc(s.sentiment || "") + "</span></div>" +
+          '<div class="badge-row"><span class="badge">' + icon("tag") + esc(s.category || "عمومی") + "</span>" +
+            '<span class="badge muted">' + icon("spark") + esc(s.sentiment || "اطلاع‌رسانی") + "</span></div>" +
           '<p class="summary">' + esc(s.summary || "خلاصه‌ای ثبت نشده است.") + "</p>" +
           (highlights ? '<ul class="hl-list">' + highlights + "</ul>" : "") +
           (topics ? '<div class="topics">' + topics + "</div>" : "") +
           '<div class="card-meta">' +
             "<span>" + icon("clock") + esc(s.read_time || "") + "</span>" +
-            "<span>" + icon("cal") + esc(s.updated_at || "") + "</span>" + stale +
+            "<span>" + icon("cal") + esc(s.updated_at || "") + "</span>" +
+            provider + stale +
           "</div>" +
           '<a class="visit" href="' + esc(s.url) + '" target="_blank" rel="noopener">' +
             "مشاهده وب‌سایت " + icon("ext") + "</a>" +
@@ -161,30 +188,31 @@
 
   function filtered() {
     var q = state.query.trim();
-    return state.sites.filter(function (s) {
+    var out = [];
+    state.sites.forEach(function (s, idx) {
       var okCat = state.category === "همه" || (s.category || "عمومی") === state.category;
-      if (!okCat) return false;
-      if (!q) return true;
+      if (!okCat) return;
+      if (!q) { out.push({ s: s, i: idx }); return; }
       var hay = [s.name, s.summary, s.category, (s.tags || []).join(" "),
         (s.key_topics || []).join(" "), (s.highlights || []).join(" ")].join(" ");
-      return hay.indexOf(q) !== -1;
+      if (hay.indexOf(q) !== -1) out.push({ s: s, i: idx });
     });
+    return out;
   }
 
   function renderCards() {
     var list = filtered();
     if (!list.length) {
       grid.innerHTML = '<div class="empty">' +
-        (state.error ? "خطا در بارگذاری داده‌ها. لطفاً اتصال را بررسی کنید." :
+        (state.error ? "خطا در بارگذاری داده‌ها. اتصال را بررسی کنید." :
           "موردی با این جست‌وجو پیدا نشد. عبارت دیگری را امتحان کنید.") + "</div>";
       return;
     }
-    grid.innerHTML = list.map(cardHTML).join("");
+    grid.innerHTML = list.map(function (x) { return cardHTML(x.s, x.i); }).join("");
     observeReveals();
     bindSpotlights();
   }
 
-  /* Reveal هنگام اسکرول — نسخه سبک IntersectionObserver */
   var revealIO = null;
   function observeReveals() {
     var cards = grid.querySelectorAll(".card");
@@ -204,7 +232,6 @@
     cards.forEach(function (c) { revealIO.observe(c); });
   }
 
-  /* Spotlight دنبال‌گر ماوس روی کارت‌ها + Tilt سه‌بعدی */
   function bindSpotlights() {
     grid.querySelectorAll(".card").forEach(function (card) {
       card.addEventListener("pointermove", function (e) {
@@ -246,6 +273,6 @@
     })
     .catch(function (err) {
       state.error = String(err && err.message || err);
-      grid.innerHTML = '<div class="empty">خطا در بارگذاری داده‌ها. لطفاً صفحه را رفرش کنید.</div>';
+      grid.innerHTML = '<div class="empty">خطا در بارگذاری داده‌ها. صفحه را رفرش کنید.</div>';
     });
 })();

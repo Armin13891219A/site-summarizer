@@ -1,27 +1,21 @@
-// ————————————————————————————————————————
-//  پنل ادمین دفتر یادداشت هوشمند
-//  افزودن سایت از طریق GitHub API + reCAPTCHA-free admin
-//  امنیت: توکن هرگز در سورس نیست — از session storage خوانده می‌شود
-// ————————————————————————————————————————
-
+/* پنل ادمین دفتر یادداشت هوشمند — GitHub API + تنظیمات provider */
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
 
-  // آدرس ریپو — بعد از push خودکار پر می‌شود
   var REPO = "Armin13891219A/site-summarizer";
   var BRANCH = "main";
   var API = "https://api.github.com";
 
   var token = null;
-  var adminUnlocked = false;
+  var sitesSha = null;
 
-  // ——— utilities ———
   function esc(s) {
     return String(s == null ? "" : s)
       .replace(/&/g, "&amp;").replace(/</g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
+
   function log(msg, kind) {
     var box = $("log");
     var line = document.createElement("div");
@@ -30,7 +24,6 @@
     box.prepend(line);
   }
 
-  // ——— gh api helpers ———
   function gh(url, opts) {
     opts = opts || {};
     opts.headers = Object.assign({
@@ -48,12 +41,29 @@
     });
   }
 
-  // محتوا را به صورت base64 آماده می‌کند (github api از base64 می‌خواهد)
-  function toB64(str) {
-    return btoa(unescape(encodeURIComponent(str)));
+  function toB64(str) { return btoa(unescape(encodeURIComponent(str))); }
+  function fromB64(b64) { return decodeURIComponent(escape(atob(b64))); }
+
+  function fetchFile(path) {
+    return gh("/repos/" + REPO + "/contents/" + path + "?ref=" + BRANCH).then(function (f) {
+      return { sha: f.sha, content: fromB64(f.content) };
+    });
   }
 
-  // ——— 1) unlock ———
+  function commitFile(path, content, sha, msg) {
+    return gh("/repos/" + REPO + "/contents/" + path, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: msg,
+        content: toB64(content),
+        sha: sha,
+        branch: BRANCH
+      })
+    }).then(function (r) { return r; });
+  }
+
+  /* ——— ۱) ورود ——— */
   function unlock() {
     var t = $("token").value.trim();
     if (!t || (t.indexOf("ghp_") !== 0 && t.indexOf("github_pat_") !== 0)) {
@@ -63,42 +73,42 @@
     token = t;
     $("token").value = "";
     gh("/user").then(function (u) {
-      adminUnlocked = true;
       $("unlock-panel").style.display = "none";
       $("admin-panel").style.display = "block";
+      $("settings-panel").style.display = "block";
       $("sites-panel").style.display = "block";
-      log("خوش آمدی " + (u.login || "admin") + " — پنل فعال شد ✅", "ok");
+      log("خوش آمدی " + (u.login || "admin") + " — پنل فعال شد", "ok");
       loadSites();
+      loadSettings();
     }).catch(function (e) {
       log("توکن رد شد: " + e.message, "err");
       token = null;
     });
   }
 
-  // ——— 2) list ———
+  /* ——— ۲) لیست سایت‌ها ——— */
   function loadSites() {
-    gh("/repos/" + REPO + "/contents/config/sites.json?ref=" + BRANCH)
+    fetchFile("config/sites.json")
       .then(function (f) {
-        var raw = decodeURIComponent(escape(atob(f.content)));
-        var arr = JSON.parse(raw);
-        window.__sitesSha = f.sha;
+        var arr = JSON.parse(f.content);
+        sitesSha = f.sha;
         renderSites(arr);
         log("لیست سایت‌ها بارگذاری شد (" + arr.length + " سایت)", "ok");
       })
-      .catch(function (e) {
-        log("خطا در خواندن لیست: " + e.message, "err");
-      });
+      .catch(function (e) { log("خطا در خواندن لیست: " + e.message, "err"); });
   }
 
   function renderSites(arr) {
     var box = $("sites-list");
     box.innerHTML = arr.map(function (s, i) {
+      var host = "";
+      try { host = new URL(s.url).hostname; } catch (e) { host = s.url; }
       return '<div class="site-row">' +
         '<span class="favicon-mini"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=' +
-          esc(new URL(s.url).hostname) + '&sz=64" onerror="this.style.display=\'none\'"></span>' +
+          encodeURIComponent(host) + '&sz=64" onerror="this.style.display=\'none\'"></span>' +
         '<span class="site-info"><b>' + esc(s.name) + '</b><span class="muted">' + esc(s.url) + '</span></span>' +
         '<span class="chip-mini">' + esc(s.category || "عمومی") + '</span>' +
-        '<button class="btn-mini btn-danger" data-del="' + i + '">حذف</button>' +
+        '<button class="btn-mini" data-del="' + i + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg> حذف</button>' +
       '</div>';
     }).join("");
     box.querySelectorAll("[data-del]").forEach(function (btn) {
@@ -106,79 +116,56 @@
     });
   }
 
-  // ——— 3) add ———
+  /* ——— ۳) افزودن سایت (فقط URL — بقیه خودکار) ——— */
   function addSite() {
     var url = $("new-url").value.trim();
-    var name = ($("new-name").value.trim() || "").trim();
-    var cat = $("new-cat").value.trim() || "عمومی";
-    var tags = $("new-tags").value.trim().split(/[,\s]+/).filter(Boolean);
-    var genSum = $("gen-summary").checked;
-
     if (!url) { log("یک آدرس وارد کن.", "err"); return; }
     if (!/^https?:\/\//.test(url)) { log("آدرس باید با http(s):// شروع شود.", "err"); return; }
-    if (!name) name = url.replace(/^https?:\/\//, "").split("/")[0];
     $("add-btn").disabled = true;
     $("add-btn").textContent = "در حال افزودن…";
     log("دریافت لیست فعلی از گیت‌هاب…");
 
-    gh("/repos/" + REPO + "/contents/config/sites.json?ref=" + BRANCH)
+    fetchFile("config/sites.json")
       .then(function (f) {
-        var arr = JSON.parse(deURIComponent(atob(f.content)));
+        var arr = JSON.parse(f.content);
         if (arr.some(function (s) { return s.url === url; })) {
           throw new Error("این سایت قبلاً اضافه شده.");
         }
-        var entry = { id: slugify(url), name: name, url: url, category: cat, tags: tags };
-        arr.push(entry);
-        window.__sitesSha = f.sha;
-        return commitSites(arr, "➕ افزودن " + name);
+        arr.push({ id: "pending", name: url, url: url, category: "عمومی", tags: [] });
+        sitesSha = f.sha;
+        return commitFile(
+          "config/sites.json",
+          JSON.stringify(arr, null, 2) + "\n",
+          sitesSha,
+          "add site: " + url
+        );
       })
       .then(function () {
-        log("سایت اضافه شد و ورک‌فلو خودکار فعال شد ✅", "ok");
-        $("new-url").value = ""; $("new-name").value = ""; $("new-tags").value = "";
+        log("سایت اضافه شد — ورک‌فلو خودکار فعال شد", "ok");
+        $("new-url").value = "";
         loadSites();
-        if (genSum) generateFor(url, name);
+        dispatchWorkflow(url);
       })
-      .catch(function (e) {
-        log("خطا: " + e.message, "err");
-      })
+      .catch(function (e) { log("خطا: " + e.message, "err"); })
       .then(function () {
         $("add-btn").disabled = false;
-        $("add-btn").textContent = "➕ افزودن سایت";
+        $("add-btn").textContent = "افزودن سایت";
       });
   }
 
-  function deURIComponent(s) { return decodeURIComponent(escape(s)); }
-
-  function slugify(url) {
-    return (url.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0] || "site")
-      .replace(/[^a-zA-Z0-9-]/g, "-").replace(/-+/g, "-").toLowerCase().slice(0, 40);
-  }
-
-  function commitSites(arr, msg) {
-    var body = JSON.stringify({
-      message: msg,
-      content: toB64(JSON.stringify(arr, null, 2) + "\n"),
-      sha: window.__sitesSha,
-      branch: BRANCH
-    });
-    return gh("/repos/" + REPO + "/contents/config/sites.json", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: body
-    }).then(function (r) {
-      window.__sitesSha = r.content.sha;
-      return r;
-    });
-  }
-
-  // ——— 4) delete ———
+  /* ——— ۴) حذف سایت ——— */
   function delSite(i) {
-    gh("/repos/" + REPO + "/contents/config/sites.json?ref=" + BRANCH)
+    fetchFile("config/sites.json")
       .then(function (f) {
-        var arr = JSON.parse(deURIComponent(atob(f.content)));
+        var arr = JSON.parse(f.content);
         var removed = arr.splice(i, 1)[0];
-        window.__sitesSha = f.sha;
-        return commitSites(arr, "➖ حذف " + (removed ? removed.name : "")).then(function () {
+        sitesSha = f.sha;
+        return commitFile(
+          "config/sites.json",
+          JSON.stringify(arr, null, 2) + "\n",
+          sitesSha,
+          "remove site: " + (removed ? removed.url : "")
+        ).then(function () {
           log("حذف شد: " + (removed ? removed.name : ""), "ok");
           loadSites();
         });
@@ -186,9 +173,8 @@
       .catch(function (e) { log("خطا در حذف: " + e.message, "err"); });
   }
 
-  // ——— 5) generate summary live (via our own workflow dispatch) ———
-  function generateFor(url, name) {
-    log("درخواست تولید خلاصه برای " + name + " (workflow)…");
+  /* ——— ۵) اجرای ورک‌فلو ——— */
+  function dispatchWorkflow(newUrl) {
     gh("/repos/" + REPO + "/actions/workflows")
       .then(function (w) {
         var wf = (w.workflows || []).find(function (x) { return x.path.indexOf("summarize") !== -1; });
@@ -196,23 +182,54 @@
         return gh("/repos/" + REPO + "/actions/workflows/" + wf.id + "/dispatches", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ref: BRANCH, inputs: { force: "true" } })
+          body: JSON.stringify({ ref: BRANCH, inputs: { add_url: newUrl || "" } })
         }).then(function () {
-          log("ورک‌فلو اجرا شد — خلاصه در چند دقیقه آماده و سایت به‌روز می‌شود 🚀", "ok");
+          log("ورک‌فلو اجرا شد — نام/دسته/تگ/خلاصه خودکار ساخته می‌شوند", "ok");
         });
       })
       .catch(function (e) { log("خطا در اجرای ورک‌فلو: " + e.message, "err"); });
   }
 
-  // ——— boot ———
+  /* ——— ۶) تنظیمات provider ——— */
+  function loadSettings() {
+    fetchFile("config/settings.json")
+      .then(function (f) {
+        var s = JSON.parse(f.content);
+        $("ai-provider").value = s.provider || "g4f";
+        $("g4f-models").value = (s.g4f_models || []).join("\n");
+        $("google-model").value = s.google_model || "";
+        $("openrouter-model").value = s.openrouter_model || "";
+      })
+      .catch(function (e) { log("تنظیمات بارگذاری نشد: " + e.message, "err"); });
+  }
+
+  function saveSettings() {
+    log("ذخیره تنظیمات…");
+    var settings = {
+      provider: $("ai-provider").value,
+      g4f_models: $("g4f-models").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean),
+      google_model: $("google-model").value.trim(),
+      openrouter_model: $("openrouter-model").value.trim(),
+      summary_max_chars: 180
+    };
+    fetchFile("config/settings.json")
+      .then(function (f) {
+        return commitFile(
+          "config/settings.json",
+          JSON.stringify(settings, null, 2) + "\n",
+          f.sha,
+          "settings: provider=" + settings.provider
+        );
+      })
+      .then(function () { log("تنظیمات ذخیره شد", "ok"); })
+      .catch(function (e) { log("خطا در ذخیره: " + e.message, "err"); });
+  }
+
+  /* ——— راه‌اندازی ——— */
   $("unlock-btn").addEventListener("click", unlock);
   $("token").addEventListener("keydown", function (e) {
     if (e.key === "Enter") unlock();
   });
   $("add-btn").addEventListener("click", addSite);
-  var sw = $("gen-summary");
-  sw.addEventListener("click", function () {
-    var on = sw.classList.toggle("on");
-    sw.setAttribute("aria-checked", on ? "true" : "false");
-  });
+  $("save-settings-btn").addEventListener("click", saveSettings);
 })();

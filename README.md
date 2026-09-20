@@ -1,4 +1,4 @@
-# 📓 دفتر یادداشت هوشمند وب‌سایت‌ها
+# دفتر یادداشت هوشمند وب‌سایت‌ها
 
 > یک لینک بده، بقیه‌اش با خودمان. خلاصه فارسی خودکار هر وب‌سایت — رایگان، بدون هاست، روی GitHub Pages.
 
@@ -6,95 +6,94 @@
 
 ---
 
-## ✨ امکانات
+## امکانات
 
-- **خلاصه هوشمند فارسی** — با کتابخانه رایگان [g4f](https://github.com/xtekky/gpt4free) (بدون API پولی)
-- **خلاصه‌سازی خودکار** — هر روز ساعت ۰۹:۳۰ به وقت تهران با GitHub Actions
-- **پنل مدیریت** — سایت اضافه/حذف کن بدون لمس فایل‌ها: [`/admin/`](https://armin13891219a.github.io/site-summarizer/admin/)
-- **استایل واقعی vibefarsi** — تم گرافیت، RTL کامل، Vazirmatn، انیمیشن‌های واقعی رجیستری
-- **هیچ هزینه‌ای** — صفر دلار در ماه، کاملاً رایگان
+- **خلاصه هوشمند فارسی** — با g4f (رایگان)، Google AI Studio یا OpenRouter
+- **خودکارسازی کامل** — نام، دسته، تگ‌ها و خلاصه فقط از روی آدرس سایت ساخته می‌شوند
+- **پنل مدیریت** — فقط لینک رو بده: [پنل ادمین](https://armin13891219a.github.io/site-summarizer/admin/)
+- **تنظیمات هوش مصنوعی** — انتخاب provider و مدل‌ها از پنل (در `config/settings.json`)
+- **تم روشن/تاریک + ۶ رنگ تاکیدی** — ذخیره در مرورگر
+- **خلاصه‌های ۴ خطی** — کوتاه و خوانا
+- **افکت‌های متنی vibefarsi** — Aurora، Typewriter، Counter، BlurText، WipeText، TiltCard، Marquee، ScrollProgress، GradientText، TextShimmer، HighlightText، SpotlightCard
+- **آیکون‌های SVG** — بدون هیچ ایموجی
+- **صفر هزینه** — کاملاً رایگان
 
-## 🚀 نصب و راه‌اندازی
+## نصب
 
 ```bash
 git clone https://github.com/Armin13891219A/site-summarizer.git
 cd site-summarizer
 
-# ساخت خلاصه برای سایت‌های config/sites.json
-uv run --with g4f --with requests --with beautifulsoup4 \
-  python scripts/summarize.py
+# پردازش همه سایت‌ها
+uv run --with g4f --with requests --with beautifulsoup4 python scripts/summarize.py
 ```
 
-سپس در گیت‌هاب: **Settings → Pages → Source: Deploy from a branch → `main` / `/root`**.
+سپس: **Settings → Pages → Source: Deploy from a branch → `main` / `/root`**
 
-## ➕ افزودن سایت جدید — ۲ راه
+## افزودن سایت
 
-### راه اول: پنل مدیریت (پیشنهادی)
-به [`/admin/`](https://armin13891219a.github.io/site-summarizer/admin/) برو، توکن گیت‌هاب با دسترسی `repo` وارد کن، آدرس سایت رو بده. خودش:
-1. سایت رو به `config/sites.json` اضافه می‌کند (commit مستقیم)
-2. ورک‌فلو خلاصه‌ساز را اجرا می‌کند
-3. خلاصه آماده و صفحه به‌روز می‌شود
+### از پنل (پیشنهادی)
+به [پنل ادمین](https://armin13891219a.github.io/site-summarizer/admin/) برو، توکن وارد کن، فقط آدرس سایت رو بده. خودش:
+1. سایت رو به config اضافه می‌کند
+2. ورک‌فلو اجرا می‌شود
+3. نام، دسته، تگ‌ها و خلاصه خودکار ساخته می‌شوند
 
-### راه دوم: دستی
-فایل [`config/sites.json`](config/sites.json) را ویرایش کن:
+### از خط فرمان
+```bash
+python scripts/summarize.py --add https://example.com
+```
+
+## تنظیمات هوش مصنوعی
+
+فایل `config/settings.json` (قابل ویرایش از پنل):
+
 ```json
 {
-  "id": "site-id",
-  "name": "نام سایت",
-  "url": "https://example.com",
-  "category": "فناوری",
-  "tags": ["اخبار", "متن‌باز"]
+  "provider": "g4f",
+  "g4f_models": ["gpt-4", "gpt-4o", "deepseek-chat"],
+  "google_model": "gemini-1.5-flash",
+  "openrouter_model": "google/gemini-2.0-flash-exp:free"
 }
 ```
-سپس اسکریپت رو اجرا کن. فقط سایت‌های جدید پردازش می‌شوند (cache هوشمند).
 
-## 🤖 اتوماسیون (GitHub Actions)
+کلیدهای API به‌صورت GitHub Actions Secrets:
+- `GOOGLE_API_KEY` — [Google AI Studio](https://aistudio.google.com/api-key)
+- `OPENROUTER_API_KEY` — [OpenRouter](https://openrouter.ai/keys)
+- `AI_PROVIDER` — `g4f` / `google` / `openrouter`
 
-فایل [`.github/workflows/summarize.yml`](.github/workflows/summarize.yml):
+## اتوماسیون (GitHub Actions)
+
+فایل `.github/workflows/summarize.yml`:
 - `schedule` — هر روز ۰۹:۳۰ تهران
-- `push` به `config/sites.json` — پس از افزودن سایت از پنل، خودکار اجرا می‌شود
-- `workflow_dispatch` — اجرای دستی با گزینه `force` از تب Actions
+- `push` به `config/` — خودکار پس از افزودن سایت
+- `workflow_dispatch` — اجرای دستی با گزینه‌های `force` و `add_url`
 
-## 🎨 افکت‌های vibefarsi استفاده‌شده
-
-همه از [رجیستری رسمی](https://vibefarsi.ir) و با توکن‌های تم `graphite`:
-- **Aurora** — پس‌زمینه شفق قطبی هیرو
-- **Typewriter** — تایپ زیرعنوان
-- **Counter** — شمارش تعداد سایت‌ها
-- **BlurText** — ظاهر شدن کلمات کارت
-- **TiltCard** — کج شدن سه‌بعدی کارت‌ها
-- **Marquee** — نوار متحرک نام سایت‌ها
-- **ScrollProgress** — نوار پیشرفت بالای صفحه
-- **GradientText + TextShimmer** — متن‌های گرادیانی
-- **SpotlightCard** — نورافکن روی کارت
-- **Reveal** — ظاهر شدن با اسکرول
-- **GridBackground** — پس‌زمینه شبکه
-
-## 📁 ساختار پروژه
+## ساختار پروژه
 
 ```
 site-summarizer/
-├── index.html              # صفحه اصلی داشبورد
+├── index.html              # صفحه اصلی
 ├── admin/                  # پنل مدیریت
 │   ├── index.html
 │   ├── css/panel.css
 │   └── js/panel.js
-├── css/style.css           # تم graphite + همه افکت‌ها
-├── js/app.js               # منطق داشبورد + انیمیشن‌ها
-├── data/sites.json          # خلاصه‌های تولیدشده (خروجی)
-├── config/sites.json       # لیست سایت‌ها (ورودی)
+├── css/style.css           # تم + light/dark + رنگ‌های تاکیدی
+├── js/app.js               # منطق + افکت‌ها
+├── data/sites.json         # خلاصه‌های تولیدشده
+├── config/sites.json       # لیست سایت‌ها
+├── config/settings.json    # تنظیمات provider و مدل‌ها
 ├── scripts/
-│   ├── summarize.py        # استخراج + خلاصه g4f
+│   ├── summarize.py        # استخراج + خلاصه چندپایانه‌ای
 │   └── requirements.txt
-└── .github/workflows/      # اتوماسیون روزانه
+└── .github/workflows/      # اتوماسیون
 ```
 
-## 🔒 امنیت
+## امنیت
 
-- توکن گیت‌هاب فقط در حافظه مرورگر می‌ماند — هیچ‌جا ذخیره نمی‌شود
+- توکن گیت‌هاب فقط در حافظه مرورگر می‌ماند
 - صفحه admin با `noindex` علامت‌گذاری شده
-- نیازی به سرور نیست — همه چیز از طریق GitHub API کار می‌کند
+- کلیدهای API فقط در GitHub Secrets هستند
 
-## 📜 لایسنس
+## لایسنس
 
-MIT — آزاد برای استفاده
+MIT
