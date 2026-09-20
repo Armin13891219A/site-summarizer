@@ -93,6 +93,12 @@ def scrape_website(url):
     if meta_desc and meta_desc.get("content"):
         description = meta_desc["content"].strip()
 
+    # Keywords (many JS-heavy sites only expose metadata)
+    keywords = ""
+    meta_kw = soup.find("meta", attrs={"name": "keywords"})
+    if meta_kw and meta_kw.get("content"):
+        keywords = meta_kw["content"].strip()
+
     # Favicon
     favicon = extract_favicon(soup, url)
 
@@ -103,13 +109,30 @@ def scrape_website(url):
         if len(text) > 35 and not any(skip in text.lower() for skip in ["cookie", "privacy policy", "copyright", "حقوق محفوظ"]):
             paragraphs.append(text)
 
-    full_text = " ".join(paragraphs)
+    full_text = " ".join(paragraphs).strip()
+
+    # سایت‌های JS-heavy (مثل SPAها) گاهی فقط متا دارند — از لینک‌ها و متا کمک بگیر
+    if len(full_text) < 120:
+        link_texts = []
+        for a in soup.find_all("a", href=True):
+            t = a.get_text(separator=" ", strip=True)
+            if 3 < len(t) < 80:
+                link_texts.append(t)
+        nav_text = " | ".join(dict.fromkeys(link_texts))[:1200]
+        meta_blob = " ".join(x for x in [title, description, keywords, nav_text] if x).strip()
+        if len(meta_blob) > len(full_text):
+            print(f"  [~] Thin body text ({len(full_text)} chars) — using metadata + links ({len(meta_blob)} chars).")
+            full_text = meta_blob
+        elif not full_text:
+            full_text = meta_blob
+
     # Truncate to reasonable context window (~2500 chars)
     clean_text = full_text[:2500].strip()
 
     return {
         "title": title,
         "description": description,
+        "keywords": keywords,
         "favicon": favicon,
         "text": clean_text
     }
@@ -145,6 +168,7 @@ def summarize_with_ai(site_info, site_meta):
 آدرس: {site_meta.get('url', '')}
 عنوان صفحه: {site_info.get('title', '')}
 توضیحات متادیتا: {site_info.get('description', '')}
+کلیدواژه‌ها: {site_info.get('keywords', '')}
 
 متن استخراج شده از سایت:
 {site_info.get('text', '')[:2000]}

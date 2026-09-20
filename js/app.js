@@ -10,6 +10,8 @@
   var statSites = document.getElementById("stat-sites");
   var statUpdated = document.getElementById("stat-updated");
   var hl = document.getElementById("hero-hl");
+  var marqueeBox = document.getElementById("marquee");
+  var scrollBar = document.getElementById("scroll-bar");
 
   function faNum(s) {
     return String(s == null ? "" : s).replace(/[0-9]/g, function (d) {
@@ -42,6 +44,67 @@
     catch (e) { return url; }
   }
 
+  /* ——— Typewriter (تایپ‌شونده vibefarsi) — روی عنوان هیرو ——— */
+  function typewriter(el, text, speed) {
+    if (!el || el.dataset.tw) return;
+    el.dataset.tw = "1";
+    el.setAttribute("aria-label", text);
+    var i = 0;
+    el.innerHTML = '<span aria-hidden></span><span class="typewriter-cursor" aria-hidden="true"></span>';
+    var out = el.querySelector("span");
+    (function tick() {
+      if (i <= text.length) {
+        out.textContent = text.slice(0, i++);
+        setTimeout(tick, speed || 70);
+      } else {
+        el.querySelector(".typewriter-cursor").style.display = "none";
+      }
+    })();
+  }
+
+  /* ——— Counter (شمارنده vibefarsi) — شمارش عدد با easing ——— */
+  function counter(el, to, duration) {
+    if (!el) return;
+    var from = 0, start = null;
+    function tick(t) {
+      if (start === null) start = t;
+      var p = Math.min(1, (t - start) / (duration || 1400));
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = faNum(Math.round(from + (to - from) * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* ——— BlurText (ظهور تار vibefarsi) — کلمه‌به‌کلمه ——— */
+  function blurWords(text, delay) {
+    return text.split(" ").map(function (w, i) {
+      return '<span class="blur-word" style="animation-delay:' + (i * (delay || 90)) + 'ms">' + esc(w) + "&nbsp;</span>";
+    }).join("");
+  }
+
+  /* ——— Marquee (نوار متحرک vibefarsi) — نام سایت‌ها ——— */
+  function renderMarquee(sites) {
+    if (!marqueeBox) return;
+    var one = sites.map(function (s) {
+      return '<span class="marquee-item">📓 ' + esc(s.name) + "</span>";
+    }).join("");
+    marqueeBox.innerHTML = '<div class="marquee-row" dir="rtl">' + one + "</div>" +
+      '<div class="marquee-row" dir="rtl" aria-hidden="true">' + one + "</div>";
+  }
+
+  /* ——— ScrollProgress (پیشرفت خواندن vibefarsi) ——— */
+  function bindScrollProgress() {
+    if (!scrollBar) return;
+    function read() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+      scrollBar.style.transform = "scaleX(" + p + ")";
+    }
+    window.addEventListener("scroll", read, { passive: true });
+    read();
+  }
+
   function cardHTML(s, i) {
     var topics = (s.key_topics || s.tags || []).slice(0, 3).map(function (t) {
       return '<span class="topic">' + esc(t) + "</span>";
@@ -51,13 +114,13 @@
     }).join("");
     var stale = s.stale ? '<span class="stale-flag">در انتظار به‌روزرسانی</span>' : "";
     return (
-      '<article class="card" style="transition-delay:' + Math.min(i * 60, 420) + 'ms">' +
+      '<article class="card tilt" style="transition-delay:' + Math.min(i * 60, 420) + 'ms">' +
         '<div class="card-body">' +
           '<div class="card-top">' +
             '<img class="favicon" loading="lazy" alt="" src="' + esc(s.favicon || "") + '" ' +
               'onerror="this.style.display=\'none\'">' +
             '<div>' +
-              '<h2 class="card-name">' + esc(s.name) + "</h2>" +
+              '<h2 class="card-name">' + blurWords(s.name || "") + "</h2>" +
               '<div class="card-url">' + esc(hostOf(s.url)) + "</div>" +
             "</div>" +
           "</div>" +
@@ -141,13 +204,21 @@
     cards.forEach(function (c) { revealIO.observe(c); });
   }
 
-  /* Spotlight دنبال‌گر ماوس روی کارت‌ها */
+  /* Spotlight دنبال‌گر ماوس روی کارت‌ها + Tilt سه‌بعدی */
   function bindSpotlights() {
     grid.querySelectorAll(".card").forEach(function (card) {
       card.addEventListener("pointermove", function (e) {
         var r = card.getBoundingClientRect();
         card.style.setProperty("--mx", (e.clientX - r.left) + "px");
         card.style.setProperty("--my", (e.clientY - r.top) + "px");
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty("--ry", (px * 10).toFixed(2) + "deg");
+        card.style.setProperty("--rx", (py * -10).toFixed(2) + "deg");
+      });
+      card.addEventListener("pointerleave", function () {
+        card.style.setProperty("--rx", "0deg");
+        card.style.setProperty("--ry", "0deg");
       });
     });
   }
@@ -165,9 +236,11 @@
     .then(function (data) {
       state.sites = data.sites || [];
       state.meta = data.meta || null;
-      statSites.innerHTML = "<b>" + faNum(state.sites.length) + "</b> وب‌سایت";
+      counter(statSites.querySelector("b"), state.sites.length, 1400);
       statUpdated.innerHTML = "به‌روزرسانی: <b>" + esc((state.meta && state.meta.last_updated) || "—") + "</b>";
       if (hl) requestAnimationFrame(function () { hl.classList.add("on"); });
+      renderMarquee(state.sites);
+      bindScrollProgress();
       renderChips();
       renderCards();
     })

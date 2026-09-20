@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها</title>
-  <meta name="description" content="خلاصه‌های خودکار فارسی وب‌سایت‌ها با هوش مصنوعی — به‌روزرسانی روزانه، بدون هاست، روی GitHub Pages">
+  <title>دفتر یادداشت هوشمند وب‌سایت‌ها</title>
+  <meta name="description" content="دفتر یادداشت هوشمند: لینک سایت را می‌دهی، خودش می‌خواند و خلاصه فارسی، نکته‌های کلیدی و تگ‌ها می‌نویسد — رایگان، بدون هاست، روی GitHub Pages">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
 </head>
 <body>
 
+  <div class="scroll-progress" aria-hidden="true"><i id="scroll-bar"></i></div>
+
   <header class="hero">
+    <div class="aurora" aria-hidden="true">
+      <span class="b1"></span><span class="b2"></span><span class="b3"></span>
+    </div>
     <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-glow" aria-hidden="true"></div>
     <div class="hero-inner">
-      <h1 class="hero-title">داشبورد <span class="hl" id="hero-hl">خلاصه‌ساز هوشمند</span> وب‌سایت‌ها</h1>
-      <p class="hero-sub">هر روز به‌صورت خودکار محتوای وب‌سایت‌های منتخب را می‌خوانیم و با هوش مصنوعی (g4f) خلاصه فارسی، نکته‌های کلیدی و تگ‌ها تولید می‌کنیم — کاملاً رایگان و بدون هاست، روی GitHub Pages.</p>
+      <span class="badge" style="font-size:0.8rem;">📓 دفتر یادداشت هوشمند</span>
+      <h1 class="hero-title">لینک را بده، <span class="hl" id="hero-hl">خلاصه</span> را تحویل بگیر</h1>
+      <p class="hero-sub">سایت‌های منتخب را خودکار می‌خوانیم و با هوش مصنوعی <span class="text-shimmer">g4f</span> خلاصه فارسی، نکته‌های کلیدی و تگ‌ها می‌نویسیم — کاملاً رایگان، بدون هاست، روی <span class="gradient-text">GitHub Pages</span>.</p>
 
       <div class="stats">
         <span class="stat" id="stat-sites"><b>…</b> وب‌سایت</span>
@@ -37,6 +42,10 @@
     </div>
   </header>
 
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
+
   <main>
     <div class="cards" id="cards">
       <div class="skeleton"></div>
@@ -48,7 +57,7 @@
   <footer>
     ساخته‌شده با 🤖 <a href="https://github.com/xtekky/gpt4free" target="_blank" rel="noopener">g4f</a>
     و ❤️ روی GitHub Pages — بدون سرور و هاست
-    <br>ویرایش لیست سایت‌ها: <code dir="ltr">config/sites.json</code>
+    <br>افکت‌ها: <a href="https://vibefarsi.ir" target="_blank" rel="noopener">vibefarsi</a> (گرافایت) — افزودن سایت: <code dir="ltr">config/sites.json</code>
   </footer>
 
   <script src="js/app.js"></script>
