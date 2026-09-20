@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۴۳",
-    "last_updated_iso": "2026-09-20T17:43:42.152780Z",
-    "total_sites": 3,
+    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۸:۲۱",
+    "last_updated_iso": "2026-09-20T18:21:56.797823Z",
+    "total_sites": 2,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -16,8 +16,7 @@
       "tags": [
         "کامپوننت ری‌اکت",
         "انیمیشن",
-        "متن‌باز",
-        "UI/UX"
+        "متن‌باز"
       ],
       "favicon": "https://reactbits.dev/favicon.ico",
       "page_title": "React Bits",
@@ -37,35 +36,6 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
       "updated_at_iso": "2026-09-20T17:16:09.287690Z"
-    },
-    {
-      "id": "github-com",
-      "name": "ویب فارسی (vibafarsiui)",
-      "url": "https://github.com/TronIsHere/vibafarsiui",
-      "category": "توسعه نرم‌افزار",
-      "tags": [
-        "کامپوننت،",
-        "متن‌باز،",
-        "ری‌اکت"
-      ],
-      "favicon": "https://github.com/fluidicon.png",
-      "page_title": "GitHub - TronIsHere/vibafarsiui",
-      "summary": "ویب‌فارسی رجیستری کامپوننت‌های راست‌چین React + Tailwind برای توسعه‌دهندگان پروژه‌های وب فارسی است. این کامپوننت‌ها از پایه با پشتیبانی از فونت فارسی، اعداد شمسی و فرمت تومان.",
-      "highlights": [
-        "کامپوننت‌های راست‌چین React + Tailwind طراحی شده از پایه برای رابط کاربری‌های فارسی",
-        "پشتیبانی داخلی از فونت فارسی، اعداد شمسی، تقویم شمسی و فرمت قیمت به تومان",
-        "ارائه پرامپت آماده برای ابزارهای هوش مصنوعی و سازگاری با سرور MCP برای ویرایش آسان کامپوننت‌ها"
-      ],
-      "sentiment": "مثبت، معرفی ابزار کاربردی برای توسعه‌دهندگان فرانت‌اند پروژه‌های وب فارسی",
-      "key_topics": [
-        "توسعه وب فارسی",
-        "کامپوننت‌های React + Tailwind",
-        "ابزارهای هوش مصنوعی برای توسعه"
-      ],
-      "read_time": "2 دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
-      "updated_at_iso": "2026-09-20T17:16:39.300018Z"
     },
     {
       "id": "pending",
