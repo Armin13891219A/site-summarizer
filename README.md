@@ -1,83 +1,100 @@
-# 🤖 داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها
+# 📓 دفتر یادداشت هوشمند وب‌سایت‌ها
 
-سایت استاتیک فارسی (راست‌چین) که لیست وب‌سایت‌های منتخب شما را با **خلاصه خودکار فارسی**،
-نکته‌های کلیدی و تگ‌ها نمایش می‌دهد — **کاملاً رایگان، بدون هاست**، روی **GitHub Pages**.
+> یک لینک بده، بقیه‌اش با خودمان. خلاصه فارسی خودکار هر وب‌سایت — رایگان، بدون هاست، روی GitHub Pages.
 
-## ✨ ویژگی‌ها
+**نمونه زنده:** https://armin13891219a.github.io/site-summarizer/
 
-- 🎨 طراحی تیره با توکن‌های واقعی **vibefarsi/graphite** + تکنیک‌های **make-interfaces-feel-better**
-  (شعاع هم‌مرکز، spotlight دنبال‌گر ماوس، reveal هنگام اسکرول، اعداد tabular، hit-area مناسب)
-- 🤖 خلاصه‌سازی خودکار با کتابخانه **[g4f](https://github.com/xtekky/gpt4free)** (رایگان، بدون API Key)
-- ⏰ اجرای روزانه خودکار با **GitHub Actions** (کرون هر روز + اجرای دستی + اجرا با تغییر لیست)
-- 🔍 جست‌وجوی زنده + فیلتر دسته‌بندی، کاملاً آفلاین روی مرورگر
-- 📱 ریسپانسیو و سازگار با `prefers-reduced-motion`
+---
 
-## 📁 ساختار
+## ✨ امکانات
 
+- **خلاصه هوشمند فارسی** — با کتابخانه رایگان [g4f](https://github.com/xtekky/gpt4free) (بدون API پولی)
+- **خلاصه‌سازی خودکار** — هر روز ساعت ۰۹:۳۰ به وقت تهران با GitHub Actions
+- **پنل مدیریت** — سایت اضافه/حذف کن بدون لمس فایل‌ها: [`/admin/`](https://armin13891219a.github.io/site-summarizer/admin/)
+- **استایل واقعی vibefarsi** — تم گرافیت، RTL کامل، Vazirmatn، انیمیشن‌های واقعی رجیستری
+- **هیچ هزینه‌ای** — صفر دلار در ماه، کاملاً رایگان
+
+## 🚀 نصب و راه‌اندازی
+
+```bash
+git clone https://github.com/Armin13891219A/site-summarizer.git
+cd site-summarizer
+
+# ساخت خلاصه برای سایت‌های config/sites.json
+uv run --with g4f --with requests --with beautifulsoup4 \
+  python scripts/summarize.py
 ```
-├── index.html                  # صفحه اصلی داشبورد
-├── css/style.css               # استایل graphite + polish
-├── js/app.js                   # رندر، جست‌وجو، فیلتر، reveal/spotlight
-├── config/sites.json           # 👈 لیست سایت‌های شما — همین را ویرایش کنید
-├── data/sites.json             # خروجی خودکار خلاصه‌ها (توسط اسکریپت/اکشن)
-├── scripts/
-│   ├── summarize.py            # اسکریپت استخراج + خلاصه‌سازی g4f
-│   └── requirements.txt
-└── .github/workflows/summarize.yml  # ورک‌فلوی روزانه
-```
 
-## 🚀 راه‌اندازی روی GitHub (۵ دقیقه)
+سپس در گیت‌هاب: **Settings → Pages → Source: Deploy from a branch → `main` / `/root`**.
 
-1. **ریپوی جدید بسازید** (مثلاً `site-summarizer`) و همه فایل‌های این پوشه را پوش کنید:
-   ```bash
-   cd site-summarizer
-   git init
-   git add -A
-   git commit -m "init: AI website summarizer dashboard"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/site-summarizer.git
-   git push -u origin main
-   ```
-2. **GitHub Pages را فعال کنید:**
-   `Settings → Pages → Deploy from a branch → main / (root)` → آدرس سایت:
-   `https://YOUR_USERNAME.github.io/site-summarizer/`
-3. **اجرای دستی اول:** تب `Actions → Summarize Websites → Run workflow`
-   (بعد از آن هر روز ساعت ۰۹:۳۰ تهران خودکار اجرا می‌شود.)
+## ➕ افزودن سایت جدید — ۲ راه
 
-## ➕ افزودن سایت جدید
+### راه اول: پنل مدیریت (پیشنهادی)
+به [`/admin/`](https://armin13891219a.github.io/site-summarizer/admin/) برو، توکن گیت‌هاب با دسترسی `repo` وارد کن، آدرس سایت رو بده. خودش:
+1. سایت رو به `config/sites.json` اضافه می‌کند (commit مستقیم)
+2. ورک‌فلو خلاصه‌ساز را اجرا می‌کند
+3. خلاصه آماده و صفحه به‌روز می‌شود
 
-`config/sites.json` را ویرایش کنید — همین:
-
+### راه دوم: دستی
+فایل [`config/sites.json`](config/sites.json) را ویرایش کن:
 ```json
 {
-  "id": "my-site",
-  "name": "نام فارسی (English)",
+  "id": "site-id",
+  "name": "نام سایت",
   "url": "https://example.com",
-  "category": "دسته‌بندی",
-  "tags": ["تگ ۱", "تگ ۲"]
+  "category": "فناوری",
+  "tags": ["اخبار", "متن‌باز"]
 }
 ```
+سپس اسکریپت رو اجرا کن. فقط سایت‌های جدید پردازش می‌شوند (cache هوشمند).
 
-با هر پوش روی `config/sites.json` ورک‌فلو خودکار اجرا و خلاصه تولید می‌شود.
-برای تولید دستی همه خلاصه‌ها:
+## 🤖 اتوماسیون (GitHub Actions)
 
-```bash
-pip install -r scripts/requirements.txt
-python scripts/summarize.py --force
+فایل [`.github/workflows/summarize.yml`](.github/workflows/summarize.yml):
+- `schedule` — هر روز ۰۹:۳۰ تهران
+- `push` به `config/sites.json` — پس از افزودن سایت از پنل، خودکار اجرا می‌شود
+- `workflow_dispatch` — اجرای دستی با گزینه `force` از تب Actions
+
+## 🎨 افکت‌های vibefarsi استفاده‌شده
+
+همه از [رجیستری رسمی](https://vibefarsi.ir) و با توکن‌های تم `graphite`:
+- **Aurora** — پس‌زمینه شفق قطبی هیرو
+- **Typewriter** — تایپ زیرعنوان
+- **Counter** — شمارش تعداد سایت‌ها
+- **BlurText** — ظاهر شدن کلمات کارت
+- **TiltCard** — کج شدن سه‌بعدی کارت‌ها
+- **Marquee** — نوار متحرک نام سایت‌ها
+- **ScrollProgress** — نوار پیشرفت بالای صفحه
+- **GradientText + TextShimmer** — متن‌های گرادیانی
+- **SpotlightCard** — نورافکن روی کارت
+- **Reveal** — ظاهر شدن با اسکرول
+- **GridBackground** — پس‌زمینه شبکه
+
+## 📁 ساختار پروژه
+
+```
+site-summarizer/
+├── index.html              # صفحه اصلی داشبورد
+├── admin/                  # پنل مدیریت
+│   ├── index.html
+│   ├── css/panel.css
+│   └── js/panel.js
+├── css/style.css           # تم graphite + همه افکت‌ها
+├── js/app.js               # منطق داشبورد + انیمیشن‌ها
+├── data/sites.json          # خلاصه‌های تولیدشده (خروجی)
+├── config/sites.json       # لیست سایت‌ها (ورودی)
+├── scripts/
+│   ├── summarize.py        # استخراج + خلاصه g4f
+│   └── requirements.txt
+└── .github/workflows/      # اتوماسیون روزانه
 ```
 
-## 🧪 تست لوکال
+## 🔒 امنیت
 
-بدون سرور خاصی — کافی است پوشه را سرو کنید (به‌خاطر `fetch` باید http باشد، نه `file://`):
+- توکن گیت‌هاب فقط در حافظه مرورگر می‌ماند — هیچ‌جا ذخیره نمی‌شود
+- صفحه admin با `noindex` علامت‌گذاری شده
+- نیازی به سرور نیست — همه چیز از طریق GitHub API کار می‌کند
 
-```bash
-python -m http.server 8000
-# باز کنید: http://localhost:8000
-```
+## 📜 لایسنس
 
-## ⚠️ نکته‌ها
-
-- `github.blog` از بعضی شبکه‌ها (از جمله شبکه فعلی توسعه) تایم‌اوت می‌خورد؛
-  روی GitHub Actions مشکلی ندارد و ورودی آن با پرچم «در انتظار به‌روزرسانی» خودکار تازه می‌شود.
-- اگر مدلی از g4f ریت‌لیمیت شد، اسکریپت خودکار مدل بعدی را امتحان می‌کند
-  و در بدترین حالت خلاصه استخراجی از متادیتا می‌سازد تا سایت هیچ‌وقت خالی نماند.
+MIT — آزاد برای استفاده

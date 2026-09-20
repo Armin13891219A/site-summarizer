@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>پنل مدیریت — دفتر یادداشت هوشمند</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📓</text></svg>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="./css/panel.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+
+  <div class="wrap">
+    <header>
+      <span class="badge-tag">📓 دفتر یادداشت هوشمند · مدیریت</span>
+      <h1>پنل افزودن و مدیریت سایت‌ها</h1>
+      <p>یک لینک بده، بقیه‌اش با خودمان. خلاصه فارسی به‌طور خودکار ساخته و منتشر می‌شود.</p>
+    </header>
+
+    <!-- مرحله ۱: باز کردن قفل -->
+    <section class="panel" id="unlock-panel">
+      <h2>۱ — باز کردن پنل</h2>
+      <div class="field">
+        <label for="token">توکن گیت‌هاب (Pat/Token کلاسیک با دسترسی <code>repo</code>)</label>
+        <input type="text" id="token" autocomplete="off" spellcheck="false" placeholder="ghp_... یا github_pat_..." dir="ltr">
+      </div>
+      <button class="btn" id="unlock-btn">🔒 باز کردن پنل</button>
+      <div class="token-note">
+        توکن فقط در حافظه مرورگر همین صفحه می‌ماند و در هیچ‌کجا ذخیره نمی‌شود. ساختن توکن:<br>
+        <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener">github.com/settings/tokens/new</a> →
+        تیک <code>repo</code> و <code>workflow</code> → Generate
+      </div>
+    </section>
+
+    <!-- مرحله ۲: پنل فعال -->
+    <section class="panel" id="admin-panel" style="display:none">
+      <h2>۲ — افزودن سایت جدید</h2>
+      <div class="field">
+        <label for="new-url">آدرس سایت (الزامی)</label>
+        <input type="url" id="new-url" placeholder="https://example.com" dir="ltr">
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="new-name">نام نمایشی (اختیاری)</label>
+          <input type="text" id="new-name" placeholder="نام سایت">
+        </div>
+        <div class="field">
+          <label for="new-cat">دسته‌بندی</label>
+          <select id="new-cat" dir="rtl">
+            <option>عمومی</option>
+            <option>فناوری</option>
+            <option>هوش مصنوعی</option>
+            <option>توسعه نرم‌افزار</option>
+<parameter name="content">            <option>فناوری و کسب‌وکار</option>
+            <option>فرهنگ دیجیتال و رسانه</option>
+            <option>استارتاپ و سرمایه‌گذاری</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="new-tags">برچسب‌ها (با کاما جدا کن)</label>
+        <input type="text" id="new-tags" placeholder="هوش مصنوعی، اخبار، متن‌باز">
+      </div>
+      <div class="switch-row">
+        <button class="switch on" id="gen-summary" role="switch" aria-checked="true" aria-label="تولید خودکار خلاصه"></button>
+        <span>ساخت خودکار خلاصه فارسی با g4f بعد از افزودن</span>
+      </div>
+      <button class="btn" id="add-btn">➕ افزودن سایت</button>
+    </section>
+
+    <section class="panel" id="sites-panel" style="display:none">
+      <h2>۳ — سایت‌های موجود</h2>
+      <div class="sites-list" id="sites-list"></div>
+      <div class="log" id="log" style="margin-top: 1rem"><div class="log-line">آماده.</div></div>
+    </section>
+  </div>
+
+  <footer>
+    ساخته‌شده با <a href="https://github.com/Armin13891219A/site-summarizer">g4f + GitHub Pages</a>
+  </footer>
+
+  <script src="./js/panel.js"></script>
+</body>
+</html>
