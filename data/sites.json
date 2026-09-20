@@ -1,42 +1,13 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۳۸",
-    "last_updated_iso": "2026-09-20T17:38:10.780930Z",
-    "total_sites": 4,
+    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۴۳",
+    "last_updated_iso": "2026-09-20T17:43:42.152780Z",
+    "total_sites": 3,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
   "sites": [
-    {
-      "id": "techcrunch",
-      "name": "تک‌کرانچ (TechCrunch)",
-      "url": "https://techcrunch.com",
-      "category": "استارتاپ و سرمایه‌گذاری",
-      "tags": [
-        "اکوسیستم استارتاپی",
-        "هوش مصنوعی",
-        "سرمایه‌گذاری خطرپذیر"
-      ],
-      "favicon": "https://techcrunch.com/wp-content/uploads/2015/02/cropped-cropped-favicon-gradient.png?w=32",
-      "page_title": "TechCrunch | Startup and Technology News",
-      "summary": "تک‌کرانچ به تخفیف بلیت‌ها و مهلت ثبت‌نام نمایشگاهی دیس‌رآپت ۲۰۲۶، جدیدترین اخبار هوش مصنوعی شامل مدل جدید از سازنده چت‌جی‌پی‌تی، مشکلات ایمنی اوپن‌ای‌آی و طرح تشکیل نیروی هوش.",
-      "highlights": [
-        "تخفیف بلیت‌ها و مهلت ثبت‌نام نمایشگاهی رویداد دیس‌رآپت ۲۰۲۶",
-        "رونمایی از مدل هوش مصنوعی نوین از سازنده چت‌جی‌پی‌تی و اعلان تشکیل نیروی هوش مصنوعی توسط ترامپ",
-        "کاهش نیروی شرکت فلوک با خرید-out کارکنان و لیست فناوری‌های مورد نیاز نیروی دریایی آمریکا"
-      ],
-      "sentiment": "اطلاع‌رسانی تحلیلی فناورانه با تمرکز بر اخبار استارتاپ و هوش مصنوعی",
-      "key_topics": [
-        "دیس‌رآپت ۲۰۲۶",
-        "هوش مصنوعی",
-        "اخبار استارتاپ و فناوری"
-      ],
-      "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۴",
-      "updated_at_iso": "2026-09-20T17:14:22.085120Z"
-    },
     {
       "id": "reactbits",
       "name": "React Bits (reactbits.dev)",
