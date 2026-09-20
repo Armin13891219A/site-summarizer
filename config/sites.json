@@ -1,17 +1,5 @@
 [
   {
-    "id": "digiato",
-    "name": "دیجیاتو (Digiato)",
-    "url": "https://digiato.com",
-    "category": "فناوری و کسب‌وکار",
-    "tags": [
-      "اخبار فناوری",
-      "استارتاپ",
-      "خودرو",
-      "هوش مصنوعی"
-    ]
-  },
-  {
     "id": "techcrunch",
     "name": "تک‌کرانچ (TechCrunch)",
     "url": "https://techcrunch.com",
