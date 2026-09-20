@@ -1,16 +1,5 @@
 [
   {
-    "id": "github-blog",
-    "name": "وبلاگ گیت‌هاب (GitHub Blog)",
-    "url": "https://github.blog",
-    "category": "توسعه نرم‌افزار",
-    "tags": [
-      "گیت‌هاب",
-      "توسعه",
-      "متن‌باز"
-    ]
-  },
-  {
     "id": "theverge",
     "name": "د ورج (The Verge)",
     "url": "https://www.theverge.com",
