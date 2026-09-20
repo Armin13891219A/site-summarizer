@@ -9,5 +9,12 @@
       "انیمیشن",
       "متن‌باز"
     ]
+  },
+  {
+    "id": "pending",
+    "name": "https://vibefarsi.ir",
+    "url": "https://vibefarsi.ir",
+    "category": "عمومی",
+    "tags": []
   }
 ]
