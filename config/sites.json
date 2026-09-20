@@ -11,18 +11,6 @@
     ]
   },
   {
-    "id": "huggingface",
-    "name": "هاگینگ فیس (Hugging Face Blog)",
-    "url": "https://huggingface.co/blog",
-    "category": "هوش مصنوعی",
-    "tags": [
-      "مدل‌های زبانی",
-      "متن‌باز",
-      "یادگیری ماشین",
-      "LLM"
-    ]
-  },
-  {
     "id": "github-blog",
     "name": "وبلاگ گیت‌هاب (GitHub Blog)",
     "url": "https://github.blog",
