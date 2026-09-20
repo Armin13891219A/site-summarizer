@@ -11,17 +11,6 @@
     ]
   },
   {
-    "id": "theverge",
-    "name": "د ورج (The Verge)",
-    "url": "https://www.theverge.com",
-    "category": "فرهنگ دیجیتال و رسانه",
-    "tags": [
-      "تکنولوژی مدرن",
-      "سینما و بازی",
-      "بررسی محصولات"
-    ]
-  },
-  {
     "id": "reactbits",
     "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
