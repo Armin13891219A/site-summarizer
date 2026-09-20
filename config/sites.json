@@ -1,16 +1,5 @@
 [
   {
-    "id": "techcrunch",
-    "name": "تک‌کرانچ (TechCrunch)",
-    "url": "https://techcrunch.com",
-    "category": "استارتاپ و سرمایه‌گذاری",
-    "tags": [
-      "اکوسیستم استارتاپی",
-      "هوش مصنوعی",
-      "سرمایه‌گذاری خطرپذیر"
-    ]
-  },
-  {
     "id": "reactbits",
     "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
