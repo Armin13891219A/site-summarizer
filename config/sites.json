@@ -1,0 +1,44 @@
+[
+  {
+    "id": "zoomit",
+    "name": "زومیت (Zoomit)",
+    "url": "https://www.zoomit.ir",
+    "category": "فناوری",
+    "tags": ["تکنولوژی", "سخت‌افزار", "بررسی گجت", "علم"]
+  },
+  {
+    "id": "digiato",
+    "name": "دیجیاتو (Digiato)",
+    "url": "https://digiato.com",
+    "category": "فناوری و کسب‌وکار",
+    "tags": ["اخبار فناوری", "استارتاپ", "خودرو", "هوش مصنوعی"]
+  },
+  {
+    "id": "techcrunch",
+    "name": "تک‌کرانچ (TechCrunch)",
+    "url": "https://techcrunch.com",
+    "category": "استارتاپ و سرمایه‌گذاری",
+    "tags": ["اکوسیستم استارتاپی", "هوش مصنوعی", "سرمایه‌گذاری خطرپذیر"]
+  },
+  {
+    "id": "huggingface",
+    "name": "هاگینگ فیس (Hugging Face Blog)",
+    "url": "https://huggingface.co/blog",
+    "category": "هوش مصنوعی",
+    "tags": ["مدل‌های زبانی", "متن‌باز", "یادگیری ماشین", "LLM"]
+  },
+  {
+    "id": "github-blog",
+    "name": "وبلاگ گیت‌هاب (GitHub Blog)",
+    "url": "https://github.blog",
+    "category": "توسعه نرم‌افزار",
+    "tags": ["گیت", "برنامه‌نویسی", "مهندسی نرم‌افزار", "Copilot"]
+  },
+  {
+    "id": "theverge",
+    "name": "د ورج (The Verge)",
+    "url": "https://www.theverge.com",
+    "category": "فرهنگ دیجیتال و رسانه",
+    "tags": ["تکنولوژی مدرن", "سینما و بازی", "بررسی محصولات"]
+  }
+]

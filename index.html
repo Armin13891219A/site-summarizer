@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها</title>
+  <meta name="description" content="خلاصه‌های خودکار فارسی وب‌سایت‌ها با هوش مصنوعی — به‌روزرسانی روزانه، بدون هاست، روی GitHub Pages">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <h1 class="hero-title">داشبورد <span class="hl" id="hero-hl">خلاصه‌ساز هوشمند</span> وب‌سایت‌ها</h1>
+      <p class="hero-sub">هر روز به‌صورت خودکار محتوای وب‌سایت‌های منتخب را می‌خوانیم و با هوش مصنوعی (g4f) خلاصه فارسی، نکته‌های کلیدی و تگ‌ها تولید می‌کنیم — کاملاً رایگان و بدون هاست، روی GitHub Pages.</p>
+
+      <div class="stats">
+        <span class="stat" id="stat-sites"><b>…</b> وب‌سایت</span>
+        <span class="stat" id="stat-updated">به‌روزرسانی: <b>…</b></span>
+        <span class="stat">⚡ <b>خودکار</b> با GitHub Actions</span>
+      </div>
+
+      <div class="search-wrap">
+        <input type="search" id="search" placeholder="جست‌وجو در نام، خلاصه، تگ‌ها…" autocomplete="off">
+        <span class="search-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </span>
+      </div>
+
+      <div class="chips" id="chips"></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="cards" id="cards">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </main>
+
+  <footer>
+    ساخته‌شده با 🤖 <a href="https://github.com/xtekky/gpt4free" target="_blank" rel="noopener">g4f</a>
+    و ❤️ روی GitHub Pages — بدون سرور و هاست
+    <br>ویرایش لیست سایت‌ها: <code dir="ltr">config/sites.json</code>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
