@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
-    "last_updated_iso": "2026-09-20T17:16:40.300647Z",
-    "total_sites": 8,
+    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۷:۲۱",
+    "last_updated_iso": "2026-09-20T17:21:52.739282Z",
+    "total_sites": 9,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -246,6 +246,27 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
       "updated_at_iso": "2026-09-20T17:16:39.300018Z"
+    },
+    {
+      "id": "pending",
+      "name": "https://vibefarsi.ir",
+      "url": "https://vibefarsi.ir",
+      "category": "عمومی",
+      "tags": [],
+      "favicon": "https://vibefarsi.ir/favicon.ico?favicon.2vob68tjqpejf.ico",
+      "page_title": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+      "summary": "https://vibefarsi.ir در حوزه عمومی فعالیت دارد. کامپوننت‌های راست‌چین رایگان برای Next.js و React. فایل را کپی کنید یا پرامپت انگلیسی را به Cursor بدهید. فونت و اعداد فارسی داخل.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
+        "دسترسی مستقیم از طریق https://vibefarsi.ir",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "key_topics": [],
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۱۷:۲۱",
+      "updated_at_iso": "2026-09-20T17:21:51.739091Z"
     }
   ]
 }
