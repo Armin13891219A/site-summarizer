@@ -123,14 +123,14 @@ jobs:
           print(f'pushed {ok} ok, {fail} fail')
           "
 
-      - name: Commit config
+      - name: Commit config + data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add config/sites.json
+          git add config/sites.json data/sites.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: sync sites from Worker $(date -u +%Y-%m-%d)"
+            git commit -m "chore: sync summaries $(date -u +%Y-%m-%d)"
             git push
           fi
