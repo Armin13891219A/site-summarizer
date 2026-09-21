@@ -251,6 +251,7 @@ h1.hero-title { font-size: clamp(1.7rem, 4.5vw, 2.6rem); font-weight: 800; margi
   white-space: nowrap;
 }
 .marquee-item svg { width: 13px; height: 13px; color: var(--brand); flex-shrink: 0; }
+.marquee-favicon { width: 16px; height: 16px; border-radius: 4px; object-fit: contain; flex-shrink: 0; }
 
 /* ——— جست‌وجو ——— */
 .search-wrap { max-width: 520px; margin-inline: auto; position: relative; }

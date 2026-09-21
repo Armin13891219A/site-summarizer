@@ -113,10 +113,16 @@
   function renderMarquee(sites) {
     if (!marqueeBox) return;
     var one = sites.map(function (s) {
-      return '<span class="marquee-item">' + icon("book") + esc(s.name) + "</span>";
+      var host = hostOf(s.url);
+      return '<span class="marquee-item">' +
+        '<img class="marquee-favicon" loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=' +
+          encodeURIComponent(host) + '&sz=64" data-fallback="https://icons.duckduckgo.com/ip3/' +
+          encodeURIComponent(host) + '.ico">' +
+        esc(s.name) + "</span>";
     }).join("");
     marqueeBox.innerHTML = '<div class="marquee-row" dir="rtl">' + one + "</div>" +
       '<div class="marquee-row" dir="rtl" aria-hidden="true">' + one + "</div>";
+    bindFavicons();
   }
 
   function bindScrollProgress() {
@@ -149,7 +155,7 @@
 
   /* ——— همه فاوآیکون‌ها را بعد از رندر مقید کن ——— */
   function bindFavicons() {
-    document.querySelectorAll(".favicon[data-fallback]").forEach(function (img) {
+    document.querySelectorAll(".favicon[data-fallback], .marquee-favicon[data-fallback]").forEach(function (img) {
       if (img.dataset.bound) return;
       img.dataset.bound = "1";
       img.addEventListener("error", function () {
@@ -300,7 +306,11 @@
       state.meta = data.meta || null;
       counter(statSites.querySelector("b"), state.sites.length, 1400);
       statUpdated.innerHTML = "به‌روزرسانی: <b>" + esc((state.meta && state.meta.last_updated) || "—") + "</b>";
-      if (hl) requestAnimationFrame(function () { hl.classList.add("on"); });
+      if (hl) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () { hl.classList.add("on"); });
+        });
+      }
       renderMarquee(state.sites);
       bindScrollProgress();
       renderChips();
