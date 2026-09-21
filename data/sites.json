@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۰",
-    "last_updated_iso": "2026-09-21T19:30:36.478971Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۳",
+    "last_updated_iso": "2026-09-21T19:33:43.409013Z",
     "total_sites": 5,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -115,25 +115,25 @@
       "updated_at_iso": "2026-09-21T19:13:49.450931Z"
     },
     {
-      "id": "example-com",
-      "name": "E",
-      "url": "https://example.com",
-      "category": "عمومی",
+      "id": "www-digikala-com",
+      "name": "فروشگاه اینترنتی دیجی‌کالا",
+      "url": "https://www.digikala.com",
+      "category": "سخت‌افزار و موبایل",
       "tags": [],
-      "favicon": "https://www.google.com/s2/favicons?domain=example.com&sz=128",
-      "page_title": "Example Domain",
-      "summary": "E پایگاهی تخصصی با عنوان «Example Domain» است که محتوای مرتبط با عمومی ارائه می‌دهد.",
+      "favicon": "https://www.digikala.com/pwa-icon-180.png",
+      "page_title": "فروشگاه اینترنتی دیجی‌کالا",
+      "summary": "فروشگاه اینترنتی دیجی‌کالا در حوزه سخت‌افزار و موبایل فعالیت دارد.",
       "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
-        "دسترسی مستقیم از طریق https://example.com",
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه سخت‌افزار و موبایل",
+        "دسترسی مستقیم از طریق https://www.digikala.com",
         "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
       ],
       "sentiment": "تخصصی و اطلاع‌رسانی",
       "key_topics": [],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۰",
-      "updated_at_iso": "2026-09-21T19:30:35.978767Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۳",
+      "updated_at_iso": "2026-09-21T19:33:42.908814Z"
     }
   ]
 }
