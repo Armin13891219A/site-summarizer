@@ -7,6 +7,8 @@
   var BRANCH = "main";
   var API = "https://api.github.com";
   var TOKEN_KEY = "ss-admin-token";
+  var THEME_KEY = "ss-theme";
+  var ACCENT_KEY = "ss-accent";
 
   var token = null;
 
@@ -295,6 +297,51 @@
   $("add-btn").addEventListener("click", addSite);
   $("save-settings-btn").addEventListener("click", saveSettings);
   $("save-keys-btn").addEventListener("click", saveKeys);
+
+  /* ——— تم و رنگ تاکیدی (هم‌سان با سایت) ——— */
+  function initTheme() {
+    var root = document.documentElement;
+    try {
+      var t = localStorage.getItem(THEME_KEY);
+      var a = localStorage.getItem(ACCENT_KEY);
+      if (t === "light" || t === "dark") {
+        root.setAttribute("data-theme", t);
+        $("p-theme-dark").classList.toggle("active", t === "dark");
+        $("p-theme-light").classList.toggle("active", t === "light");
+      }
+      if (a) {
+        root.setAttribute("data-accent", a);
+        document.querySelectorAll("[data-p-accent]").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-p-accent") === a);
+        });
+      }
+    } catch (e) {}
+  }
+  initTheme();
+
+  $("p-theme-dark").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", "dark");
+    $("p-theme-dark").classList.add("active");
+    $("p-theme-light").classList.remove("active");
+    try { localStorage.setItem(THEME_KEY, "dark"); } catch (e) {}
+  });
+
+  $("p-theme-light").addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", "light");
+    $("p-theme-light").classList.add("active");
+    $("p-theme-dark").classList.remove("active");
+    try { localStorage.setItem(THEME_KEY, "light"); } catch (e) {}
+  });
+
+  document.querySelectorAll("[data-p-accent]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var a = btn.getAttribute("data-p-accent");
+      document.documentElement.setAttribute("data-accent", a);
+      document.querySelectorAll("[data-p-accent]").forEach(function (b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      try { localStorage.setItem(ACCENT_KEY, a); } catch (e) {}
+    });
+  });
 
   /* ——— نشست پایدار: توکن از localStorage خوانده شود ——— */
   try {

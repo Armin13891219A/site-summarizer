@@ -169,21 +169,20 @@ def _available_providers():
 
 
 def _clamp_summary(text):
-    """خلاصه را به حداکثر ۴ خط محدود می‌کند — بدون کات کردن وسط جمله."""
+    """خلاصه را به حداکثر ۴ خط (۱۸۰ کاراکتر) محدود می‌کند — بدون کات کردن وسط جمله."""
     t = (text or "").strip()
     if len(t) <= SUMMARY_MAX_CHARS:
         return t
     # قطع روی مرز جمله (نقطه/؟/!) تا متن نامفهوم نشود
-    for end in (SUMMARY_MAX_CHARS, SUMMARY_MAX_CHARS + 60):
-        for punct in ("۔", ".", "؟", "?", "!"):
-            pos = t.rfind(punct, SUMMARY_MAX_CHARS - 60, end)
-            if pos != -1:
-                return t[:pos + 1].strip()
+    for punct in ("۔", ".", "؟", "?", "!"):
+        pos = t.rfind(punct, 40, SUMMARY_MAX_CHARS)
+        if pos != -1:
+            return t[:pos + 1].strip()
     # اگر جمله‌بندی پیدا نشد، روی مرز کلمه
     sp = t.rfind(" ", 0, SUMMARY_MAX_CHARS)
     if sp > 40:
         return t[:sp].rstrip(" ،,.") + "…"
-    return t[:SUMMARY_MAX_CHARS]
+    return t[:SUMMARY_MAX_CHARS].rstrip(" ،,.") + "…"
 
 
 # ——————————————————————————————————————————————————————
@@ -600,26 +599,47 @@ def run_pipeline(force=False, limit=None):
     results = []
     targets = sites_config[:limit] if limit else sites_config
 
+    # ——— موازی‌سازی fetch (سرعت ۳-۴ برابر) ———
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    def _fetch_one(site):
+        url = site.get("url")
+        scraped = scrape_website(url)
+        if not scraped:
+            time.sleep(2)
+            scraped = scrape_website(url)
+        return (site, scraped)
+
+    scraped_map = {}
+    to_summarize = []
     for idx, site in enumerate(targets, 1):
         url = site.get("url")
         name = site.get("name", url)
-        print(f"\n[{idx}/{len(targets)}] {name} ({url})")
-
         if not force and url in existing_summaries:
             cached = existing_summaries[url]
             if cached.get("summary") and cached.get("highlights"):
-                print("  [*] Reusing cached summary.")
+                print(f"  [*] {name}: cached")
                 cached["name"] = name
                 cached["category"] = site.get("category", cached.get("category", "عمومی"))
                 cached["tags"] = site.get("tags", cached.get("tags", []))
                 results.append(cached)
                 continue
+        to_summarize.append(site)
 
-        scraped = scrape_website(url)
-        if not scraped:
-            print("  [!] First fetch failed, retrying...")
-            time.sleep(3)
-            scraped = scrape_website(url)
+    if to_summarize:
+        print(f"\n[*] Fetching {len(to_summarize)} sites in parallel...")
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            futures = {ex.submit(_fetch_one, s): s for s in to_summarize}
+            for fut in as_completed(futures):
+                site, scraped = fut.result()
+                scraped_map[site.get("url")] = scraped
+                print(f"  [*] fetched: {site.get('name', site.get('url'))}")
+
+    for idx, site in enumerate(to_summarize, 1):
+        url = site.get("url")
+        name = site.get("name", url)
+        print(f"\n[{idx}/{len(to_summarize)}] {name} ({url})")
+        scraped = scraped_map.get(url)
         if not scraped:
             if url in existing_summaries:
                 print("  [!] Scraping failed — keeping cached data.")
@@ -667,7 +687,7 @@ def run_pipeline(force=False, limit=None):
                 "updated_at": get_persian_date(),
                 "updated_at_iso": datetime.utcnow().isoformat() + "Z",
             })
-        time.sleep(1)
+        time.sleep(0.5)
 
     payload = {
         "meta": {

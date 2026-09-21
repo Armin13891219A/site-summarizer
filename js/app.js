@@ -136,14 +136,33 @@
     try { host = new URL(url).hostname.replace(/^www\./, ""); }
     catch (e) { host = url; }
     var letter = (name || host).trim().charAt(0).toUpperCase();
+    var g = "https://www.google.com/s2/favicons?domain=" + encodeURIComponent(host) + "&sz=128";
+    var d = "https://icons.duckduckgo.com/ip3/" + encodeURIComponent(host) + ".ico";
     return (
       '<span class="favicon-wrap">' +
-        '<img class="favicon" loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=' +
-          encodeURIComponent(host) + '&sz=128" ' +
-          'onerror="this.remove(); this.nextElementSibling.style.display=\'flex\'">' +
+        '<img class="favicon" loading="lazy" alt="" src="' + g + '" ' +
+          'data-fallback="' + d + '">' +
         '<span class="favicon-letter" aria-hidden="true">' + esc(letter) + "</span>" +
       "</span>"
     );
+  }
+
+  /* ——— همه فاوآیکون‌ها را بعد از رندر مقید کن ——— */
+  function bindFavicons() {
+    document.querySelectorAll(".favicon[data-fallback]").forEach(function (img) {
+      if (img.dataset.bound) return;
+      img.dataset.bound = "1";
+      img.addEventListener("error", function () {
+        if (img.dataset.tried === "1") {
+          img.remove();
+          var sib = img.parentElement.querySelector(".favicon-letter");
+          if (sib) sib.style.display = "flex";
+          return;
+        }
+        img.dataset.tried = "1";
+        img.src = img.dataset.fallback;
+      });
+    });
   }
 
   function cardHTML(s, i) {
@@ -224,6 +243,7 @@
       return;
     }
     grid.innerHTML = list.map(function (x) { return cardHTML(x.s, x.i); }).join("");
+    bindFavicons();
     observeReveals();
     bindSpotlights();
   }
@@ -270,7 +290,7 @@
     renderCards();
   });
 
-  fetch("data/sites.json", { cache: "no-store" })
+  fetch(("data/sites.json?v=" + Date.now()), { cache: "no-store" })
     .then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();

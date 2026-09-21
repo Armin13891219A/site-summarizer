@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang="fa" dir="rtl" data-theme="dark" data-accent="1">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4a05a' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z'/%3E%3Cpath d='M4 5.5v15'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="./css/panel.css">
 </head>
@@ -24,23 +25,42 @@
       <p>یک لینک بده، بقیه‌اش با خودمان — نام، دسته، تگ‌ها و خلاصه خودکار ساخته می‌شوند.</p>
     </header>
 
+    <!-- نوار بالایی: تم، رنگ تاکیدی، خروج -->
+    <nav class="topbar" aria-label="تنظیمات نمایش">
+      <span class="topbar-group" role="toolbar" aria-label="تم">
+        <button class="theme-btn active" id="p-theme-dark" aria-label="تم تاریک" title="تم تاریک">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="theme-btn" id="p-theme-light" aria-label="تم روشن" title="تم روشن">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+      </span>
+      <span class="accent-divider"></span>
+      <span class="topbar-group" role="toolbar" aria-label="رنگ تاکیدی">
+        <button class="accent-btn active" data-p-accent="1" aria-label="کهربایی" style="background:oklch(0.8 0.165 65)"></button>
+        <button class="accent-btn" data-p-accent="2" aria-label="بنفش" style="background:oklch(0.7 0.18 250)"></button>
+        <button class="accent-btn" data-p-accent="3" aria-label="سبز" style="background:oklch(0.72 0.17 160)"></button>
+        <button class="accent-btn" data-p-accent="4" aria-label="قرمز" style="background:oklch(0.7 0.2 25)"></button>
+        <button class="accent-btn" data-p-accent="5" aria-label="آبی" style="background:oklch(0.78 0.14 200)"></button>
+        <button class="accent-btn" data-p-accent="6" aria-label="صورتی" style="background:oklch(0.82 0.16 340)"></button>
+      </span>
+      <button class="btn btn-ghost" id="logout-btn" style="display:none; min-height:34px; padding:0.4rem 0.9rem; font-size:0.8rem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        خروج
+      </button>
+    </nav>
+
     <!-- پیام‌های شناور -->
     <div class="toasts" id="toasts" aria-live="polite"></div>
-
-    <!-- دکمه خروج -->
-    <button class="btn btn-ghost" id="logout-btn" style="display:none; margin-bottom: 1.25rem">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      خروج
-    </button>
 
     <section class="panel" id="unlock-panel">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        ۱ — ورود
+        ورود
       </h2>
       <div class="field">
         <label for="token">توکن گیت‌هاب (دسترسی repo و workflow)</label>
-        <input type="text" id="token" autocomplete="off" spellcheck="false" placeholder="ghp_... یا github_pat_..." dir="ltr">
+        <input type="password" id="token" autocomplete="off" spellcheck="false" placeholder="ghp_... یا github_pat_..." dir="ltr">
       </div>
       <button class="btn" id="unlock-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -56,7 +76,7 @@
     <section class="panel" id="admin-panel" style="display:none">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        ۲ — افزودن سایت جدید
+        افزودن سایت جدید
       </h2>
       <div class="field">
         <label for="new-url">آدرس سایت (فقط لینک — بقیه‌اش خودکار)</label>
@@ -69,10 +89,18 @@
       </button>
     </section>
 
+    <section class="panel" id="sites-panel" style="display:none">
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        سایت‌های موجود
+      </h2>
+      <div class="sites-list" id="sites-list"></div>
+    </section>
+
     <section class="panel" id="settings-panel" style="display:none">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
-        ۳ — تنظیمات هوش مصنوعی
+        تنظیمات هوش مصنوعی
       </h2>
       <div class="field">
         <label for="ai-provider">پایانه (Provider)</label>
@@ -105,17 +133,17 @@
     <section class="panel" id="keys-panel" style="display:none">
       <h2>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        ۴ — کلیدهای API (GitHub Secrets)
+        کلیدهای API (GitHub Secrets)
       </h2>
       <div class="field">
         <label for="google-key">Google AI Studio Key</label>
         <input type="password" id="google-key" dir="ltr" placeholder="AIza..." autocomplete="off">
-        <div class="hint">دریافت از <a href="https://aistudio.google.com/api-key" target="_blank" rel="noopener" style="color:var(--brand)">aistudio.google.com/api-key</a></div>
+        <div class="hint">دریافت از <a href="https://aistudio.google.com/api-key" target="_blank" rel="noopener">aistudio.google.com/api-key</a></div>
       </div>
       <div class="field">
         <label for="openrouter-key">OpenRouter Key</label>
         <input type="password" id="openrouter-key" dir="ltr" placeholder="sk-or-..." autocomplete="off">
-        <div class="hint">دریافت از <a href="https://openrouter.ai/keys" target="_blank" rel="noopener" style="color:var(--brand)">openrouter.ai/keys</a></div>
+        <div class="hint">دریافت از <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a></div>
       </div>
       <button class="btn" id="save-keys-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
@@ -123,17 +151,7 @@
       </button>
       <div class="token-note">
         کلیدها در GitHub Secrets ذخیره می‌شوند و در کد قابل مشاهده نیستند.
-        برای حذف یک کلید، فیلدش را خالی کن و دوباره ذخیره کن.
       </div>
-    </section>
-
-    <section class="panel" id="sites-panel" style="display:none">
-      <h2>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-        ۴ — سایت‌های موجود
-      </h2>
-      <div class="sites-list" id="sites-list"></div>
-      <div class="log" id="log" style="margin-top: 1rem"><div class="log-line">آماده.</div></div>
     </section>
   </div>
 
