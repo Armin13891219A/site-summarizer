@@ -20,6 +20,11 @@ on:
 permissions:
   contents: write
 
+# اجراهای همزمان روی هم نیفتند (جلوگیری از fail کاذب موقع push)
+concurrency:
+  group: summarize-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   summarize:
     runs-on: ubuntu-latest
@@ -161,5 +166,11 @@ jobs:
             echo "No changes to commit."
           else
             git commit -m "chore: sync summaries $(date -u +%Y-%m-%d)"
-            git push
+            # مقاوم به race: pull --rebase و تلاش مجدد push
+            for i in 1 2 3; do
+              if git push; then break; fi
+              echo "push failed (attempt $i) — rebasing..."
+              sleep 5
+              git pull --rebase origin main || git pull origin main --no-rebase
+            done
           fi
