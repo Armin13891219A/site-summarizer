@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۳",
-    "last_updated_iso": "2026-09-21T19:33:43.409013Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۴",
+    "last_updated_iso": "2026-09-21T19:34:55.759092Z",
     "total_sites": 5,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -118,8 +118,12 @@
       "id": "www-digikala-com",
       "name": "فروشگاه اینترنتی دیجی‌کالا",
       "url": "https://www.digikala.com",
-      "category": "سخت‌افزار و موبایل",
-      "tags": [],
+      "category": "فناوری و کسب‌وکار",
+      "tags": [
+        "فروشگاه",
+        "اینترنتی",
+        "دیجی‌کالا"
+      ],
       "favicon": "https://www.digikala.com/pwa-icon-180.png",
       "page_title": "فروشگاه اینترنتی دیجی‌کالا",
       "summary": "فروشگاه اینترنتی دیجی‌کالا در حوزه سخت‌افزار و موبایل فعالیت دارد.",
