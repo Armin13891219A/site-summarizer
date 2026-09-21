@@ -2,8 +2,8 @@
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
     "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
-    "last_updated_iso": "2026-09-21T19:13:18.918236Z",
-    "total_sites": 3,
+    "last_updated_iso": "2026-09-21T19:13:49.951149Z",
+    "total_sites": 4,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -92,6 +92,27 @@
       "provider": "fallback",
       "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
       "updated_at_iso": "2026-09-21T19:13:18.418018Z"
+    },
+    {
+      "id": "blobatar-dev",
+      "name": "blobatar.dev",
+      "url": "https://blobatar.dev/",
+      "category": "عمومی",
+      "tags": [],
+      "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
+      "page_title": "blobatar",
+      "summary": "blobatar.dev در حوزه عمومی فعالیت دارد. Deterministic geometric blobatars from any string. No dependencies, about 3.7 KB.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
+        "دسترسی مستقیم از طریق https://blobatar.dev/",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "key_topics": [],
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
+      "updated_at_iso": "2026-09-21T19:13:49.450931Z"
     }
   ]
 }
