@@ -36,11 +36,11 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۱",
       "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": true
+      "stale": false
     },
     {
       "id": "github-com",
-      "name": "GitHub",
+      "name": "UI/UX Pro Max",
       "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "category": "طراحی و خلاقیت",
       "tags": [
