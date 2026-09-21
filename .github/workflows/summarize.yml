@@ -4,6 +4,10 @@ on:
   schedule:
     # هر روز ساعت ۰۹:۳۰ به وقت تهران (۰۶:۰۰ UTC)
     - cron: "0 6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "config/sites.json"
   workflow_dispatch:
     inputs:
       force:
