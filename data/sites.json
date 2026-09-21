@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۱۴۰۵/۰۶/۳۱",
-    "last_updated_iso": "2026-09-21T04:30:25.606913Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۰۴:۳۳",
+    "last_updated_iso": "2026-09-21T04:33:56.236593Z",
     "total_sites": 9,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -125,32 +125,6 @@
       "updated_at_iso": "2026-09-21T04:29:50.093236Z"
     },
     {
-      "id": "github-blog",
-      "name": "وبلاگ گیت‌هاب (GitHub Blog)",
-      "url": "https://github.blog",
-      "category": "توسعه نرم‌افزار",
-      "tags": [
-        "گیت‌هاب",
-        "توسعه",
-        "متن‌باز"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=github.blog&sz=128",
-      "page_title": "",
-      "summary": "در حال تولید خلاصه…",
-      "highlights": [],
-      "sentiment": "اطلاع‌رسانی",
-      "key_topics": [
-        "گیت‌هاب",
-        "توسعه",
-        "متن‌باز"
-      ],
-      "read_time": "۳ دقیقه",
-      "provider": "pending",
-      "updated_at": "۱۴۰۵/۰۶/۳۱",
-      "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": true
-    },
-    {
       "id": "theverge",
       "name": "د ورج (The Verge)",
       "url": "https://www.theverge.com",
@@ -261,6 +235,35 @@
       "provider": "fallback",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۱۷:۲۱",
       "updated_at_iso": "2026-09-20T17:21:51.739091Z"
+    },
+    {
+      "id": "github-blog",
+      "name": "وبلاگ گیت‌هاب (GitHub Blog)",
+      "url": "https://github.blog",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "گیت‌هاب",
+        "توسعه",
+        "متن‌باز"
+      ],
+      "favicon": "https://github.githubassets.com/favicon.ico",
+      "page_title": "Home",
+      "summary": "وبلاگ رسمی گیت‌هاب است که آخرین به‌روزرسانی‌ها، راهنماها و ایده‌های مربوط به توسعه و طراحی نرم‌افزار را برای توسعه‌دهندگان ارائه می‌دهد.",
+      "highlights": [
+        "ارائه آخرین اخبار و به‌روزرسانی‌های مربوط به سرویس‌های گیت‌هاب",
+        "محتوای آموزشی در حوزه هوش مصنوعی، GitHub Copilot و توسعه نرم‌افزار",
+        "گزارش وضعیت دسترسی سرویس‌ها و اطلاعیه‌های امنیتی مهم برای توسعه‌دهندگان"
+      ],
+      "sentiment": "مثبت، آموزشی و فناورانه",
+      "key_topics": [
+        "هوش مصنوعی و یادگیری ماشین",
+        "GitHub Copilot و ابزارهای توسعه",
+        "امنیت نرم‌افزار و اطلاعیه‌های سرویس"
+      ],
+      "read_time": "۲ دقیقه",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۰۴:۳۳",
+      "updated_at_iso": "2026-09-21T04:33:55.736446Z"
     }
   ]
 }
