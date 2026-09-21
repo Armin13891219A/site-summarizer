@@ -517,7 +517,26 @@ def _upsert_config(entry):
 
 def _summarize_one(entry, scraped, existing):
     """تولید خلاصه برای یک سایت و ساخت output entry کامل."""
+    prev = None
+    for s in existing.get("sites", []):
+        if s.get("url") == entry["url"]:
+            prev = s
+            break
     ai = summarize_with_ai(scraped, entry)
+    # محافظت: اگر AI شکست خورد (fallback) ولی قبلاً خلاصه واقعی داریم، قبلی نگه‌دار
+    if (
+        ai.get("provider") == "fallback"
+        and prev
+        and prev.get("provider") not in (None, "fallback", "pending")
+        and prev.get("summary")
+        and prev.get("highlights")
+    ):
+        print(f"  [=] AI failed — keeping previous real summary for {entry.get('name')}")
+        prev["name"] = entry.get("name", prev["name"])
+        prev["category"] = entry.get("category", prev.get("category", "عمومی"))
+        prev["tags"] = entry.get("tags", prev.get("tags", []))
+        prev["stale"] = True
+        return prev
     return {
         "id": entry.get("id", _slugify(entry["url"])),
         "name": entry.get("name"),

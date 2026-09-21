@@ -1,136 +1,17 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "2026-09-21T05:37:06.534Z",
-    "total_sites": "10",
+    "last_updated": "۲۰۲۶/۰۹/۲۱",
+    "last_updated_iso": "2026-09-21T00:00:00Z",
+    "total_sites": 4,
     "generator": "multi-provider AI + Cloudflare Workers",
     "version": "2.0.0"
   },
   "sites": [
     {
-      "id": "tailwindcss-com",
-      "url": "https://tailwindcss.com",
-      "name": "tailwindcss.com",
-      "category": "عمومی",
-      "tags": [],
-      "favicon": "https://www.google.com/s2/favicons?domain=tailwindcss.com&sz=128",
-      "summary": "در حال تولید خلاصه…",
-      "highlights": [],
-      "sentiment": "اطلاع‌رسانی",
-      "key_topics": [],
-      "read_time": "۳ دقیقه",
-      "provider": "pending",
-      "stale": true,
-      "updated_at": "2026-09-21 05:37:06"
-    },
-    {
-      "id": "www-zoomit-ir",
-      "url": "https://www.zoomit.ir",
-      "name": "زومیت (Zoomit)",
-      "category": "فناوری",
-      "tags": [
-        "فناوری",
-        "اخبار",
-        "راهنمای خرید"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=www.zoomit.ir&sz=128",
-      "summary": "در حال تولید خلاصه…",
-      "highlights": [],
-      "sentiment": "اطلاع‌رسانی",
-      "key_topics": [
-        "������",
-        "�����",
-        "������� ����"
-      ],
-      "read_time": "۳ دقیقه",
-      "provider": "pending",
-      "stale": true,
-      "updated_at": "2026-09-21 05:34:40"
-    },
-    {
-      "id": "pending",
-      "url": "https://vibefarsi.ir",
-      "name": "ویب فارسی (vibefarsi.ir)",
-      "category": "توسعه نرم‌افزار",
-      "tags": [
-        "کامپوننت",
-        "متن‌باز",
-        "ری‌اکت"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=vibefarsi.ir&sz=128",
-      "summary": "https://vibefarsi.ir در حوزه عمومی فعالیت دارد. کامپوننت‌های راست‌چین رایگان برای Next.js و React. فایل را کپی کنید یا پرامپت انگلیسی را به Cursor بدهید. فونت و اعداد فارسی داخل.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
-        "دسترسی مستقیم از طریق https://vibefarsi.ir",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
-      ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
-      "key_topics": [],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:17"
-    },
-    {
-      "id": "vibafarsiui",
-      "url": "https://github.com/TronIsHere/vibafarsiui",
-      "name": "ویب فارسی (vibafarsiui)",
-      "category": "توسعه نرم‌افزار",
-      "tags": [
-        "کامپوننت",
-        "متن‌باز",
-        "ری‌اکت"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "summary": "ویب فارسی رجیستری کامپوننت‌های راست‌چین React + Tailwind برای توسعه‌دهنده‌هاست که مشکل عدم پشتیبانی ابزارها و کتابخانه‌های انگلیسی از زبان فارسی را حل می‌کند.",
-      "highlights": [
-        "کامپوننت‌های راست‌چین React + Tailwind مخصوص توسعه‌دهندگان ایرانی",
-        "پشتیبانی داخلی از فونت فارسی، اعداد فارسی، تقویم شمسی و قیمت به تومان",
-        "ارائه کد مستقیماً در پروژه به جای پکیج npm همراه با پشتیبانی از ابزارهای هوش مصنوعی"
-      ],
-      "sentiment": "مثبت، حوزه فناوری و توسعه وب‌سایت‌های فارسی",
-      "key_topics": [
-        "کامپوننت‌های React برای وب فارسی",
-        "راست‌چین سازی رابط کاربری",
-        "ابزارهای هوش مصنوعی برای برنامه‌نویسی"
-      ],
-      "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:16"
-    },
-    {
-      "id": "theverge",
-      "url": "https://www.theverge.com",
-      "name": "د ورج (The Verge)",
-      "category": "فرهنگ دیجیتال و رسانه",
-      "tags": [
-        "فناوری",
-        "رسانه",
-        "نقد"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=www.theverge.com&sz=128",
-      "summary": "دی وورج (The Verge) رسانه تخصصی تکنولوژی است که از سال ۲۰۱۱ فعالیت می‌کند و با تمرکز بر تأثیر فناوری بر زندگی مردم، محتوای متنوعی از اخبار لحظه‌ای تا بررسی‌های تخصصی و گزارش‌های…",
-      "highlights": [
-        "تمرکز بر تأثیر تکنولوژی بر زندگی روزمره افراد",
-        "ارائه محتوای متنوع از اخبار، بررسی‌ها و گزارش‌های تحلیلی تخصصی",
-        "پوشش جدیدترین روندهای سخت‌افزار، هوش مصنوعی و محصولات دیجیتال"
-      ],
-      "sentiment": "لحن حرفه‌ای و تحلیلی، حوزه فعالیت رسانه تخصصی فناوری",
-      "key_topics": [
-        "تکنولوژی و تأثیر آن بر جامعه",
-        "بررسی محصولات سخت‌افزاری (لوازم اپل، بازی، هدست‌ها)",
-        "هوش مصنوعی و امنیت دیجیتال"
-      ],
-      "read_time": "۳ دقیقه",
-      "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:15"
-    },
-    {
       "id": "reactbits",
-      "url": "https://reactbits.dev/",
       "name": "React Bits (reactbits.dev)",
+      "url": "https://reactbits.dev/",
       "category": "توسعه نرم‌افزار",
       "tags": [
         "کامپوننت ری‌اکت",
@@ -138,6 +19,7 @@
         "متن‌باز"
       ],
       "favicon": "https://www.google.com/s2/favicons?domain=reactbits.dev&sz=128",
+      "page_title": "",
       "summary": "ری‌اکت بیتس مجموعه‌ای اوپن‌سورس از بیش از ۲۰۰ کامپوننت ری‌اکت باکیفیت، انیمیشن‌دار، تعاملی و کاملاً قابل سفارشی‌سازی برای ساخت رابط‌های کاربری جذاب و به‌یادماندنی است.",
       "highlights": [
         "بیش از ۲۰۰ کامپوننت ری‌اکت انیمیشن‌دار و تعاملی",
@@ -152,120 +34,89 @@
       ],
       "read_time": "۱ دقیقه",
       "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:15"
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
     },
     {
-      "id": "huggingface",
-      "url": "https://huggingface.co/blog",
-      "name": "هاگینگ فیس (Hugging Face Blog)",
-      "category": "هوش مصنوعی",
+      "id": "github-com",
+      "name": "GitHub",
+      "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "طراحی و خلاقیت",
       "tags": [
-        "هوش مصنوعی",
-        "یادگیری ماشین",
-        "متن‌باز"
+        "GitHub"
       ],
-      "favicon": "https://www.google.com/s2/favicons?domain=huggingface.co&sz=128",
-      "summary": "بلاگ رسمی پلتفرم متن‌باز هوش مصنوعی هاگینگ فیس است که آخرین تحقیقات، مدل‌های جدید، راهکارهای بهینه‌سازی و تجربیات عملی توسعه‌دهندگان در این حوزه را پوشش می‌دهد و برای علاقه‌مندان…",
-      "highlights": [
-        "پوشش آخرین تحقیقات و مدل‌های جدید متن‌باز در حوزه هوش مصنوعی",
-        "ارائه راهکارهای عملی برای بهینه‌سازی، استقرار و آموزش مدل‌های هوش مصنوعی",
-        "انتشار تجربیات کاربران و جامعه توسعه‌دهندگان در حوزه مدل‌های متن‌باز"
-      ],
-      "sentiment": "حوزه فعالیت: هوش مصنوعی متن‌باز و علوم داده؛ لحن: فنی، آموزشی و خبری",
+      "favicon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "page_title": "",
+      "summary": "این ریپازیتوری GitHub متعلق به پروژه UI/UX Pro Max Skill است که منابع، ابزارها و آموزش‌های تخصصی طراحی رابط کاربری و تجربه کاربری را ارائه می‌دهد.",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
       "key_topics": [
-        "تحقیقات و مدل‌های جدید هوش مصنوعی متن‌باز",
-        "بهینه‌سازی و استقرار مدل‌های هوش مصنوعی",
-        "راهکارهای عملی توسعه‌دهندگان در حوزه هوش مصنوعی"
+        "GitHub"
       ],
       "read_time": "۳ دقیقه",
       "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:14"
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
     },
     {
-      "id": "github-blog",
-      "url": "https://github.blog",
-      "name": "وبلاگ گیت‌هاب (GitHub Blog)",
+      "id": "vibefarsi-ir",
+      "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+      "url": "https://vibefarsi.ir",
       "category": "توسعه نرم‌افزار",
       "tags": [
-        "گیت‌هاب",
-        "توسعه",
-        "متن‌باز"
+        "کامپوننت",
+        "فارسی",
+        "راست",
+        "چین"
       ],
-      "favicon": "https://www.google.com/s2/favicons?domain=github.blog&sz=128",
-      "summary": "وبلاگ رسمی گیت‌هاب است که آخرین به‌روزرسانی‌ها، راهنماها و ایده‌های مربوط به توسعه و طراحی نرم‌افزار را برای توسعه‌دهندگان ارائه می‌دهد.",
-      "highlights": [
-        "ارائه آخرین اخبار و به‌روزرسانی‌های مربوط به سرویس‌های گیت‌هاب",
-        "محتوای آموزشی در حوزه هوش مصنوعی، GitHub Copilot و توسعه نرم‌افزار",
-        "گزارش وضعیت دسترسی سرویس‌ها و اطلاعیه‌های امنیتی مهم برای توسعه‌دهندگان"
-      ],
-      "sentiment": "مثبت، آموزشی و فناورانه",
+      "favicon": "https://www.google.com/s2/favicons?domain=vibefarsi.ir&sz=128",
+      "page_title": "",
+      "summary": "وب‌سایت وایب‌فارسی مجموعه کامپوننت‌های فارسی راست‌چین حرفه‌ای و آماده برای توسعه‌دهندگان فریم‌ورک React ارائه می‌دهد.",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
       "key_topics": [
-        "هوش مصنوعی و یادگیری ماشین",
-        "GitHub Copilot و ابزارهای توسعه",
-        "امنیت نرم‌افزار و اطلاعیه‌های سرویس"
-      ],
-      "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:14"
-    },
-    {
-      "id": "digiato",
-      "url": "https://digiato.com",
-      "name": "دیجیاتو (Digiato)",
-      "category": "فناوری و کسب‌وکار",
-      "tags": [
-        "فناوری",
-        "کسب‌وکار",
-        "اخبار"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=digiato.com&sz=128",
-      "summary": "دیجیاتو مرجع اخبار و تحلیل‌های تخصصی فناوری است که توسعه سبک زندگی دیجیتالی را از گوشی، لپ‌تاپ و موتورسیکلت گرفته تا کسب‌وکار و شبکه‌های اجتماعی پوشش می‌دهد.",
-      "highlights": [
-        "پوشش کامل حوزه‌های مختلف فناوری و سبک زندگی دیجیتالی",
-        "ارائه تحلیل‌ها و راهنمایی‌های عملی در زمینه‌هایی از موتورسیکلت تا شبکه‌های اجتماعی",
-        "به روز بودن محتوا با آخرین اخبار و بروزرسانی‌های تخصصی فناوری"
-      ],
-      "sentiment": "مثبت، تخصصی، اطلاعاتی",
-      "key_topics": [
-        "اخبار و تحلیل‌های تکنولوژی",
-        "سبک زندگی دیجیتالی",
-        "پدیده‌های اجتماعی و کسب‌وکار دیجیتال"
-      ],
-      "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:13"
-    },
-    {
-      "id": "techcrunch",
-      "url": "https://techcrunch.com",
-      "name": "تک‌کرانچ (TechCrunch)",
-      "category": "استارتاپ و سرمایه‌گذاری",
-      "tags": [
-        "استارتاپ",
-        "سرمایه‌گذاری",
-        "اخبار"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=techcrunch.com&sz=128",
-      "summary": "تک‌کرانچ منبع تخصصی اخبار استارتاپ، فناوری، سرمایه‌گذاری جسورانه و تحولات صنعتی در سیلیکون ولی و جهان است.",
-      "highlights": [
-        "پوشش تخصصی اخبار استارتاپ، فناوری و سرمایه‌گذاری جسورانه",
-        "تمرکز بر آخرین تحولات حوزه هوش مصنوعی و مدل‌های زبانی جدید",
-        "برگزاری رویداد دیس‌رپت ۲۰۲۶ با تخفیف‌های ویژه برای شرکت‌کنندگان"
-      ],
-      "sentiment": "حوزه فعالیت: فناوری و استارتاپ | لحن: خبری، تحلیلی و اطلاع‌رسانی",
-      "key_topics": [
-        "هوش مصنوعی و توسعه مدل‌های زبانی",
-        "استارتاپ و سرمایه‌گذاری جسورانه",
-        "رویدادهای صنعتی فناوری"
+        "کامپوننت",
+        "فارسی",
+        "راست",
+        "چین"
       ],
       "read_time": "۳ دقیقه",
       "provider": "g4f",
-      "stale": true,
-      "updated_at": "2026-09-21 05:20:13"
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
+    },
+    {
+      "id": "tailwindcss-com",
+      "name": "Tailwind CSS",
+      "url": "https://tailwindcss.com",
+      "category": "����� ��������",
+      "tags": [
+        "CSS",
+        "�����ј",
+        "����ʝ���"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=tailwindcss.com&sz=128",
+      "page_title": "",
+      "summary": "������� CSS � �����ј utility-first ���� ���� ���� ���؝��� ������ ���� ��ʺ ���� �ј ���� HTML� ���ӝ��� ����� ��� ����� ���� ����� ���.",
+      "highlights": [
+        "utility-first ���� ����� CSS ���",
+        "�������� ���� �� RTL � ����� ����",
+        "������ �� ����� ��ѐ"
+      ],
+      "sentiment": "���� � ������",
+      "key_topics": [
+        "CSS",
+        "�����ј",
+        "����ʝ���"
+      ],
+      "read_time": "? �����",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
     }
   ]
 }

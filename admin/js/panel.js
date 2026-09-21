@@ -51,7 +51,7 @@
       "Content-Type": "application/json",
       "Authorization": "Bearer " + (token || "")
     }, opts.headers || {});
-    return fetch(API + path, opts).then(function (r) {
+    return fetch(API + path + (path.includes("?") ? "&" : "?") + "_=" + Date.now(), opts).then(function (r) {
       return r.json().then(function (d) {
         if (!r.ok) throw new Error(d.error || ("HTTP " + r.status));
         return d;

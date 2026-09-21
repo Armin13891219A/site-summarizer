@@ -73,10 +73,15 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
+          set -o pipefail
           if [ "${{ inputs.force }}" = "true" ]; then
-            python scripts/summarize.py --force
+            python scripts/summarize.py --force 2>&1 | tee /tmp/sum.log
           else
-            python scripts/summarize.py
+            python scripts/summarize.py 2>&1 | tee /tmp/sum.log
+          fi
+          # اگر همه fallback شدن، خطا بده تا معلوم بشه
+          if grep -q "All providers failed" /tmp/sum.log; then
+            echo "::warning::AI providers failed for at least one site — summaries are fallback quality"
           fi
 
       - name: Push summaries to Cloudflare Worker
