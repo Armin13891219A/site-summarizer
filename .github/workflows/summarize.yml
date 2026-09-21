@@ -42,29 +42,30 @@ jobs:
           WORKER_API: ${{ secrets.WORKER_API }}
           ADMIN_TOKEN: ${{ secrets.WORKER_ADMIN_TOKEN }}
         run: |
-          # WORKER_API ممکنه با یا بدون /api باشه → نرمال‌سازی کن
-          BASE="$WORKER_API"
-          case "$BASE" in
-            */) BASE="${BASE%/}" ;;
-          esac
-          case "$BASE" in
-            */api) ;;
-            *) BASE="$BASE/api" ;;
-          esac
-          echo "syncing from $BASE/admin/list"
-          curl -s -H "Authorization: Bearer ***" \
-            "$BASE/admin/list" -o /tmp/sites.json
-          if [ ! -s /tmp/sites.json ]; then echo "::error::sync failed — empty response"; exit 1; fi
-          if grep -q '"error"' /tmp/sites.json; then echo "::error::sync auth failed"; cat /tmp/sites.json; exit 1; fi
-          python -c "
-          import json
-          d = json.load(open('/tmp/sites.json'))
-          cfg = [{'id': s['id'], 'name': s['name'], 'url': s['url'],
-                  'category': s.get('category','عمومی'), 'tags': s.get('tags',[])}
-                 for s in d.get('sites', [])]
-          json.dump(cfg, open('config/sites.json','w'), ensure_ascii=False, indent=2)
-          print('synced', len(cfg), 'sites from Worker')
-          "
+          python - <<'EOF'
+          import json, os, urllib.request, sys
+          base = os.environ["WORKER_API"].rstrip("/")
+          if not base.endswith("/api"): base += "/api"
+          tok = os.environ["ADMIN_TOKEN"]
+          url = base + "/admin/list"
+          print("syncing from", url, flush=True)
+          req = urllib.request.Request(url, headers={
+              "Authorization": "Bearer " + tok, "User-Agent": "site-summarizer-ci"})
+          opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+          try:
+              with opener.open(req, timeout=30) as r:
+                  body = r.read().decode("utf-8")
+          except Exception as e:
+              print("::error::sync request failed:", e); sys.exit(1)
+          d = json.loads(body)
+          if "error" in d or "sites" not in d:
+              print("::error::sync auth failed:", body[:200]); sys.exit(1)
+          cfg = [{"id": s["id"], "name": s["name"], "url": s["url"],
+                  "category": s.get("category","عمومی"), "tags": s.get("tags",[])}
+                 for s in d.get("sites", [])]
+          json.dump(cfg, open("config/sites.json","w",encoding="utf-8"), ensure_ascii=False, indent=2)
+          print("synced", len(cfg), "sites from Worker")
+          EOF
 
       - name: Run AI summarizer
         env:
