@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱",
-    "last_updated_iso": "2026-09-21T00:00:00Z",
-    "total_sites": 4,
-    "generator": "multi-provider AI + Cloudflare Workers",
-    "version": "2.0.0"
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
+    "last_updated_iso": "2026-09-21T19:13:18.918236Z",
+    "total_sites": 3,
+    "generator": "multi-provider AI + GitHub Actions",
+    "version": "1.0.0"
   },
   "sites": [
     {
@@ -46,19 +46,22 @@
       "tags": [
         "GitHub"
       ],
-      "favicon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "page_title": "",
-      "summary": "این ریپازیتوری GitHub متعلق به پروژه UI/UX Pro Max Skill است که منابع، ابزارها و آموزش‌های تخصصی طراحی رابط کاربری و تجربه کاربری را ارائه می‌دهد.",
-      "highlights": [],
-      "sentiment": "اطلاع‌رسانی",
+      "favicon": "https://github.com/fluidicon.png",
+      "page_title": "GitHub - nextlevelbuilder/ui-ux-pro-max-skill: An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
+      "summary": "UI/UX Pro Max در حوزه طراحی و خلاقیت فعالیت دارد. An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه طراحی و خلاقیت",
+        "دسترسی مستقیم از طریق https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
       "key_topics": [
         "GitHub"
       ],
-      "read_time": "۳ دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۱",
-      "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": false
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
+      "updated_at_iso": "2026-09-21T19:13:16.111386Z"
     },
     {
       "id": "vibefarsi-ir",
@@ -71,52 +74,24 @@
         "راست",
         "چین"
       ],
-      "favicon": "https://www.google.com/s2/favicons?domain=vibefarsi.ir&sz=128",
-      "page_title": "",
-      "summary": "وب‌سایت وایب‌فارسی مجموعه کامپوننت‌های فارسی راست‌چین حرفه‌ای و آماده برای توسعه‌دهندگان فریم‌ورک React ارائه می‌دهد.",
-      "highlights": [],
-      "sentiment": "اطلاع‌رسانی",
+      "favicon": "https://vibefarsi.ir/favicon.ico?favicon.2vob68tjqpejf.ico",
+      "page_title": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+      "summary": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی در حوزه توسعه نرم‌افزار فعالیت دارد. کامپوننت‌های راست‌چین رایگان برای Next.js و React.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه توسعه نرم‌افزار",
+        "دسترسی مستقیم از طریق https://vibefarsi.ir",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
       "key_topics": [
         "کامپوننت",
         "فارسی",
-        "راست",
-        "چین"
+        "راست"
       ],
-      "read_time": "۳ دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۱",
-      "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": false
-    },
-    {
-      "id": "tailwindcss-com",
-      "name": "Tailwind CSS",
-      "url": "https://tailwindcss.com",
-      "category": "����� ��������",
-      "tags": [
-        "CSS",
-        "�����ј",
-        "����ʝ���"
-      ],
-      "favicon": "https://www.google.com/s2/favicons?domain=tailwindcss.com&sz=128",
-      "page_title": "",
-      "summary": "������� CSS � �����ј utility-first ���� ���� ���� ���؝��� ������ ���� ��ʺ ���� �ј ���� HTML� ���ӝ��� ����� ��� ����� ���� ����� ���.",
-      "highlights": [
-        "utility-first ���� ����� CSS ���",
-        "�������� ���� �� RTL � ����� ����",
-        "������ �� ����� ��ѐ"
-      ],
-      "sentiment": "���� � ������",
-      "key_topics": [
-        "CSS",
-        "�����ј",
-        "����ʝ���"
-      ],
-      "read_time": "? �����",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۱",
-      "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": false
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
+      "updated_at_iso": "2026-09-21T19:13:18.418018Z"
     }
   ]
 }
