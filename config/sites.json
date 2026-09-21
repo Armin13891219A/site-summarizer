@@ -1,6 +1,13 @@
 [
   {
-    "id": "zoomit",
+    "id": "tailwindcss-com",
+    "name": "tailwindcss.com",
+    "url": "https://tailwindcss.com",
+    "category": "عمومی",
+    "tags": []
+  },
+  {
+    "id": "www-zoomit-ir",
     "name": "زومیت (Zoomit)",
     "url": "https://www.zoomit.ir",
     "category": "فناوری",
@@ -11,47 +18,25 @@
     ]
   },
   {
-    "id": "digiato",
-    "name": "دیجیاتو (Digiato)",
-    "url": "https://digiato.com",
-    "category": "فناوری و کسب‌وکار",
-    "tags": [
-      "فناوری",
-      "کسب‌وکار",
-      "اخبار"
-    ]
-  },
-  {
-    "id": "techcrunch",
-    "name": "تک‌کرانچ (TechCrunch)",
-    "url": "https://techcrunch.com",
-    "category": "استارتاپ و سرمایه‌گذاری",
-    "tags": [
-      "استارتاپ",
-      "سرمایه‌گذاری",
-      "اخبار"
-    ]
-  },
-  {
-    "id": "huggingface",
-    "name": "هاگینگ فیس (Hugging Face Blog)",
-    "url": "https://huggingface.co/blog",
-    "category": "هوش مصنوعی",
-    "tags": [
-      "هوش مصنوعی",
-      "یادگیری ماشین",
-      "متن‌باز"
-    ]
-  },
-  {
-    "id": "github-blog",
-    "name": "وبلاگ گیت‌هاب (GitHub Blog)",
-    "url": "https://github.blog",
+    "id": "pending",
+    "name": "ویب فارسی (vibefarsi.ir)",
+    "url": "https://vibefarsi.ir",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "گیت‌هاب",
-      "توسعه",
-      "متن‌باز"
+      "کامپوننت",
+      "متن‌باز",
+      "ری‌اکت"
+    ]
+  },
+  {
+    "id": "vibafarsiui",
+    "name": "ویب فارسی (vibafarsiui)",
+    "url": "https://github.com/TronIsHere/vibafarsiui",
+    "category": "توسعه نرم‌افزار",
+    "tags": [
+      "کامپوننت",
+      "متن‌باز",
+      "ری‌اکت"
     ]
   },
   {
@@ -77,25 +62,47 @@
     ]
   },
   {
-    "id": "vibafarsiui",
-    "name": "ویب فارسی (vibafarsiui)",
-    "url": "https://github.com/TronIsHere/vibafarsiui",
-    "category": "توسعه نرم‌افزار",
+    "id": "huggingface",
+    "name": "هاگینگ فیس (Hugging Face Blog)",
+    "url": "https://huggingface.co/blog",
+    "category": "هوش مصنوعی",
     "tags": [
-      "کامپوننت",
-      "متن‌باز",
-      "ری‌اکت"
+      "هوش مصنوعی",
+      "یادگیری ماشین",
+      "متن‌باز"
     ]
   },
   {
-    "id": "vibefarsi-ir",
-    "name": "ویب فارسی (vibefarsi.ir)",
-    "url": "https://vibefarsi.ir",
+    "id": "github-blog",
+    "name": "وبلاگ گیت‌هاب (GitHub Blog)",
+    "url": "https://github.blog",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "کامپوننت",
-      "متن‌باز",
-      "ری‌اکت"
+      "گیت‌هاب",
+      "توسعه",
+      "متن‌باز"
+    ]
+  },
+  {
+    "id": "digiato",
+    "name": "دیجیاتو (Digiato)",
+    "url": "https://digiato.com",
+    "category": "فناوری و کسب‌وکار",
+    "tags": [
+      "فناوری",
+      "کسب‌وکار",
+      "اخبار"
+    ]
+  },
+  {
+    "id": "techcrunch",
+    "name": "تک‌کرانچ (TechCrunch)",
+    "url": "https://techcrunch.com",
+    "category": "استارتاپ و سرمایه‌گذاری",
+    "tags": [
+      "استارتاپ",
+      "سرمایه‌گذاری",
+      "اخبار"
     ]
   }
 ]
