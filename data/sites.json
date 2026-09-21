@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۰۴:۵۰",
-    "last_updated_iso": "2026-09-21T04:50:22.196586Z",
-    "total_sites": 10,
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۰۴:۵۱",
+    "last_updated_iso": "2026-09-21T04:51:17.422055Z",
+    "total_sites": 9,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -264,27 +264,6 @@
       "provider": "fallback",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۱۷:۲۱",
       "updated_at_iso": "2026-09-20T17:21:51.739091Z"
-    },
-    {
-      "id": "pending",
-      "name": "https://nextjs.org",
-      "url": "https://nextjs.org",
-      "category": "عمومی",
-      "tags": [],
-      "favicon": "https://nextjs.org/favicon.ico?favicon.38folom4sz_yx.ico",
-      "page_title": "Next.js by Vercel - The React Framework",
-      "summary": "https://nextjs.org در حوزه عمومی فعالیت دارد. Next.js by Vercel is the full-stack React framework for the web.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
-        "دسترسی مستقیم از طریق https://nextjs.org",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
-      ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
-      "key_topics": [],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۰۴:۵۰",
-      "updated_at_iso": "2026-09-21T04:50:21.696401Z"
     }
   ]
 }
