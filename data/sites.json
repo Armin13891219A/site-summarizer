@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۸:۱۲",
-    "last_updated_iso": "2026-09-21T18:12:56.506370Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۸:۳۰",
+    "last_updated_iso": "2026-09-21T18:30:56.927850Z",
     "total_sites": 4,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -34,8 +34,8 @@
       ],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۱۲",
-      "updated_at_iso": "2026-09-21T18:12:49.435009Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۳۰",
+      "updated_at_iso": "2026-09-21T18:30:49.725996Z"
     },
     {
       "id": "github-com",
@@ -59,8 +59,8 @@
       ],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۱۲",
-      "updated_at_iso": "2026-09-21T18:12:51.469204Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۳۰",
+      "updated_at_iso": "2026-09-21T18:30:52.046559Z"
     },
     {
       "id": "vibefarsi-ir",
@@ -89,8 +89,8 @@
       ],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۱۲",
-      "updated_at_iso": "2026-09-21T18:12:53.727131Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۳۰",
+      "updated_at_iso": "2026-09-21T18:30:54.309612Z"
     },
     {
       "id": "tailwindcss-com",
@@ -110,8 +110,8 @@
       "key_topics": [],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۱۲",
-      "updated_at_iso": "2026-09-21T18:12:56.006172Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۸:۳۰",
+      "updated_at_iso": "2026-09-21T18:30:56.427666Z"
     }
   ]
 }
