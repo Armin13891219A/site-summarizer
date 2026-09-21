@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۰ - ۱۸:۳۶",
-    "last_updated_iso": "2026-09-20T18:36:35.338371Z",
-    "total_sites": 1,
+    "last_updated": "۱۴۰۵/۰۶/۳۱",
+    "last_updated_iso": "2026-09-21T00:00:00Z",
+    "total_sites": 9,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -16,7 +16,8 @@
       "tags": [
         "کامپوننت ری‌اکت",
         "انیمیشن",
-        "متن‌باز"
+        "متن‌باز",
+        "UI/UX"
       ],
       "favicon": "https://reactbits.dev/favicon.ico",
       "page_title": "React Bits",
@@ -36,6 +37,216 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
       "updated_at_iso": "2026-09-20T17:16:09.287690Z"
+    },
+    {
+      "id": "github-com",
+      "name": "ویب فارسی (vibafarsiui)",
+      "url": "https://github.com/TronIsHere/vibafarsiui",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "کامپوننت،",
+        "متن‌باز،",
+        "ری‌اکت"
+      ],
+      "favicon": "https://github.com/fluidicon.png",
+      "page_title": "GitHub - TronIsHere/vibafarsiui",
+      "summary": "ویب‌فارسی رجیستری کامپوننت‌های راست‌چین React + Tailwind برای توسعه‌دهندگان پروژه‌های وب فارسی است. این کامپوننت‌ها از پایه با پشتیبانی از فونت فارسی، اعداد شمسی و فرمت تومان.",
+      "highlights": [
+        "کامپوننت‌های راست‌چین React + Tailwind طراحی شده از پایه برای رابط کاربری‌های فارسی",
+        "پشتیبانی داخلی از فونت فارسی، اعداد شمسی، تقویم شمسی و فرمت قیمت به تومان",
+        "ارائه پرامپت آماده برای ابزارهای هوش مصنوعی و سازگاری با سرور MCP برای ویرایش آسان کامپوننت‌ها"
+      ],
+      "sentiment": "مثبت، معرفی ابزار کاربردی برای توسعه‌دهندگان فرانت‌اند پروژه‌های وب فارسی",
+      "key_topics": [
+        "توسعه وب فارسی",
+        "کامپوننت‌های React + Tailwind",
+        "ابزارهای هوش مصنوعی برای توسعه"
+      ],
+      "read_time": "2 دقیقه",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۲۰:۴۶",
+      "updated_at_iso": "2026-09-20T17:16:39.300018Z"
+    },
+    {
+      "id": "pending",
+      "name": "ویب فارسی (vibefarsi.ir)",
+      "url": "https://vibefarsi.ir",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "کامپوننت",
+        "متن‌باز",
+        "ری‌اکت"
+      ],
+      "favicon": "https://vibefarsi.ir/favicon.ico?favicon.2vob68tjqpejf.ico",
+      "page_title": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+      "summary": "https://vibefarsi.ir در حوزه عمومی فعالیت دارد. کامپوننت‌های راست‌چین رایگان برای Next.js و React. فایل را کپی کنید یا پرامپت انگلیسی را به Cursor بدهید. فونت و اعداد فارسی داخل.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
+        "دسترسی مستقیم از طریق https://vibefarsi.ir",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "key_topics": [],
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۰ - ۱۷:۲۱",
+      "updated_at_iso": "2026-09-20T17:21:51.739091Z"
+    },
+    {
+      "id": "zoomit",
+      "name": "زومیت (Zoomit)",
+      "url": "https://www.zoomit.ir",
+      "category": "فناوری",
+      "tags": [
+        "فناوری",
+        "اخبار",
+        "راهنمای خرید"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=www.zoomit.ir&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "فناوری",
+        "اخبار",
+        "راهنمای خرید"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
+    },
+    {
+      "id": "digiato",
+      "name": "دیجیاتو (Digiato)",
+      "url": "https://digiato.com",
+      "category": "فناوری و کسب‌وکار",
+      "tags": [
+        "فناوری",
+        "کسب‌وکار",
+        "اخبار"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=digiato.com&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "فناوری",
+        "کسب‌وکار",
+        "اخبار"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
+    },
+    {
+      "id": "techcrunch",
+      "name": "تک‌کرانچ (TechCrunch)",
+      "url": "https://techcrunch.com",
+      "category": "استارتاپ و سرمایه‌گذاری",
+      "tags": [
+        "استارتاپ",
+        "سرمایه‌گذاری",
+        "اخبار"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=techcrunch.com&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "استارتاپ",
+        "سرمایه‌گذاری",
+        "اخبار"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
+    },
+    {
+      "id": "huggingface",
+      "name": "هاگینگ فیس (Hugging Face Blog)",
+      "url": "https://huggingface.co/blog",
+      "category": "هوش مصنوعی",
+      "tags": [
+        "هوش مصنوعی",
+        "یادگیری ماشین",
+        "متن‌باز"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=huggingface.co&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "هوش مصنوعی",
+        "یادگیری ماشین",
+        "متن‌باز"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
+    },
+    {
+      "id": "github-blog",
+      "name": "وبلاگ گیت‌هاب (GitHub Blog)",
+      "url": "https://github.blog",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "گیت‌هاب",
+        "توسعه",
+        "متن‌باز"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=github.blog&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "گیت‌هاب",
+        "توسعه",
+        "متن‌باز"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
+    },
+    {
+      "id": "theverge",
+      "name": "د ورج (The Verge)",
+      "url": "https://www.theverge.com",
+      "category": "فرهنگ دیجیتال و رسانه",
+      "tags": [
+        "فناوری",
+        "رسانه",
+        "نقد"
+      ],
+      "favicon": "https://www.google.com/s2/favicons?domain=www.theverge.com&sz=128",
+      "page_title": "",
+      "summary": "در حال تولید خلاصه…",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
+      "key_topics": [
+        "فناوری",
+        "رسانه",
+        "نقد"
+      ],
+      "read_time": "۳ دقیقه",
+      "provider": "pending",
+      "updated_at": "۱۴۰۵/۰۶/۳۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": true
     }
   ]
 }
