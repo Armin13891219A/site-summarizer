@@ -1,8 +1,8 @@
 [
   {
     "id": "reactbits",
-    "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
+    "name": "React Bits (reactbits.dev)",
     "category": "توسعه نرم‌افزار",
     "tags": [
       "کامپوننت ری‌اکت",
@@ -12,15 +12,29 @@
   },
   {
     "id": "github-com",
-    "name": "github.com",
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
-    "category": "عمومی",
-    "tags": []
+    "name": "GitHub",
+    "category": "طراحی و خلاقیت",
+    "tags": [
+      "GitHub"
+    ]
   },
   {
     "id": "vibefarsi-ir",
-    "name": "vibefarsi.ir",
     "url": "https://vibefarsi.ir",
+    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+    "category": "توسعه نرم‌افزار",
+    "tags": [
+      "کامپوننت",
+      "فارسی",
+      "راست",
+      "چین"
+    ]
+  },
+  {
+    "id": "tailwindcss-com",
+    "url": "https://tailwindcss.com",
+    "name": "tailwindcss.com",
     "category": "عمومی",
     "tags": []
   }
