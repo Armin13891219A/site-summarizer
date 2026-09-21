@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
-    "last_updated_iso": "2026-09-21T19:13:49.951149Z",
-    "total_sites": 4,
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۰",
+    "last_updated_iso": "2026-09-21T19:30:36.478971Z",
+    "total_sites": 5,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -113,6 +113,27 @@
       "provider": "fallback",
       "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
       "updated_at_iso": "2026-09-21T19:13:49.450931Z"
+    },
+    {
+      "id": "example-com",
+      "name": "E",
+      "url": "https://example.com",
+      "category": "عمومی",
+      "tags": [],
+      "favicon": "https://www.google.com/s2/favicons?domain=example.com&sz=128",
+      "page_title": "Example Domain",
+      "summary": "E پایگاهی تخصصی با عنوان «Example Domain» است که محتوای مرتبط با عمومی ارائه می‌دهد.",
+      "highlights": [
+        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
+        "دسترسی مستقیم از طریق https://example.com",
+        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "key_topics": [],
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۰",
+      "updated_at_iso": "2026-09-21T19:30:35.978767Z"
     }
   ]
 }
