@@ -1,8 +1,8 @@
 [
   {
     "id": "reactbits",
-    "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
+    "name": "React Bits (reactbits.dev)",
     "category": "توسعه نرم‌افزار",
     "tags": [
       "کامپوننت ری‌اکت",
@@ -12,8 +12,8 @@
   },
   {
     "id": "github-com",
-    "name": "UI/UX Pro Max",
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "name": "UI/UX Pro Max",
     "category": "طراحی و خلاقیت",
     "tags": [
       "GitHub"
@@ -21,8 +21,8 @@
   },
   {
     "id": "vibefarsi-ir",
-    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
     "url": "https://vibefarsi.ir",
+    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
     "category": "توسعه نرم‌افزار",
     "tags": [
       "کامپوننت",
@@ -33,20 +33,9 @@
   },
   {
     "id": "blobatar-dev",
-    "name": "blobatar.dev",
     "url": "https://blobatar.dev/",
+    "name": "blobatar.dev",
     "category": "عمومی",
     "tags": []
-  },
-  {
-    "id": "www-digikala-com",
-    "name": "فروشگاه اینترنتی دیجی‌کالا",
-    "url": "https://www.digikala.com",
-    "category": "فناوری و کسب‌وکار",
-    "tags": [
-      "فروشگاه",
-      "اینترنتی",
-      "دیجی‌کالا"
-    ]
   }
 ]
