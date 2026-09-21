@@ -93,6 +93,78 @@ async function handleListSites(env) {
   return json({ sites: (rows.results || []).map(rowToSite) });
 }
 
+/** حدس دسته از روی متن (سبک، بدون AI) */
+function guessCategory(blob) {
+  const low = (blob || "").toLowerCase();
+  if (!low) return "عمومی";
+  const hints = [
+    ["هوش مصنوعی", ["ai", "artificial intelligence", "machine learning", "هوش مصنوعی", "یادگیری ماشین", "مدل زبانی"]],
+    ["توسعه نرم‌افزار", ["code", "programming", "developer", "software", "github", "api", "sdk", "react", "python", "javascript", "css", "framework", "frontend", "front-end", "library", "فرانت‌اند", "کتابخانه", "برنامه‌نویسی", "توسعه", "متن‌باز"]],
+    ["امنیت سایبری", ["security", "cyber", "hack", "vulnerability", "امنیت", "نفوذ"]],
+    ["سخت‌افزار و موبایل", ["phone", "mobile", "laptop", "hardware", "gpu", "گوشی", "موبایل", "سخت‌افزار"]],
+    ["استارتاپ و سرمایه‌گذاری", ["startup", "funding", "investment", "استارتاپ", "سرمایه‌گذاری"]],
+    ["بازی", ["game", "gaming", "بازی", "گیم"]],
+    ["طراحی و خلاقیت", ["design", "creative", "ui", "ux", "graphic", "طراحی", "خلاقیت", "گرافیک"]],
+    ["علم و دانش", ["science", "research", "academic", "علم", "پژوهش", "دانشگاه"]],
+    ["فناوری و کسب‌وکار", ["business", "enterprise", "saas", "کسب‌وکار", "سرویس", "platform", "فروشگاه", "فروش", "shop", "store", "خرید", "market", "قیمت", "تخفیف", "سفارش"]],
+    ["فرهنگ دیجیتال و رسانه", ["news", "media", "culture", "خبر", "رسانه", "فرهنگ", "مجله"]],
+    ["فناوری", ["tech", "technology", "digital", "فناوری", "تکنولوژی", "دیجیتال"]],
+  ];
+  let best = "عمومی", bestScore = 0;
+  for (const [cat, kws] of hints) {
+    let score = 0;
+    for (const kw of kws) {
+      if (kw.length <= 3) {
+        // کلمات کوتاه فقط با مرز کلمه (مثلاً ai داخل tailwind مچ نشود)
+        try {
+          if (new RegExp("(?<![a-zآ-ی])" + kw.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![a-zآ-ی])").test(low)) score++;
+        } catch (e) { if (low.includes(kw)) score++; }
+      } else if (low.includes(kw)) score++;
+    }
+    if (score > bestScore) { bestScore = score; best = cat; }
+  }
+  return best;
+}
+
+/** استخراج title/description + حدس نام و دسته — سبک، با timeout کوتاه */
+async function quickMeta(url) {
+  try {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 8000);
+    const res = await fetch(url, {
+      signal: ctrl.signal,
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; site-summarizer/1.0)" },
+      redirect: "follow",
+    });
+    clearTimeout(t);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const pick = (re) => {
+      const m = html.match(re);
+      return m ? m[1].trim().slice(0, 120) : "";
+    };
+    const title = pick(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)/i)
+      || pick(/<title[^>]*>([^<]+)<\/title>/i);
+    const desc = pick(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)
+      || pick(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)/i);
+    return { title, desc };
+  } catch (e) {
+    return null;
+  }
+}
+
+/** استخراج چند تگ از کلمات عنوان (فقط فوری، CI دقیق‌ترش می‌کند) */
+function quickTags(title, name) {
+  const stop = new Set(["و", "در", "از", "به", "با", "است", "که", "این", "برای", "را", "های", "یا", "تا", "نه", "اما", "بر", "شد", "شده", "the", "and", "for", "with", "from", "your"]);
+  const words = (title || "").split(/[\s|،,؛:()«»"'-]+/).filter((w) => w.length >= 3 && !stop.has(w.toLowerCase()));
+  const tags = [];
+  for (const w of words) {
+    if (tags.length >= 3) break;
+    if (!tags.includes(w)) tags.push(w);
+  }
+  return tags.length ? tags : [name];
+}
+
 /** افزودن سایت */
 async function handleAddSite(request, env) {
   const body = await request.json().catch(() => ({}));
@@ -110,7 +182,24 @@ async function handleAddSite(request, env) {
   try { host = new URL(url).hostname; } catch (e) {}
 
   const id = (body.id || host).replace(/[^a-z0-9-]/gi, "-").toLowerCase();
-  const name = (body.name || host).trim();
+  // نام/دسته/تگ فوری از متای صفحه (بدون انتظار برای CI)
+  let name = (body.name || "").trim();
+  let category = (body.category || "").trim();
+  let tags = body.tags || [];
+  if (!body.name || !body.category) {
+    const meta = await quickMeta(url);
+    if (meta) {
+      if (!name) {
+        name = meta.title
+          ? meta.title.split(/[|–—»-]/)[0].trim().slice(0, 60)
+          : host.replace(/^www\./, "").split(".")[0];
+      }
+      if (!category) category = guessCategory(meta.title + " " + meta.desc);
+      if (!tags.length && name) tags = quickTags(meta.title, name);
+    }
+  }
+  if (!name) name = host;
+  if (!category) category = "عمومی";
 
   await env.DB.prepare(
     `INSERT INTO sites (id, url, name, category, tags, favicon, summary, highlights, sentiment, key_topics, read_time, provider, stale, created_at, updated_at)
@@ -118,8 +207,8 @@ async function handleAddSite(request, env) {
   )
     .bind(
       id, url, name,
-      body.category || "عمومی",
-      JSON.stringify(body.tags || []),
+      category,
+      JSON.stringify(tags),
       `https://www.google.com/s2/favicons?domain=${host}&sz=128`,
       body.summary || "در حال تولید خلاصه…",
       JSON.stringify(body.highlights || []),

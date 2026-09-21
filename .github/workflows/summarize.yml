@@ -65,13 +65,37 @@ jobs:
                  for s in d.get("sites", [])]
           json.dump(cfg, open("config/sites.json","w",encoding="utf-8"), ensure_ascii=False, indent=2)
           print("synced", len(cfg), "sites from Worker")
+          # ——— سینک تنظیمات AI + کلیدها از ورکر (پنل ادمین) به CI ———
+          sreq = urllib.request.Request(base + "/settings", headers={
+              "Authorization": "Bearer " + tok, "User-Agent": "site-summarizer-ci"})
+          with opener.open(sreq, timeout=30) as r:
+              settings = json.loads(r.read().decode("utf-8"))
+          def sval(k):
+              v = settings.get(k, "")
+              try:
+                  parsed = json.loads(v)
+                  if isinstance(parsed, list):
+                      return ",".join(str(x) for x in parsed)
+              except Exception:
+                  pass
+              return str(v)
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as f:
+              f.write(f"AI_PROVIDER={sval('provider') or 'g4f'}\n")
+              if settings.get("google_model"):
+                  f.write(f"GOOGLE_MODEL={sval('google_model')}\n")
+              if settings.get("openrouter_model"):
+                  f.write(f"OPENROUTER_MODEL={sval('openrouter_model')}\n")
+              if settings.get("google_api_key"):
+                  print("::add-mask::" + settings["google_api_key"])
+                  f.write(f"GOOGLE_API_KEY={settings['google_api_key']}\n")
+              if settings.get("openrouter_api_key"):
+                  print("::add-mask::" + settings["openrouter_api_key"])
+                  f.write(f"OPENROUTER_API_KEY={settings['openrouter_api_key']}\n")
+          print("synced AI settings from Worker: provider=" + (sval('provider') or 'g4f'))
           EOF
 
       - name: Run AI summarizer
-        env:
-          AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        # AI_PROVIDER / GOOGLE_API_KEY / ... از استپ Sync (ورکر → GITHUB_ENV) می‌آیند
         run: |
           set -o pipefail
           if [ "${{ inputs.force }}" = "true" ]; then

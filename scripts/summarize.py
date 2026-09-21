@@ -63,7 +63,7 @@ HEADERS = {
 DEFAULT_SETTINGS = {
     "provider": "g4f",
     "g4f_models": ["gpt-4", "gpt-4o", "deepseek-chat", "llama-3.1-70b", "gpt-3.5-turbo"],
-    "google_model": "gemini-1.5-flash",
+    "google_model": "gemini-2.5-flash",
     "openrouter_model": "google/gemini-2.0-flash-exp:free",
     "summary_max_chars": 180,
 }
@@ -85,6 +85,18 @@ def load_settings():
 
 
 SETTINGS = load_settings()
+
+# بازنویسی تنظیمات از متغیرهای محیطی (CI: سینک‌شده از ورکر)
+if os.environ.get("AI_PROVIDER", "").strip():
+    SETTINGS["provider"] = os.environ["AI_PROVIDER"].strip()
+if os.environ.get("GOOGLE_MODEL", "").strip():
+    SETTINGS["google_model"] = os.environ["GOOGLE_MODEL"].strip()
+if os.environ.get("OPENROUTER_MODEL", "").strip():
+    SETTINGS["openrouter_model"] = os.environ["OPENROUTER_MODEL"].strip()
+if os.environ.get("GOOGLE_API_KEY", "").strip():
+    GOOGLE_API_KEY = os.environ["GOOGLE_API_KEY"].strip()
+if os.environ.get("OPENROUTER_API_KEY", "").strip():
+    OPENROUTER_API_KEY = os.environ["OPENROUTER_API_KEY"].strip()
 
 
 # ——————————————————————————————————————————————————————
@@ -287,13 +299,32 @@ def clean_json_response(raw_text):
         return None
 
 
+VALID_CATEGORIES = [
+    "فناوری", "هوش مصنوعی", "توسعه نرم‌افزار", "فناوری و کسب‌وکار",
+    "استارتاپ و سرمایه‌گذاری", "فرهنگ دیجیتال و رسانه", "سخت‌افزار و موبایل",
+    "امنیت سایبری", "طراحی و خلاقیت", "بازی", "علم و دانش", "عمومی",
+]
+
+
+def normalize_category(cat, scraped=None, entry=None):
+    """دسته پیشنهادی مدل را اعتبارسنجی کن؛ نامعتبر بود از حدس محلی استفاده کن."""
+    cat = (cat or "").strip()
+    if cat in VALID_CATEGORIES and cat != "عمومی":
+        return cat
+    if scraped is not None:
+        blob = " ".join(x for x in [
+            scraped.get("title", ""), scraped.get("description", ""),
+            scraped.get("keywords", ""), (scraped.get("text", "") or "")[:800],
+        ] if x)
+        guess = _guess_category(blob)
+        if guess in VALID_CATEGORIES:
+            return guess
+    if entry and entry.get("category") in VALID_CATEGORIES:
+        return entry["category"]
+    return "عمومی"
+
+
 def _build_prompt(site_info, site_meta, auto=False):
-    auto_block = ""
-    if auto:
-        auto_block = """
-  "suggested_category": "یک دسته‌بندی کوتاه فارسی از: فناوری، هوش مصنوعی، توسعه نرم‌افزار، فناوری و کسب‌وکار، استارتاپ و سرمایه‌گذاری، فرهنگ دیجیتال و رسانه، سخت‌افزار و موبایل، امنیت سایبری، طراحی و خلاقیت، بازی، علم و دانش، عمومی",
-  "suggested_tags": ["تگ اول", "تگ دوم", "تگ سوم"],
-"""
     return f"""شما یک تحلیلگر و خلاصه‌ساز ارشد رسانه‌ها و وب‌سایت‌ها هستید.
 اطلاعات زیر از یک وب‌سایت استخراج شده است:
 نام سایت: {site_meta.get('name', '')}
@@ -319,7 +350,9 @@ def _build_prompt(site_info, site_meta, auto=False):
   "summary": "خلاصه کوتاه ۲-۳ جمله کامل — حداکثر ۱۸۰ کاراکتر",
   "highlights": ["نکته کلیدی اول", "نکته کلیدی دوم", "نکته کلیدی سوم"],
   "sentiment": "لحن و حوزه فعالیت",
-  "key_topics": ["موضوع ۱", "موضوع ۲", "موضوع ۳"],{auto_block}
+  "key_topics": ["موضوع ۱", "موضوع ۲", "موضوع ۳"],
+  "suggested_category": "دقیقاً یکی از این‌ها: فناوری، هوش مصنوعی، توسعه نرم‌افزار، فناوری و کسب‌وکار، استارتاپ و سرمایه‌گذاری، فرهنگ دیجیتال و رسانه، سخت‌افزار و موبایل، امنیت سایبری، طراحی و خلاقیت، بازی، علم و دانش، عمومی",
+  "suggested_tags": ["تگ اول", "تگ دوم", "تگ سوم"],
   "read_time": "زمان تخمینی مطالعه (مثلاً: ۳ دقیقه)"
 }}
 """
@@ -419,14 +452,14 @@ def _pretty_name(scraped, url):
 
 CATEGORY_HINTS = [
     ("هوش مصنوعی", ["ai", "artificial intelligence", "machine learning", "neural", "gpt", "llm", "هوش مصنوعی", "یادگیری ماشین", "مدل زبانی"]),
-    ("توسعه نرم‌افزار", ["code", "programming", "developer", "software", "github", "api", "sdk", "react", "python", "javascript", "برنامه‌نویسی", "توسعه", "کد", "متن‌باز"]),
+    ("توسعه نرم‌افزار", ["code", "programming", "developer", "software", "github", "api", "sdk", "react", "python", "javascript", "css", "framework", "frontend", "front-end", "library", "فرانت‌اند", "کتابخانه", "برنامه‌نویسی", "توسعه", "کد", "متن‌باز"]),
     ("امنیت سایبری", ["security", "cyber", "hack", "vulnerability", "pentest", "امنیت", "نفوذ"]),
     ("سخت‌افزار و موبایل", ["phone", "mobile", "laptop", "hardware", "gpu", "cpu", "گوشی", "موبایل", "لپ‌تاپ", "سخت‌افزار"]),
     ("استارتاپ و سرمایه‌گذاری", ["startup", "funding", "venture", "investment", "استارتاپ", "سرمایه‌گذاری", "invest"]),
     ("بازی", ["game", "gaming", "بازی", "گیم"]),
     ("طراحی و خلاقیت", ["design", "creative", "ui", "ux", "graphic", "طراحی", "خلاقیت", "گرافیک"]),
     ("علم و دانش", ["science", "research", "academic", "علم", "پژوهش", "دانشگاه"]),
-    ("فناوری و کسب‌وکار", ["business", "enterprise", "saas", "کسب‌وکار", "سرویس", "platform"]),
+    ("فناوری و کسب‌وکار", ["business", "enterprise", "saas", "کسب‌وکار", "سرویس", "platform", "فروشگاه", "فروش", "shop", "store", "خرید", "market", "قیمت", "تخفیف", "سفارش"]),
     ("فرهنگ دیجیتال و رسانه", ["news", "media", "culture", "خبر", "رسانه", "فرهنگ", "مجله"]),
     ("فناوری", ["tech", "technology", "digital", "فناوری", "تکنولوژی", "دیجیتال"]),
 ]
@@ -440,7 +473,14 @@ def _guess_category(text, default="عمومی"):
         return default
     scores = {}
     for cat, kws in CATEGORY_HINTS:
-        score = sum(1 for kw in kws if kw in low)
+        score = 0
+        for kw in kws:
+            if len(kw) <= 3:
+                # کلمات کوتاه فقط با مرز کلمه (مثلاً ai داخل tailwind مچ نشود)
+                if re.search(r"(?<![a-zآ-ی])" + re.escape(kw) + r"(?![a-zآ-ی])", low):
+                    score += 1
+            elif kw in low:
+                score += 1
         if score:
             scores[cat] = score
     if not scores:
@@ -523,6 +563,9 @@ def _summarize_one(entry, scraped, existing):
             prev = s
             break
     ai = summarize_with_ai(scraped, entry)
+    # دسته پیشنهادی مدل را اعتبارسنجی کن (نامعتبر/عمومی → حدس محلی)
+    good_category = normalize_category(ai.get("suggested_category"), scraped, entry)
+    good_tags = ai.get("suggested_tags") or entry.get("tags", [])
     # محافظت: اگر AI شکست خورد (fallback) ولی قبلاً خلاصه واقعی داریم، قبلی نگه‌دار
     if (
         ai.get("provider") == "fallback"
@@ -541,8 +584,8 @@ def _summarize_one(entry, scraped, existing):
         "id": entry.get("id", _slugify(entry["url"])),
         "name": entry.get("name"),
         "url": entry["url"],
-        "category": ai.get("suggested_category") or entry.get("category", "عمومی"),
-        "tags": ai.get("suggested_tags") or entry.get("tags", []),
+        "category": good_category,
+        "tags": good_tags,
         "favicon": scraped["favicon"],
         "page_title": scraped["title"],
         "summary": _clamp_summary(ai.get("summary", "")),
