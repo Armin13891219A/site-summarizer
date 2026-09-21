@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
-    "last_updated_iso": "2026-09-21T19:36:39.403820Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۸",
+    "last_updated_iso": "2026-09-21T19:38:04.040309Z",
     "total_sites": 4,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -97,7 +97,7 @@
       "id": "blobatar-dev",
       "name": "blobatar.dev",
       "url": "https://blobatar.dev/",
-      "category": "توسعه نرم‌افزار",
+      "category": "عمومی",
       "tags": [],
       "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
       "page_title": "blobatar",
