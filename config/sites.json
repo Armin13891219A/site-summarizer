@@ -37,5 +37,16 @@
     "name": "blobatar.dev",
     "category": "عمومی",
     "tags": []
+  },
+  {
+    "id": "www-digikala-com",
+    "url": "https://www.digikala.com",
+    "name": "فروشگاه اینترنتی دیجی‌کالا",
+    "category": "فناوری و کسب‌وکار",
+    "tags": [
+      "فروشگاه",
+      "اینترنتی",
+      "دیجی‌کالا"
+    ]
   }
 ]
