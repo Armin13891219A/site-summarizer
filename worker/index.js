@@ -3,6 +3,8 @@
  * جایگزین GitHub API: سریع، بدون rate-limit، بدون ارور ۴۰۹
  */
 
+const REPO = "Armin13891219A/site-summarizer";
+
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
   "Access-Control-Allow-Origin": "*",
@@ -128,7 +130,77 @@ async function handleAddSite(request, env) {
     .run();
 
   await touchMeta(env);
+  // config/sites.json رو در گیت‌هاب commit کن + ورک‌فلو رو روشن کن
+  await syncConfigToGitHub(env);
+  await dispatchWorkflow(env);
   return json({ ok: true, id, url, name });
+}
+
+/** حذف سایت */
+async function handleDeleteSite(env, id) {
+  await env.DB.prepare("DELETE FROM sites WHERE id = ?").bind(id).run();
+  await touchMeta(env);
+  await syncConfigToGitHub(env);
+  await dispatchWorkflow(env);
+  return json({ ok: true, id });
+}
+
+/** همگام‌سازی config/sites.json با گیت‌هاب (push trigger) */
+async function syncConfigToGitHub(env) {
+  if (!env.GITHUB_TOKEN) return; // اگر توکن تنظیم نشده، رد شو
+  const rows = await env.DB.prepare(
+    "SELECT id, url, name, category, tags FROM sites ORDER BY created_at ASC"
+  ).all();
+  const cfg = (rows.results || []).map((r) => ({
+    id: r.id, url: r.url, name: r.name,
+    category: r.category || "عمومی",
+    tags: JSON.parse(r.tags || "[]"),
+  }));
+
+  const apiBase = "https://api.github.com/repos/" + REPO;
+  const headers = {
+    Authorization: "token " + env.GITHUB_TOKEN,
+    Accept: "application/vnd.github+json",
+    "User-Agent": "site-summarizer-worker",
+    "Content-Type": "application/json; charset=utf-8",
+  };
+
+  // SHA فعلی فایل
+  let sha = null;
+  try {
+    const res = await fetch(apiBase + "/contents/config/sites.json", { headers });
+    if (res.ok) sha = (await res.json()).sha;
+  } catch (e) {}
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(cfg, null, 2))));
+  await fetch(apiBase + "/contents/config/sites.json", {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({
+      message: "chore: sync sites from Worker " + new Date().toISOString().slice(0, 10),
+      content, sha, branch: "main",
+    }),
+  });
+}
+
+/** روشن کردن ورک‌فلو خلاصه‌ساز */
+async function dispatchWorkflow(env) {
+  if (!env.GITHUB_TOKEN) return;
+  try {
+    await fetch(
+      "https://api.github.com/repos/" + REPO + "/actions/workflows/summarize.yml/dispatches",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "token " + env.GITHUB_TOKEN,
+          Accept: "application/vnd.github+json",
+          "User-Agent": "site-summarizer-worker",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ref: "main", inputs: { force: "false" } }),
+      }
+    );
+  } catch (e) {}
 }
 
 /** ویرایش سایت */
@@ -155,14 +227,6 @@ async function handleUpdateSite(request, env, id) {
   await env.DB.prepare(`UPDATE sites SET ${sets.join(", ")} WHERE id = ?`)
     .bind(...values)
     .run();
-  await touchMeta(env);
-  return json({ ok: true });
-}
-
-/** حذف سایت */
-async function handleDeleteSite(env, id) {
-  const r = await env.DB.prepare("DELETE FROM sites WHERE id = ?").bind(id).run();
-  if (!r.meta.changes) return json({ error: "سایت پیدا نشد." }, 404);
   await touchMeta(env);
   return json({ ok: true });
 }
