@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۵",
-    "last_updated_iso": "2026-09-21T19:35:24.099578Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۸",
+    "last_updated_iso": "2026-09-21T19:38:04.040309Z",
     "total_sites": 4,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -36,7 +36,7 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۱",
       "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": false
+      "stale": true
     },
     {
       "id": "github-com",
@@ -60,8 +60,8 @@
       ],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
-      "updated_at_iso": "2026-09-21T19:13:16.111386Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
+      "updated_at_iso": "2026-09-21T19:36:32.282714Z"
     },
     {
       "id": "vibefarsi-ir",
@@ -90,8 +90,8 @@
       ],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
-      "updated_at_iso": "2026-09-21T19:13:18.418018Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
+      "updated_at_iso": "2026-09-21T19:36:35.656400Z"
     },
     {
       "id": "blobatar-dev",
@@ -111,8 +111,8 @@
       "key_topics": [],
       "read_time": "۲ دقیقه",
       "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
-      "updated_at_iso": "2026-09-21T19:13:49.450931Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
+      "updated_at_iso": "2026-09-21T19:36:38.903647Z"
     }
   ]
 }
