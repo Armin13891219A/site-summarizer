@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۴",
-    "last_updated_iso": "2026-09-21T19:34:55.759092Z",
-    "total_sites": 5,
+    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۵",
+    "last_updated_iso": "2026-09-21T19:35:24.099578Z",
+    "total_sites": 4,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -113,31 +113,6 @@
       "provider": "fallback",
       "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۱۳",
       "updated_at_iso": "2026-09-21T19:13:49.450931Z"
-    },
-    {
-      "id": "www-digikala-com",
-      "name": "فروشگاه اینترنتی دیجی‌کالا",
-      "url": "https://www.digikala.com",
-      "category": "فناوری و کسب‌وکار",
-      "tags": [
-        "فروشگاه",
-        "اینترنتی",
-        "دیجی‌کالا"
-      ],
-      "favicon": "https://www.digikala.com/pwa-icon-180.png",
-      "page_title": "فروشگاه اینترنتی دیجی‌کالا",
-      "summary": "فروشگاه اینترنتی دیجی‌کالا در حوزه سخت‌افزار و موبایل فعالیت دارد.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه سخت‌افزار و موبایل",
-        "دسترسی مستقیم از طریق https://www.digikala.com",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
-      ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
-      "key_topics": [],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۳",
-      "updated_at_iso": "2026-09-21T19:33:42.908814Z"
     }
   ]
 }
