@@ -42,8 +42,11 @@ jobs:
           WORKER_API: ${{ secrets.WORKER_API }}
           ADMIN_TOKEN: ${{ secrets.WORKER_ADMIN_TOKEN }}
         run: |
-          curl -s -H "Authorization: Bearer ***" \
-            "$WORKER_API/admin/list" -o /tmp/sites.json
+          echo "WORKER_API=$WORKER_API"
+          curl -sv -H "Authorization: Bearer ***" \
+            "$WORKER_API/admin/list" -o /tmp/sites.json 2>/tmp/curl.log
+          echo "=== curl log ==="; tail -5 /tmp/curl.log
+          echo "=== response ==="; head -c 300 /tmp/sites.json; echo
           if [ ! -s /tmp/sites.json ]; then echo "::error::sync failed — empty response"; exit 1; fi
           if grep -q '"error"' /tmp/sites.json; then echo "::error::sync auth failed"; cat /tmp/sites.json; exit 1; fi
           python -c "
