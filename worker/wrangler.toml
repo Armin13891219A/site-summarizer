@@ -1,0 +1,12 @@
+name = "site-summarizer-api"
+main = "./index.js"
+compatibility_date = "2026-09-20"
+account_id = "f294e195fb7f7dde5d78a9fce6cce25e"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "site-summarizer-db"
+database_id = "d3b6b459-f73f-4237-96be-094ed3e9222b"
+
+[vars]
+SITE_NAME = "دفتر یادداشت هوشمند"

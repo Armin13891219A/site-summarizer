@@ -296,11 +296,17 @@
     renderCards();
   });
 
-  fetch(("data/sites.json?v=" + Date.now()), { cache: "no-store" })
-    .then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status);
-      return r.json();
-    })
+  var WORKER_API = "https://site-summarizer-api.armin13891219.workers.dev/api";
+
+  function fetchPublicData() {
+    return fetch(WORKER_API + "/data?cache=no", { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
+  }
+
+  fetchPublicData()
     .then(function (data) {
       state.sites = data.sites || [];
       state.meta = data.meta || null;

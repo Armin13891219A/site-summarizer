@@ -12,16 +12,6 @@ on:
         default: "false"
         type: choice
         options: ["false", "true"]
-      add_url:
-        description: "آدرس سایت جدید برای افزودن (خالی = پردازش همه)"
-        required: false
-        default: ""
-  push:
-    branches: [main]
-    paths:
-      - "config/sites.json"
-      - "config/settings.json"
-      - "scripts/summarize.py"
 
 permissions:
   contents: write
@@ -43,28 +33,86 @@ jobs:
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
+      - name: Sync sites from Cloudflare Worker
+        env:
+          WORKER_API: ${{ secrets.WORKER_API }}
+          ADMIN_TOKEN: ${{ secrets.WORKER_ADMIN_TOKEN }}
+        run: |
+          curl -s -H "Authorization: Bearer $ADMIN_TOKEN" \
+            "$WORKER_API/admin/list" -o /tmp/sites.json
+          python -c "
+          import json
+          d = json.load(open('/tmp/sites.json'))
+          cfg = [{'id': s['id'], 'name': s['name'], 'url': s['url'],
+                  'category': s.get('category','عمومی'), 'tags': s.get('tags',[])}
+                 for s in d.get('sites', [])]
+          json.dump(cfg, open('config/sites.json','w'), ensure_ascii=False, indent=2)
+          print('synced', len(cfg), 'sites from Worker')
+          "
+
       - name: Run AI summarizer
         env:
           AI_PROVIDER: ${{ secrets.AI_PROVIDER }}
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
-          if [ -n "${{ inputs.add_url }}" ]; then
-            python scripts/summarize.py --add "${{ inputs.add_url }}"
-          elif [ "${{ inputs.force }}" = "true" ]; then
+          if [ "${{ inputs.force }}" = "true" ]; then
             python scripts/summarize.py --force
           else
             python scripts/summarize.py
           fi
 
-      - name: Commit updated summaries
+      - name: Push summaries to Cloudflare Worker
+        env:
+          WORKER_API: ${{ secrets.WORKER_API }}
+          ADMIN_TOKEN: ${{ secrets.WORKER_ADMIN_TOKEN }}
+        run: |
+          python -c "
+          import json, os, urllib.request
+          data = json.load(open('data/sites.json'))
+          api = os.environ['WORKER_API']
+          tok = os.environ['ADMIN_TOKEN']
+          ok, fail = 0, 0
+          for s in data.get('sites', []):
+              payload = json.dumps({
+                  'id': s.get('id'), 'url': s.get('url'), 'name': s.get('name'),
+                  'category': s.get('category','عمومی'), 'tags': s.get('tags',[]),
+                  'summary': s.get('summary',''), 'highlights': s.get('highlights',[]),
+                  'sentiment': s.get('sentiment','اطلاع‌رسانی'),
+                  'key_topics': s.get('key_topics',[]),
+                  'read_time': s.get('read_time','۳ دقیقه'),
+                  'provider': s.get('provider','g4f'),
+                  'stale': bool(s.get('stale', False)),
+              }, ensure_ascii=False).encode()
+              req = urllib.request.Request(
+                  api + '/sites/' + urllib.parse.quote(str(s.get('id'))),
+                  data=payload, method='PUT',
+                  headers={'Content-Type':'application/json', 'Authorization':'Bearer '+tok})
+              try:
+                  urllib.request.urlopen(req, timeout=30)
+                  ok += 1
+              except Exception as e:
+                  # اگر آپدیت نشد، بساز
+                  req2 = urllib.request.Request(
+                      api + '/sites', data=payload, method='POST',
+                      headers={'Content-Type':'application/json', 'Authorization':'Bearer '+tok})
+                  try:
+                      urllib.request.urlopen(req2, timeout=30)
+                      ok += 1
+                  except Exception as e2:
+                      fail += 1
+                      print('FAIL:', s.get('url'), e2)
+          print(f'pushed {ok} ok, {fail} fail')
+          "
+
+      - name: Commit config
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/sites.json config/sites.json
+          git add config/sites.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "chore: auto-update website summaries $(date -u +%Y-%m-%d)"
+            git commit -m "chore: sync sites from Worker $(date -u +%Y-%m-%d)"
             git push
           fi

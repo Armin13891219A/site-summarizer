@@ -1,11 +1,10 @@
-/* پنل ادمین دفتر یادداشت هوشمند — نشست پایدار + toast + بدون رفرش + API Keys */
+/* پنل ادمین دفتر یادداشت هوشمند — Cloudflare Worker API
+   سریع، بدون rate-limit، بدون ارور ۴۰۹، بدون نیاز به توکن گیت‌هاب */
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
 
-  var REPO = "Armin13891219A/site-summarizer";
-  var BRANCH = "main";
-  var API = "https://api.github.com";
+  var API = "https://site-summarizer-api.armin13891219.workers.dev/api";
   var TOKEN_KEY = "ss-admin-token";
   var THEME_KEY = "ss-theme";
   var ACCENT_KEY = "ss-accent";
@@ -30,9 +29,10 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  /* ——— پیام شناور (به‌جای لاگ ترمینالی) ——— */
+  /* ——— پیام شناور ——— */
   function toast(msg, kind) {
     var box = $("toasts");
+    if (!box) return;
     var t = document.createElement("div");
     t.className = "toast " + (kind || "");
     t.innerHTML = icon(kind === "ok" ? "ok" : kind === "err" ? "err" : "book") +
@@ -44,54 +44,18 @@
     }, 4200);
   }
 
-  /* ——— GitHub API ——— */
-  function gh(url, opts) {
+  /* ——— درخواست به ورکر ——— */
+  function api(path, opts) {
     opts = opts || {};
     opts.headers = Object.assign({
-      "Authorization": "Bearer " + token,
-      "Accept": "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28"
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + (token || "")
     }, opts.headers || {});
-    return fetch(API + url, opts).then(function (r) {
-      if (!r.ok) {
-        return r.json().then(function (e) {
-          throw new Error(e.message || r.statusText);
-        });
-      }
-      return r.status === 204 ? null : r.json();
-    });
-  }
-
-  function toB64(str) { return btoa(unescape(encodeURIComponent(str))); }
-  function fromB64(b64) { return decodeURIComponent(escape(atob(b64))); }
-
-  function fetchFile(path) {
-    return gh("/repos/" + REPO + "/contents/" + path + "?ref=" + BRANCH).then(function (f) {
-      return { sha: f.sha, content: fromB64(f.content) };
-    });
-  }
-
-  /* ——— کامیت با ری‌تری هوشمند (حل خطای 409) ——— */
-  function commitWithRetry(path, newContent, msg, attempt) {
-    attempt = attempt || 0;
-    return fetchFile(path).then(function (f) {
-      return gh("/repos/" + REPO + "/contents/" + path, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: msg,
-          content: toB64(newContent),
-          sha: f.sha,
-          branch: BRANCH
-        })
+    return fetch(API + path, opts).then(function (r) {
+      return r.json().then(function (d) {
+        if (!r.ok) throw new Error(d.error || ("HTTP " + r.status));
+        return d;
       });
-    }).catch(function (e) {
-      if (attempt < 2) {
-        // SHA ممکن است قدیمی باشد — یک بار دیگر تلاش کن
-        return new Promise(function (resolve) { setTimeout(resolve, 800); })
-          .then(function () { return commitWithRetry(path, newContent, msg, attempt + 1); });
-      }
-      throw e;
     });
   }
 
@@ -107,16 +71,13 @@
 
   function unlock() {
     var t = $("token").value.trim();
-    if (!t || (t.indexOf("ghp_") !== 0 && t.indexOf("github_pat_") !== 0)) {
-      toast("توکن معتبر نیست. باید با ghp_ یا github_pat_ شروع شود.", "err");
-      return;
-    }
+    if (!t) { toast("توکن ادمین را وارد کن.", "err"); return; }
     token = t;
     $("token").value = "";
-    gh("/user").then(function (u) {
+    api("/settings").then(function () {
       try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
       lockUi(false);
-      toast("خوش آمدی " + (u.login || "ادمین") + " — پنل فعال شد", "ok");
+      toast("پنل فعال شد", "ok");
       loadSites();
       loadSettings();
     }).catch(function (e) {
@@ -134,11 +95,8 @@
 
   /* ——— ۲) لیست سایت‌ها ——— */
   function loadSites() {
-    fetchFile("config/sites.json")
-      .then(function (f) {
-        var arr = JSON.parse(f.content);
-        renderSites(arr);
-      })
+    api("/admin/list")
+      .then(function (d) { renderSites(d.sites || []); })
       .catch(function (e) { toast("خطا در خواندن لیست: " + e.message, "err"); });
   }
 
@@ -147,22 +105,23 @@
     box.innerHTML = arr.map(function (s, i) {
       var host = "";
       try { host = new URL(s.url).hostname; } catch (e) { host = s.url; }
-      return '<div class="site-row">' +
-        '<span class="favicon-mini"><img loading="lazy" alt="" src="https://www.google.com/s2/favicons?domain=' +
-          encodeURIComponent(host) + '&sz=64" onerror="this.remove(); this.nextElementSibling.style.display=\'flex\'">' +
+      var fav = s.favicon || ("https://www.google.com/s2/favicons?domain=" + encodeURIComponent(host) + "&sz=64");
+      return '<div class="site-row" data-id="' + esc(s.id) + '">' +
+        '<span class="favicon-mini"><img loading="lazy" alt="" src="' + esc(fav) + '" ' +
+          'onerror="this.remove(); this.nextElementSibling.style.display=\'flex\'">' +
           '<span class="favicon-letter-mini" aria-hidden="true">' + esc((s.name || host).trim().charAt(0).toUpperCase()) + "</span>" +
         "</span>" +
         '<span class="site-info"><b>' + esc(s.name) + '</b><span class="muted">' + esc(s.url) + '</span></span>' +
         '<span class="chip-mini">' + esc(s.category || "عمومی") + '</span>' +
-        '<button class="btn-mini" data-del="' + i + '">' + icon("err") + " حذف</button>" +
+        '<button class="btn-mini" data-del="' + esc(s.id) + '">' + icon("err") + " حذف</button>" +
       "</div>";
     }).join("");
     box.querySelectorAll("[data-del]").forEach(function (btn) {
-      btn.addEventListener("click", function () { delSite(+btn.getAttribute("data-del")); });
+      btn.addEventListener("click", function () { delSite(btn.getAttribute("data-del")); });
     });
   }
 
-  /* ——— ۳) افزودن سایت (فقط URL + بدون رفرش) ——— */
+  /* ——— ۳) افزودن سایت (فقط URL + فوری) ——— */
   function addSite() {
     var url = $("new-url").value.trim();
     if (!url) { toast("یک آدرس وارد کن.", "err"); return; }
@@ -170,24 +129,11 @@
     $("add-btn").disabled = true;
     $("add-btn").textContent = "در حال افزودن…";
 
-    fetchFile("config/sites.json")
-      .then(function (f) {
-        var arr = JSON.parse(f.content);
-        if (arr.some(function (s) { return s.url === url; })) {
-          throw new Error("این سایت قبلاً اضافه شده.");
-        }
-        arr.push({ id: "pending", name: url, url: url, category: "عمومی", tags: [] });
-        return commitWithRetry(
-          "config/sites.json",
-          JSON.stringify(arr, null, 2) + "\n",
-          "add site: " + url
-        ).then(function () { return arr; });
-      })
-      .then(function (arr) {
-        toast("سایت اضافه شد — ورک‌فلو خودکار فعال شد", "ok");
+    api("/sites", { method: "POST", body: JSON.stringify({ url: url }) })
+      .then(function () {
+        toast("سایت اضافه شد", "ok");
         $("new-url").value = "";
-        renderSites(arr); /* به‌روزرسانی فوری بدون رفرش */
-        dispatchWorkflow(url);
+        loadSites(); /* به‌روزرسانی فوری */
       })
       .catch(function (e) { toast("خطا: " + e.message, "err"); })
       .then(function () {
@@ -196,50 +142,27 @@
       });
   }
 
-  /* ——— ۴) حذف سایت (بدون رفرش) ——— */
-  function delSite(i) {
-    fetchFile("config/sites.json")
-      .then(function (f) {
-        var arr = JSON.parse(f.content);
-        var removed = arr.splice(i, 1)[0];
-        return commitWithRetry(
-          "config/sites.json",
-          JSON.stringify(arr, null, 2) + "\n",
-          "remove site: " + (removed ? removed.url : "")
-        ).then(function () {
-          toast("حذف شد: " + (removed ? removed.name : ""), "ok");
-          renderSites(arr); /* به‌روزرسانی فوری بدون رفرش */
-        });
+  /* ——— ۴) حذف سایت (فوری) ——— */
+  function delSite(id) {
+    api("/sites/" + encodeURIComponent(id), { method: "DELETE" })
+      .then(function () {
+        toast("حذف شد", "ok");
+        loadSites(); /* به‌روزرسانی فوری */
       })
       .catch(function (e) { toast("خطا در حذف: " + e.message, "err"); });
   }
 
-  /* ——— ۵) اجرای ورک‌فلو ——— */
-  function dispatchWorkflow(newUrl) {
-    gh("/repos/" + REPO + "/actions/workflows")
-      .then(function (w) {
-        var wf = (w.workflows || []).find(function (x) { return x.path.indexOf("summarize") !== -1; });
-        if (!wf) { toast("ورک‌فلو پیدا نشد.", "err"); return; }
-        return gh("/repos/" + REPO + "/actions/workflows/" + wf.id + "/dispatches", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ref: BRANCH, inputs: { add_url: newUrl || "" } })
-        }).then(function () {
-          toast("ورک‌فلو اجرا شد — خلاصه خودکار ساخته می‌شود", "ok");
-        });
-      })
-      .catch(function (e) { toast("خطا در اجرای ورک‌فلو: " + e.message, "err"); });
-  }
-
-  /* ——— ۶) تنظیمات provider ——— */
+  /* ——— ۵) تنظیمات ——— */
   function loadSettings() {
-    fetchFile("config/settings.json")
-      .then(function (f) {
-        var s = JSON.parse(f.content);
-        $("ai-provider").value = s.provider || "g4f";
-        $("g4f-models").value = (s.g4f_models || []).join("\n");
-        $("google-model").value = s.google_model || "";
-        $("openrouter-model").value = s.openrouter_model || "";
+    api("/settings")
+      .then(function (s) {
+        if (s.provider) $("ai-provider").value = s.provider;
+        if (s.g4f_models) {
+          try { $("g4f-models").value = JSON.parse(s.g4f_models).join("\n"); }
+          catch (e) { $("g4f-models").value = s.g4f_models; }
+        }
+        if (s.google_model) $("google-model").value = s.google_model;
+        if (s.openrouter_model) $("openrouter-model").value = s.openrouter_model;
       })
       .catch(function (e) { toast("تنظیمات بارگذاری نشد: " + e.message, "err"); });
   }
@@ -247,45 +170,35 @@
   function saveSettings() {
     var settings = {
       provider: $("ai-provider").value,
-      g4f_models: $("g4f-models").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean),
+      g4f_models: JSON.stringify(
+        $("g4f-models").value.split("\n").map(function (l) { return l.trim(); }).filter(Boolean)
+      ),
       google_model: $("google-model").value.trim(),
       openrouter_model: $("openrouter-model").value.trim(),
-      summary_max_chars: 180
+      summary_max_chars: "180"
     };
-    commitWithRetry(
-      "config/settings.json",
-      JSON.stringify(settings, null, 2) + "\n",
-      "settings: provider=" + settings.provider
-    ).then(function () { toast("تنظیمات ذخیره شد", "ok"); })
+    api("/settings", { method: "PUT", body: JSON.stringify(settings) })
+      .then(function () { toast("تنظیمات ذخیره شد", "ok"); })
       .catch(function (e) { toast("خطا در ذخیره: " + e.message, "err"); });
   }
 
-  /* ——— ۷) کلیدهای API (GitHub Secrets) ——— */
+  /* ——— ۶) کلیدهای API ——— */
   function saveKeys() {
     var g = $("google-key").value.trim();
     var o = $("openrouter-key").value.trim();
     if (!g && !o) { toast("حداقل یک کلید وارد کن.", "err"); return; }
 
-    var promises = [];
-    if (g) promises.push(setSecret("GOOGLE_API_KEY", g));
-    if (o) promises.push(setSecret("OPENROUTER_API_KEY", o));
+    var settings = {};
+    if (g) settings.google_api_key = g;
+    if (o) settings.openrouter_api_key = o;
 
-    Promise.all(promises)
+    api("/settings", { method: "PUT", body: JSON.stringify(settings) })
       .then(function () {
-        toast("کلیدها در GitHub Secrets ذخیره شدند", "ok");
+        toast("کلیدها ذخیره شدند", "ok");
         $("google-key").value = "";
         $("openrouter-key").value = "";
       })
       .catch(function (e) { toast("خطا در ذخیره کلید: " + e.message, "err"); });
-  }
-
-  function setSecret(name, value) {
-    var payload = { encrypted_value: value };
-    return gh("/repos/" + REPO + "/actions/secrets/" + name, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
   }
 
   /* ——— راه‌اندازی ——— */
@@ -298,7 +211,7 @@
   $("save-settings-btn").addEventListener("click", saveSettings);
   $("save-keys-btn").addEventListener("click", saveKeys);
 
-  /* ——— تم و رنگ تاکیدی (هم‌سان با سایت) ——— */
+  /* ——— تم و رنگ تاکیدی ——— */
   function initTheme() {
     var root = document.documentElement;
     try {
@@ -343,14 +256,14 @@
     });
   });
 
-  /* ——— نشست پایدار: توکن از localStorage خوانده شود ——— */
+  /* ——— نشست پایدار ——— */
   try {
     var saved = localStorage.getItem(TOKEN_KEY);
-    if (saved && (saved.indexOf("ghp_") === 0 || saved.indexOf("github_pat_") === 0)) {
+    if (saved) {
       token = saved;
-      gh("/user").then(function (u) {
+      api("/settings").then(function () {
         lockUi(false);
-        toast("خوش آمدی " + (u.login || "ادمین"), "ok");
+        toast("خوش آمدی — پنل فعال شد", "ok");
         loadSites();
         loadSettings();
       }).catch(function () {
