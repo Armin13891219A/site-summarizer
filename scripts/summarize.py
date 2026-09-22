@@ -105,17 +105,30 @@ if os.environ.get("OPENROUTER_API_KEY", "").strip():
 def _chat_g4f(prompt):
     if not G4F_AVAILABLE:
         raise RuntimeError("g4f not installed")
+    import signal
+
+    class _Timeout(Exception):
+        pass
+
+    def _alarm(signum, frame):
+        raise _Timeout("g4f hard timeout")
+
     client = G4FClient()
     last_err = None
     for model in SETTINGS["g4f_models"]:
         try:
             print(f"  -> g4f / {model}")
-            resp = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=2500,
-                timeout=45,
-            )
+            signal.signal(signal.SIGALRM, _alarm)
+            signal.alarm(90)  # مرز سخت ۹۰ ثانیه — گیر نکنه
+            try:
+                resp = client.chat.completions.create(
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=2500,
+                    timeout=45,
+                )
+            finally:
+                signal.alarm(0)
             content = resp.choices[0].message.content
             if content and content.strip():
                 return content.strip()
