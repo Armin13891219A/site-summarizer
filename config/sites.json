@@ -52,5 +52,16 @@
       "nextlevelbuilder/ui",
       "pro"
     ]
+  },
+  {
+    "id": "vibefarsi-ir",
+    "url": "https://vibefarsi.ir",
+    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
+    "category": "توسعه نرم‌افزار",
+    "tags": [
+      "کامپوننت‌های",
+      "فارسی",
+      "راست‌چین"
+    ]
   }
 ]
