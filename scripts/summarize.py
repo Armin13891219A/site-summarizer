@@ -113,6 +113,7 @@ def _chat_g4f(prompt):
             resp = client.chat.completions.create(
                 model=model,
                 messages=[{"role": "user", "content": prompt}],
+                max_tokens=2500,
                 timeout=45,
             )
             content = resp.choices[0].message.content
@@ -317,7 +318,30 @@ def clean_json_response(raw_text):
     try:
         return json.loads(raw_text)
     except Exception:
-        return None
+        pass
+    # ——— ترمیم JSON ناقص (g4f گاهی وسط توکن قطع می‌کند) ———
+    # پرانتز/گیومه/کروشه‌های باز را ببند
+    if raw_text.strip().startswith("{"):
+        fixed = raw_text.strip().rstrip()
+        # گیومه‌ی بازِ آخرین کلید/مقدار را ببند
+        if fixed.count('"') % 2 == 1:
+            fixed += '"'
+        for open_c, close_c in (("{", "}"), ("[", "]")):
+            diff = fixed.count(open_c) - fixed.count(close_c)
+            if diff > 0:
+                fixed += close_c * diff
+        try:
+            return json.loads(fixed)
+        except Exception:
+            pass
+        # اگر باز هم نشد، آخرین کلیدِ ناقص را حذف کن (مثلاً "read_time": "۳ د)
+        try:
+            m = re.search(r',\s*"[^"]+"\s*:\s*"[^"]*$', fixed)
+            if m:
+                return json.loads(fixed[:m.start()] + "}")
+        except Exception:
+            pass
+    return None
 
 
 VALID_CATEGORIES = [
@@ -607,12 +631,15 @@ def _summarize_one(entry, scraped, existing):
     # دسته پیشنهادی مدل را اعتبارسنجی کن (نامعتبر/عمومی → حدس محلی)
     good_category = normalize_category(ai.get("suggested_category"), scraped, entry)
     good_tags = ai.get("suggested_tags") or entry.get("tags", [])
-    # محافظت: اگر AI شکست خورد (fallback) ولی قبلاً خلاصه واقعی داریم، قبلی نگه‌دار
+    new_summary = _clamp_summary(ai.get("summary", ""))
+    # محافظت: اگر AI شکست خورد (fallback) ولی قبلاً خلاصه‌ی سالم داریم، قبلی نگه‌دار
+    # — «سالم» یعنی حداقل ۶۰ کاراکتر؛ خلاصه‌ی خراب/ناقص قبلی را نگه نمی‌داریم
     if (
         ai.get("provider") == "fallback"
         and prev
         and prev.get("provider") not in (None, "fallback", "pending")
         and prev.get("summary")
+        and len(prev.get("summary", "")) >= 60
         and prev.get("highlights")
     ):
         print(f"  [=] AI failed — keeping previous real summary for {entry.get('name')}")
@@ -629,7 +656,7 @@ def _summarize_one(entry, scraped, existing):
         "tags": good_tags,
         "favicon": scraped["favicon"],
         "page_title": scraped["title"],
-        "summary": _clamp_summary(ai.get("summary", "")),
+        "summary": new_summary,
         "highlights": ai.get("highlights", []),
         "sentiment": ai.get("sentiment", "اطلاع‌رسانی"),
         "key_topics": ai.get("key_topics", entry.get("tags", [])),
