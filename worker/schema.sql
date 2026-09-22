@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS settings (
 INSERT OR IGNORE INTO settings (key, value) VALUES
   ('provider', 'g4f'),
   ('g4f_models', '["gpt-4"]'),
-  ('google_model', 'gemini-2.5-flash'),
+  ('google_model', 'gemini-3.8-flash'),
   ('openrouter_model', 'google/gemini-2.0-flash-exp:free'),
   ('summary_max_chars', '180');
 

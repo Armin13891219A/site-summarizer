@@ -1,3 +1,4 @@
 g4f
 requests
 beautifulsoup4
+google-genai

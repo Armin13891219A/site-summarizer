@@ -63,7 +63,7 @@ HEADERS = {
 DEFAULT_SETTINGS = {
     "provider": "g4f",
     "g4f_models": ["gpt-4", "gpt-4o", "deepseek-chat", "llama-3.1-70b", "gpt-3.5-turbo"],
-    "google_model": "gemini-2.5-flash",
+    "google_model": "gemini-3.8-flash",
     "openrouter_model": "google/gemini-2.0-flash-exp:free",
     "summary_max_chars": 180,
 }
@@ -128,8 +128,25 @@ def _chat_g4f(prompt):
 def _chat_google(prompt):
     if not GOOGLE_API_KEY:
         raise RuntimeError("GOOGLE_API_KEY not set")
+    model = SETTINGS.get("google_model", "gemini-3.8-flash")
+    # مسیر اصلی: google-genai SDK جدید (Interactions API)
+    try:
+        from google import genai
+    except ImportError:
+        genai = None
+    if genai is not None:
+        try:
+            client = genai.Client(api_key=GOOGLE_API_KEY)
+            interaction = client.interactions.create(model=model, input=prompt)
+            text = (interaction.output_text or "").strip()
+            if text:
+                return text
+            raise RuntimeError("google empty output")
+        except Exception as e:
+            raise RuntimeError(f"google interactions failed ({model}): {e}")
+    # fallback: REST قدیمی generateContent (اگر SDK نصب نبود)
     url = ("https://generativelanguage.googleapis.com/v1beta/models/"
-           + SETTINGS["google_model"] + ":generateContent?key=" + GOOGLE_API_KEY)
+           + model + ":generateContent?key=" + GOOGLE_API_KEY)
     payload = json.dumps({
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"temperature": 0.7, "maxOutputTokens": 1200},
