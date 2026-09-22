@@ -355,8 +355,8 @@
         card.style.setProperty("--my", (e.clientY - r.top) + "px");
         var px = (e.clientX - r.left) / r.width - 0.5;
         var py = (e.clientY - r.top) / r.height - 0.5;
-        card.style.setProperty("--ry", (px * 10).toFixed(2) + "deg");
-        card.style.setProperty("--rx", (py * -10).toFixed(2) + "deg");
+        card.style.setProperty("--ry", (px * 14).toFixed(2) + "deg");
+        card.style.setProperty("--rx", (py * -14).toFixed(2) + "deg");
       });
       card.addEventListener("pointerleave", function () {
         card.style.setProperty("--rx", "0deg");
