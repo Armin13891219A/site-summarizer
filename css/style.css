@@ -589,6 +589,14 @@ footer a { color: var(--brand); text-decoration: none; }
 }
 .visit:hover::after { animation: shine 0.8s var(--ease-out); }
 
+/* ——— GSAP: hero timeline + TextLoop + scroll-batch (پورت وانیلی gsap-core/scrolltrigger/react-bits) ——— */
+#hero-loop-word { display: inline-block; min-width: 3.5em; min-height: 1.4em; }
+body.gsap-on .card { transition: border-color 0.25s var(--ease-out); }
+.visit { transition: scale 0.15s var(--ease-out), filter 0.2s var(--ease-out), transform 0.25s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  #hero-loop-word { min-width: 0; }
+}
+
 /* ——— ریسپانسیو کامل ——— */
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.9rem; }

@@ -210,6 +210,136 @@
   }
   buildHeroFx();
 
+  /* ——— GSAP: hero timeline + TextLoop + ScrollTrigger.batch + parallax (gsap-core/scrolltrigger/react-bits) ——— */
+  function initGsapFx() {
+    if (!window.gsap) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    try {
+      if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+    } catch (e) {}
+    document.body.classList.add("gsap-on");
+    gsap.defaults({ duration: 0.7, ease: "power3.out" });
+    var mm = gsap.matchMedia ? gsap.matchMedia() : null;
+
+    function heroIntro(onDone) {
+      var tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: function () {
+          gsap.set(".hero-inner .badge, .hero-title, .hero-sub, .stats .stat, .search-wrap",
+            { clearProps: "transform,opacity,visibility" });
+          if (onDone) onDone();
+        }
+      });
+      tl.from(".hero-inner .badge", { y: -18, autoAlpha: 0, duration: 0.6 })
+        .from(".hero-title", { y: 34, autoAlpha: 0, duration: 0.8 }, "-=0.35")
+        .from(".hero-sub", { y: 22, autoAlpha: 0, duration: 0.6 }, "-=0.5")
+        .from(".stats .stat", { y: 16, autoAlpha: 0, duration: 0.5, stagger: 0.08 }, "-=0.4")
+        .from(".search-wrap", { y: 18, autoAlpha: 0, duration: 0.6 }, "-=0.35");
+      /* چتر نجات: اگه rAF گیر کرد (تب بک‌گراند)، بعد ۳ ثانیه همه رو وانیلی نشون بده */
+      setTimeout(function () {
+        if (!tl.isActive() && tl.progress() === 1) return;
+        tl.kill();
+        var els = document.querySelectorAll(".hero-inner .badge, .hero-title, .hero-sub, .stats .stat, .search-wrap");
+        for (var i = 0; i < els.length; i++) {
+          els[i].style.opacity = "1";
+          els[i].style.visibility = "visible";
+          els[i].style.transform = "none";
+        }
+      }, 3000);
+      return tl;
+    }
+
+    /* TextLoop وانیلی (react-bits) — عمودی تا با RTL نسازد؛ ارتفاع ثابت ضد CLS */
+    function heroLoop() {
+      var el = document.getElementById("hero-loop-word");
+      if (!el) return;
+      var words = ["خلاصه", "نکته", "ترند", "ایده"];
+      var i = 0;
+      el.textContent = words[0];
+      setInterval(function () {
+        if (gsap.isTweening(el)) return;
+        gsap.to(el, {
+          y: -14, autoAlpha: 0, duration: 0.3, ease: "power2.in",
+          onComplete: function () {
+            i = (i + 1) % words.length;
+            el.textContent = words[i];
+            gsap.fromTo(el, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.35, ease: "power2.out" });
+          }
+        });
+      }, 2600);
+    }
+
+    if (mm) {
+      mm.add({ reduceMotion: "(prefers-reduced-motion: reduce)", all: "(min-width: 0px)" }, function (ctx) {
+        if (ctx.conditions && ctx.conditions.reduceMotion) return;
+        /* تب مخفی/بک‌گراند: rAF نمی‌تickد و from() با immediateRender محتوا رو مخفی نگه می‌داره —
+           پس انیمیشن رو فقط وقتی تب واقعاً دیده میشه اجرا کن، وگرنه همه‌چی visible می‌مونه */
+        if (document.visibilityState === "visible") {
+          heroIntro(heroLoop);
+        } else {
+          var onVis = function () {
+            if (document.visibilityState === "visible") {
+              document.removeEventListener("visibilitychange", onVis);
+              heroIntro(heroLoop);
+            }
+          };
+          document.addEventListener("visibilitychange", onVis);
+          /* اگه تا ۵ ثانیه visible نشد، حلقه کلمه رو بدون اینترودو شروع کن */
+          setTimeout(function () {
+            if (document.visibilityState !== "visible") {
+              document.removeEventListener("visibilitychange", onVis);
+              heroLoop();
+            }
+          }, 5000);
+        }
+        return function () {};
+      });
+    } else {
+      heroIntro(heroLoop);
+    }
+
+    /* پارالاکس aurora با scrub — فقط دسکتاپ */
+    if (window.ScrollTrigger && mm) {
+      mm.add("(min-width: 800px)", function () {
+        gsap.to(".aurora", {
+          yPercent: 14, ease: "none",
+          scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.6 }
+        });
+      });
+      /* ورود دسته‌ای کارت‌ها — جایگزین سبک IO وقتی GSAP هست */
+      if (ScrollTrigger.batch) {
+        ScrollTrigger.batch(".card", {
+          start: "top 88%",
+          once: true,
+          onEnter: function (batch) {
+            gsap.fromTo(batch,
+              { y: 36, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", stagger: 0.08, overwrite: true, clearProps: "transform" });
+          }
+        });
+      }
+    }
+  }
+  initGsapFx();
+
+  /* ——— دکمه مغناطیسی وانیلی (react-bits magnetic-button) ——— */
+  function bindMagnetic() {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    grid.addEventListener("pointermove", function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest(".visit") : null;
+      if (!btn) return;
+      var r = btn.getBoundingClientRect();
+      var dx = e.clientX - (r.left + r.width / 2);
+      var dy = e.clientY - (r.top + r.height / 2);
+      btn.style.transform = "translate(" + (dx * 0.08).toFixed(1) + "px," + (dy * 0.12).toFixed(1) + "px)";
+    });
+    grid.addEventListener("pointerout", function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest(".visit") : null;
+      if (btn) btn.style.transform = "";
+    });
+  }
+  bindMagnetic();
+
   /* ——— Favicon fallback چندلایه (گوگل → داکرداک → حرف اول) ——— */
   function faviconStack(url, name) {
     var host = "";
@@ -385,7 +515,12 @@
       state.sites = data.sites || [];
       state.meta = data.meta || null;
       counter(statSites.querySelector("b"), state.sites.length, 1400);
-      statUpdated.innerHTML = "به‌روزرسانی: <b>" + esc((state.meta && state.meta.last_updated) || "—") + "</b>";
+      var lu = (state.meta && state.meta.last_updated) || "";
+      try {
+        var d = new Date(lu);
+        if (!isNaN(d)) lu = d.toLocaleDateString("fa-IR") + " " + d.toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" });
+      } catch (e) {}
+      statUpdated.innerHTML = "به‌روزرسانی: <b>" + esc(lu || "—") + "</b>";
       if (hl) {
         requestAnimationFrame(function () {
           requestAnimationFrame(function () { hl.classList.add("on"); });
