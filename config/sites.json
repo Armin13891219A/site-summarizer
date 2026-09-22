@@ -5,9 +5,9 @@
     "url": "https://reactbits.dev/",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "ری‌اکت",
-      "کتابخانه UI",
-      "فرانت‌اند"
+      "React",
+      "کامپوننت React",
+      "رابط کاربری انیمیشنی"
     ]
   },
   {
@@ -16,9 +16,9 @@
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
     "category": "طراحی و خلاقیت",
     "tags": [
-      "GitHub",
-      "nextlevelbuilder/ui",
-      "pro"
+      "هوش مصنوعی برای طراحی",
+      "سیستم طراحی UI/UX",
+      "ابزار رابط کاربری"
     ]
   },
   {
@@ -27,9 +27,9 @@
     "url": "https://vibefarsi.ir",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "کامپوننت‌های",
-      "فارسی",
-      "راست‌چین"
+      "React",
+      "RTL",
+      "تقویم شمسی"
     ]
   },
   {
@@ -38,7 +38,10 @@
     "url": "https://blobatar.dev",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "blobatar"
+      "آواتار دیجیتال",
+      "React",
+      "ابزار توسعه",
+      "UI/UX"
     ]
   },
   {
@@ -47,20 +50,20 @@
     "url": "https://www.vengenceui.com",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "Vengeance",
-      "Animated",
-      "React"
+      "کامپوننت React",
+      "UI تعاملی",
+      "توسعه فرانت‌اند"
     ]
   },
   {
     "id": "motionsites-ai",
     "name": "MotionSites AI",
     "url": "https://motionsites.ai",
-    "category": "هوش مصنوعی",
+    "category": "طراحی و خلاقیت",
     "tags": [
-      "MotionSites",
-      "Official",
-      "Premium"
+      "پرامپت هوش مصنوعی",
+      "طراحی وب با AI",
+      "وب‌سایت 3دی"
     ]
   }
 ]

@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۷",
-    "last_updated_iso": "2026-09-22T12:57:14.187004Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۳:۰۸",
+    "last_updated_iso": "2026-09-22T13:08:22.591954Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -36,7 +36,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۵",
-      "updated_at_iso": "2026-09-22T12:55:34.912580Z"
+      "updated_at_iso": "2026-09-22T12:55:34.912580Z",
+      "stale": true
     },
     {
       "id": "github-com",
@@ -65,7 +66,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۵",
-      "updated_at_iso": "2026-09-22T12:55:52.771213Z"
+      "updated_at_iso": "2026-09-22T12:55:52.771213Z",
+      "stale": true
     },
     {
       "id": "vibefarsi-ir",
@@ -94,7 +96,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۶",
-      "updated_at_iso": "2026-09-22T12:56:14.038434Z"
+      "updated_at_iso": "2026-09-22T12:56:14.038434Z",
+      "stale": true
     },
     {
       "id": "blobatar-dev",
@@ -125,7 +128,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۶",
-      "updated_at_iso": "2026-09-22T12:56:43.099268Z"
+      "updated_at_iso": "2026-09-22T12:56:43.099268Z",
+      "stale": true
     },
     {
       "id": "www-vengenceui-com",
@@ -154,7 +158,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۷",
-      "updated_at_iso": "2026-09-22T12:57:00.159989Z"
+      "updated_at_iso": "2026-09-22T12:57:00.159989Z",
+      "stale": true
     },
     {
       "id": "motionsites-ai",
@@ -184,7 +189,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۲:۵۷",
-      "updated_at_iso": "2026-09-22T12:57:13.686887Z"
+      "updated_at_iso": "2026-09-22T12:57:13.686887Z",
+      "stale": true
     }
   ]
 }
