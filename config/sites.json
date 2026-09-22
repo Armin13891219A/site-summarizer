@@ -1,18 +1,19 @@
 [
   {
     "id": "reactbits-dev",
-    "name": "React Bits",
     "url": "https://reactbits.dev/",
+    "name": "React Bits",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "React",
-      "Bits"
+      "ری‌اکت",
+      "کتابخانه UI",
+      "فرانت‌اند"
     ]
   },
   {
     "id": "github-com",
-    "name": "GitHub",
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "name": "GitHub",
     "category": "طراحی و خلاقیت",
     "tags": [
       "GitHub",
@@ -21,20 +22,9 @@
     ]
   },
   {
-    "id": "vibefarsi-ir",
-    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
-    "url": "https://vibefarsi.ir",
-    "category": "توسعه نرم‌افزار",
-    "tags": [
-      "کامپوننت‌های",
-      "فارسی",
-      "راست‌چین"
-    ]
-  },
-  {
     "id": "blobatar-dev",
-    "name": "blobatar",
     "url": "https://blobatar.dev/",
+    "name": "blobatar",
     "category": "عمومی",
     "tags": [
       "blobatar"
@@ -42,8 +32,8 @@
   },
   {
     "id": "www-vengenceui-com",
-    "name": "Vengeance UI",
     "url": "https://www.vengenceui.com",
+    "name": "Vengeance UI",
     "category": "توسعه نرم‌افزار",
     "tags": [
       "Vengeance",
@@ -53,8 +43,8 @@
   },
   {
     "id": "motionsites-ai",
-    "name": "MotionSites AI",
     "url": "https://motionsites.ai",
+    "name": "MotionSites AI",
     "category": "هوش مصنوعی",
     "tags": [
       "MotionSites",
