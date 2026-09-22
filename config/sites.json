@@ -33,9 +33,13 @@
   },
   {
     "id": "blobatar-dev",
-    "name": "blobatar.dev",
+    "name": "Blobatar",
     "url": "https://blobatar.dev/",
-    "category": "عمومی",
-    "tags": []
+    "category": "����� ��������",
+    "tags": [
+      "�������� �����Ә���",
+      "������",
+      "��ǘ�"
+    ]
   }
 ]
