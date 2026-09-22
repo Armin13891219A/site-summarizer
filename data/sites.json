@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۵:۱۱",
-    "last_updated_iso": "2026-09-22T05:11:06.620086Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۵:۲۷",
+    "last_updated_iso": "2026-09-22T05:27:33.283850Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -34,7 +34,8 @@
       "read_time": "۱ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۴",
-      "updated_at_iso": "2026-09-22T04:54:32.353197Z"
+      "updated_at_iso": "2026-09-22T04:54:32.353197Z",
+      "stale": true
     },
     {
       "id": "github-com",
@@ -63,7 +64,8 @@
       "read_time": "۲ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۵",
-      "updated_at_iso": "2026-09-22T04:55:04.215939Z"
+      "updated_at_iso": "2026-09-22T04:55:04.215939Z",
+      "stale": true
     },
     {
       "id": "vibefarsi-ir",
