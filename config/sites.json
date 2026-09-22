@@ -54,5 +54,16 @@
       "React",
       "Bits"
     ]
+  },
+  {
+    "id": "github-com",
+    "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "name": "GitHub",
+    "category": "طراحی و خلاقیت",
+    "tags": [
+      "GitHub",
+      "nextlevelbuilder/ui",
+      "pro"
+    ]
   }
 ]
