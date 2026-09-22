@@ -1,9 +1,9 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۶",
-    "last_updated_iso": "2026-09-22T04:16:00.659416Z",
-    "total_sites": 4,
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۴:۴۷",
+    "last_updated_iso": "2026-09-22T04:47:48.405647Z",
+    "total_sites": 5,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
   },
@@ -127,6 +127,35 @@
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۶",
       "updated_at_iso": "2026-09-22T04:16:00.159239Z"
+    },
+    {
+      "id": "www-vengenceui-com",
+      "name": "Vengeance UI",
+      "url": "https://www.vengenceui.com",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "React",
+        "رابط کاربری",
+        "کتابخانه فرانت‌اند"
+      ],
+      "favicon": "https://www.vengenceui.com/favicon.ico?favicon.10hjg4d-xvq~f.ico?dpl=dpl_5zfjcpF8xdZg8SB45qVrkwdX6GQF",
+      "page_title": "Vengeance UI - Animated React Components",
+      "summary": "ونجنس یو‌آی یک کتابخانه متن‌باز از کامپوننت‌های متحرک ری‌اکت و نکست‌جی‌اس است. این ابزار با افکت‌ها و انیمیشن‌های تعاملی خاص، ساخت لندینگ‌پیج‌های مدرن را متحول می‌کند.",
+      "highlights": [
+        "مجموعه‌ای از کامپوننت‌های متحرک و تعاملی برای ری‌اکت و Next.js",
+        "نصب سریع و آسان با CLI سازگار با اکوسیستم shadcn",
+        "کتابخانه کاملاً متن‌باز با پشتیبانی برنامه Vercel OSS"
+      ],
+      "sentiment": "فنی، مدرن و تخصصی در حوزه فرانت‌اند",
+      "key_topics": [
+        "طراحی رابط کاربری مدرن",
+        "کامپوننت‌های ری‌اکت و انیمیشن وب",
+        "توسعه لندینگ پیج"
+      ],
+      "read_time": "۲ دقیقه",
+      "provider": "google",
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۴۷",
+      "updated_at_iso": "2026-09-22T04:47:47.905436Z"
     }
   ]
 }
