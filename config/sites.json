@@ -55,5 +55,15 @@
       "طراحی سایت",
       "هوش مصنوعی مولد"
     ]
+  },
+  {
+    "id": "reactbits-dev",
+    "url": "https://reactbits.dev/",
+    "name": "React Bits",
+    "category": "توسعه نرم‌افزار",
+    "tags": [
+      "React",
+      "Bits"
+    ]
   }
 ]
