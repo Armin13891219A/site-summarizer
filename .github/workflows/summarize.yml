@@ -120,10 +120,11 @@ jobs:
         run: |
           python -c "
           import json, os, urllib.request, urllib.parse
+          HEADERS = {'Content-Type':'application/json', 'Authorization':'Bearer '+os.environ['ADMIN_TOKEN'],
+                     'User-Agent':'site-summarizer-ci'}
           data = json.load(open('data/sites.json'))
           api = os.environ['WORKER_API'].rstrip('/')
           if not api.endswith('/api'): api += '/api'
-          tok = os.environ['ADMIN_TOKEN']
           ok, fail = 0, 0
           for s in data.get('sites', []):
               print('pushing:', s.get('id'), '|', s.get('provider'), flush=True)
@@ -139,8 +140,7 @@ jobs:
               }, ensure_ascii=False).encode()
               req = urllib.request.Request(
                   api + '/sites/' + urllib.parse.quote(str(s.get('id'))),
-                  data=payload, method='PUT',
-                  headers={'Content-Type':'application/json', 'Authorization':'Bearer '+tok})
+                  data=payload, method='PUT', headers=dict(HEADERS))
               try:
                   urllib.request.urlopen(req, timeout=30)
                   ok += 1
@@ -148,8 +148,7 @@ jobs:
                   print('PUT failed for', s.get('id'), ':', e, flush=True)
                   # اگر آپدیت نشد، بساز
                   req2 = urllib.request.Request(
-                      api + '/sites', data=payload, method='POST',
-                      headers={'Content-Type':'application/json', 'Authorization':'Bearer '+tok})
+                      api + '/sites', data=payload, method='POST', headers=dict(HEADERS))
                   try:
                       urllib.request.urlopen(req2, timeout=30)
                       ok += 1
