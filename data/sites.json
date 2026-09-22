@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۳",
-    "last_updated_iso": "2026-09-22T15:13:24.453144Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۵:۴۲",
+    "last_updated_iso": "2026-09-22T15:42:32.407321Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -37,7 +37,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۱",
-      "updated_at_iso": "2026-09-22T15:11:10.525095Z"
+      "updated_at_iso": "2026-09-22T15:11:10.525095Z",
+      "stale": true
     },
     {
       "id": "github-com",
@@ -66,7 +67,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۲",
-      "updated_at_iso": "2026-09-22T15:12:07.530996Z"
+      "updated_at_iso": "2026-09-22T15:12:07.530996Z",
+      "stale": true
     },
     {
       "id": "vibefarsi-ir",
@@ -96,7 +98,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۲",
-      "updated_at_iso": "2026-09-22T15:12:20.482777Z"
+      "updated_at_iso": "2026-09-22T15:12:20.482777Z",
+      "stale": true
     },
     {
       "id": "blobatar-dev",
@@ -126,7 +129,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۲",
-      "updated_at_iso": "2026-09-22T15:12:37.081132Z"
+      "updated_at_iso": "2026-09-22T15:12:37.081132Z",
+      "stale": true
     },
     {
       "id": "www-vengenceui-com",
@@ -140,23 +144,22 @@
       ],
       "favicon": "https://www.vengenceui.com/favicon.ico?favicon.10hjg4d-xvq~f.ico?dpl=dpl_5zfjcpF8xdZg8SB45qVrkwdX6GQF",
       "page_title": "Vengeance UI - Animated React Components",
-      "summary": "راستش این یه کتابخانه کامپوننت React و Next.",
+      "summary": "Vengeance UI یه سایت حوزه توسعه نرم‌افزارـه؛ دسته‌بندی‌شده و آماده‌ی مرور کردن.",
       "highlights": [
-        "دارای بیش از ۴۶ کامپوننت آماده با افکت‌های تعاملی خاص",
-        "نصب سریع با دستور CLI و سازگار با Tailwind و Framer Motion",
-        "تمام کامپوننت‌ها متن‌باز و برای پروژه‌های واقعی طراحی شدن"
+        "محتوا و سرویس‌های تخصصی حوزه توسعه نرم‌افزار",
+        "دسترسی مستقیم از https://www.vengenceui.com",
+        "تازه‌ترین موضوعات دسته‌بندی‌شده"
       ],
-      "sentiment": "لحن محاوره‌ای و پرانرژی، حوزه توسعه فرانت‌اند و طراحی رابط کاربری",
+      "sentiment": "خودمونی و کاربردی",
       "key_topics": [
         "React",
         "Next.js",
-        "تعاملات UI انیمیشنی",
-        "کامپوننت‌های لندینگ پیج"
+        "UI انیمیشنی"
       ],
       "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۳",
-      "updated_at_iso": "2026-09-22T15:13:07.974170Z"
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۴۲",
+      "updated_at_iso": "2026-09-22T15:42:28.634416Z"
     },
     {
       "id": "motionsites-ai",
@@ -185,7 +188,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۵:۱۳",
-      "updated_at_iso": "2026-09-22T15:13:23.952964Z"
+      "updated_at_iso": "2026-09-22T15:13:23.952964Z",
+      "stale": true
     }
   ]
 }
