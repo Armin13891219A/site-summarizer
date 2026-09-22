@@ -1,16 +1,5 @@
 [
   {
-    "id": "motionsites-ai",
-    "url": "https://motionsites.ai",
-    "name": "MotionSites AI",
-    "category": "هوش مصنوعی",
-    "tags": [
-      "پرامپت نویسی",
-      "طراحی سایت",
-      "هوش مصنوعی مولد"
-    ]
-  },
-  {
     "id": "reactbits-dev",
     "url": "https://reactbits.dev/",
     "name": "React Bits",
