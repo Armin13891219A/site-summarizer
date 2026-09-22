@@ -1,45 +1,61 @@
 [
   {
     "id": "reactbits",
-    "name": "React Bits (reactbits.dev)",
     "url": "https://reactbits.dev/",
+    "name": "React Bits (reactbits.dev)",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "کامپوننت ری‌اکت",
-      "انیمیشن",
-      "متن‌باز"
+      "ری‌اکت",
+      "طراحی رابط کاربری",
+      "فرانت‌اند"
     ]
   },
   {
     "id": "github-com",
-    "name": "UI/UX Pro Max",
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+    "name": "UI/UX Pro Max",
     "category": "طراحی و خلاقیت",
     "tags": [
-      "GitHub"
+      "رابط کاربری",
+      "تجربه کاربری",
+      "هوش مصنوعی",
+      "دیزاین سیستم",
+      "توسعه فرانت‌اند"
     ]
   },
   {
     "id": "vibefarsi-ir",
-    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
     "url": "https://vibefarsi.ir",
+    "name": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "کامپوننت",
-      "فارسی",
-      "راست",
-      "چین"
+      "وایب‌فارسی",
+      "کامپوننت فارسی",
+      "React",
+      "Nextjs",
+      "راست‌چین"
     ]
   },
   {
     "id": "blobatar-dev",
-    "name": "Blobatar",
     "url": "https://blobatar.dev/",
-    "category": "����� ��������",
+    "name": "Blobatar",
+    "category": "توسعه نرم‌افزار",
     "tags": [
-      "�������� �����Ә���",
-      "������",
-      "��ǘ�"
+      "Blobatar",
+      "ری‌اکت",
+      "توسعه فرانت‌اند"
+    ]
+  },
+  {
+    "id": "www-vengenceui-com",
+    "url": "https://www.vengenceui.com",
+    "name": "Vengeance UI",
+    "category": "توسعه نرم‌افزار",
+    "tags": [
+      "Vengeance",
+      "Animated",
+      "React"
     ]
   }
 ]
