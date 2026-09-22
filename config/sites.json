@@ -53,5 +53,14 @@
       "فارسی",
       "راست‌چین"
     ]
+  },
+  {
+    "id": "blobatar-dev",
+    "url": "https://blobatar.dev",
+    "name": "blobatar",
+    "category": "عمومی",
+    "tags": [
+      "blobatar"
+    ]
   }
 ]
