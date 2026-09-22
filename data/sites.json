@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۵:۲۷",
-    "last_updated_iso": "2026-09-22T05:27:33.283850Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۶:۰۰",
+    "last_updated_iso": "2026-09-22T06:00:04.012994Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -14,8 +14,9 @@
       "url": "https://reactbits.dev/",
       "category": "توسعه نرم‌افزار",
       "tags": [
-        "React",
-        "Bits"
+        "ری‌اکت",
+        "کتابخانه UI",
+        "فرانت‌اند"
       ],
       "favicon": "https://reactbits.dev/favicon.ico",
       "page_title": "React Bits",
@@ -98,34 +99,6 @@
       "stale": true
     },
     {
-      "id": "blobatar-dev",
-      "name": "blobatar",
-      "url": "https://blobatar.dev/",
-      "category": "عمومی",
-      "tags": [
-        "blobatar"
-      ],
-      "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
-      "page_title": "blobatar",
-      "summary": "بلوباتر ابزاری سبک و بدون وابستگی برای ساخت آواتارهای هندسی و یکتا از روی نام کاربری است. این کتابخانه با حجم بسیار کم، چهره‌ای منحصربه‌فرد برای هر کاربر می‌سازد.",
-      "highlights": [
-        "تولید آواتارهای هندسی یکتا تنها بر اساس رشته متنی و نام کاربر",
-        "حجم فوق‌العاده اندک (حدود ۴.۴ کیلوبایت) بدون نیاز به وابستگی جانبی",
-        "امکان ادغام سریع در پروژه‌های ری‌اکت به همراه انیمیشن‌های مینیمال"
-      ],
-      "sentiment": "فنی، مینیمال و کاربردی",
-      "key_topics": [
-        "آواتار کاربری",
-        "توسعه وب و فرانت‌اند",
-        "طراحی رابط کاربری"
-      ],
-      "read_time": "۱ دقیقه",
-      "provider": "google",
-      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۶",
-      "updated_at_iso": "2026-09-22T04:16:00.159239Z",
-      "stale": true
-    },
-    {
       "id": "www-vengenceui-com",
       "name": "Vengeance UI",
       "url": "https://www.vengenceui.com",
@@ -184,6 +157,31 @@
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۲",
       "updated_at_iso": "2026-09-22T04:52:12.407974Z",
       "stale": true
+    },
+    {
+      "id": "blobatar-dev",
+      "name": "blobatar",
+      "url": "https://blobatar.dev",
+      "category": "توسعه نرم‌افزار",
+      "tags": [
+        "blobatar"
+      ],
+      "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
+      "page_title": "blobatar",
+      "summary": "با blobatar می‌تونید توی حوزه توسعه نرم‌افزار کار کنید. Deterministic geometric blobatars from any string. No dependencies, about 3.7 KB.",
+      "highlights": [
+        "محتوا و سرویس‌های تخصصی حوزه توسعه نرم‌افزار",
+        "دسترسی مستقیم از https://blobatar.dev",
+        "تازه‌ترین موضوعات دسته‌بندی‌شده"
+      ],
+      "sentiment": "خودمونی و کاربردی",
+      "key_topics": [
+        "blobatar"
+      ],
+      "read_time": "۲ دقیقه",
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۶:۰۰",
+      "updated_at_iso": "2026-09-22T06:00:03.512811Z"
     }
   ]
 }
