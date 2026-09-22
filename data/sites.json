@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۲",
-    "last_updated_iso": "2026-09-22T04:52:12.908204Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۰۵:۲۷",
+    "last_updated_iso": "2026-09-22T05:27:33.283850Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -10,63 +10,62 @@
   "sites": [
     {
       "id": "reactbits",
-      "name": "React Bits (reactbits.dev)",
+      "name": "React Bits",
       "url": "https://reactbits.dev/",
       "category": "توسعه نرم‌افزار",
       "tags": [
-        "ری‌اکت",
-        "طراحی رابط کاربری",
-        "فرانت‌اند"
+        "React",
+        "Bits"
       ],
       "favicon": "https://reactbits.dev/favicon.ico",
       "page_title": "React Bits",
-      "summary": "ری‌اکت بیتس یک کتابخانه متن‌باز شامل بیش از ۲۰۰ کامپوننت متحرک و تعاملی ری‌اکت است. این ابزار به توسعه‌دهندگان در ساخت رابط‌های کاربری جذاب، مدرن و کاملاً سفارشی کمک می‌کند.",
+      "summary": "توی ری‌اکت بیتس بیش از ۲۰۰ کامپوننت انیمیشنی و تعاملی آماده پیدا می‌کنید. کاملاً متن‌بازه و دستتون رو برای ساخت رابط‌های کاربری خاص و زنده باز می‌ذاره.",
       "highlights": [
-        "مجموعه متن‌باز با بیش از ۲۰۰ کامپوننت آماده ری‌اکت",
-        "تمرکز بر انیمیشن‌ها و ریزتعاملات (Micro-interactions) پیشرفته",
-        "قابلیت شخصی‌سازی کامل برای ارتقای تجربه و رابط کاربری"
+        "بیش از ۲۰۰ کامپوننت انیمیشنی و تعاملی آماده",
+        "کد کاملاً متن‌باز و با امکان شخصی‌سازی بالا",
+        "تمرکز روی مایکرواینتراکشن‌ها و جذابیت بصری رابط کاربری"
       ],
-      "sentiment": "تخصصی، فنی و الهام‌بخش در حوزه توسعه وب",
+      "sentiment": "الهام‌بخش و کاربردی در حوزه فرانت‌اند",
       "key_topics": [
         "کامپوننت‌های ری‌اکت",
-        "انیمیشن‌های رابط کاربری",
-        "توسعه فرانت‌اند"
+        "انیمیشن‌های وب",
+        "مایکرواینتراکشن"
       ],
       "read_time": "۱ دقیقه",
       "provider": "google",
-      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۴",
-      "updated_at_iso": "2026-09-22T04:14:46.407857Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۴",
+      "updated_at_iso": "2026-09-22T04:54:32.353197Z",
+      "stale": true
     },
     {
       "id": "github-com",
-      "name": "UI/UX Pro Max",
+      "name": "GitHub",
       "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "category": "طراحی و خلاقیت",
       "tags": [
-        "رابط کاربری",
-        "تجربه کاربری",
-        "هوش مصنوعی",
-        "دیزاین سیستم",
-        "توسعه فرانت‌اند"
+        "GitHub",
+        "nextlevelbuilder/ui",
+        "pro"
       ],
       "favicon": "https://github.com/fluidicon.png",
       "page_title": "GitHub - nextlevelbuilder/ui-ux-pro-max-skill: An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
-      "summary": "مهارتی مبتنی بر هوش مصنوعی برای تولید سریع سیستم‌های طراحی و UI/UX حرفه‌ای چندپلتفرمی. این ابزار با تحلیل نیاز پروژه، دیزاین سیستم کامل ارائه می‌دهد.",
+      "summary": "با این مهارت هوش مصنوعی می‌تونید دیزاین‌سیستم‌های اختصاصی و حرفه‌ای بسازید؛ نیازهای پروژه‌تون رو بررسی می‌کنه و سریع ساختار UI/UX استانداردی تحویل می‌ده.",
       "highlights": [
-        "تولید خودکار سیستم طراحی اختصاصی در چند ثانیه با موتور استدلال هوش مصنوعی",
-        "ارائه هوش طراحی برای توسعه رابط و تجربه کاربری حرفه‌ای در انواع پلتفرم‌ها",
-        "پشتیبانی از الگوهای بهینه‌سازی نرخ تبدیل و ساختار محتوایی اختصاصی"
+        "تولید خودکار دیزاین‌سیستم در چند ثانیه با هوش مصنوعی",
+        "تحلیل الگوهای طراحی متناسب با نیاز محصول",
+        "پشتیبانی از پلتفرم‌ها و فریم‌ورک‌های متنوع"
       ],
-      "sentiment": "تخصصی و نوآورانه",
+      "sentiment": "کاربردی و نوآورانه در زمینه طراحی رابط کاربری",
       "key_topics": [
-        "طراحی رابط و تجربه کاربری (UI/UX)",
-        "سیستم‌های طراحی خودکار",
+        "طراحی رابط کاربری",
+        "دیزاین سیستم",
         "هوش مصنوعی مولد"
       ],
       "read_time": "۲ دقیقه",
       "provider": "google",
-      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۴",
-      "updated_at_iso": "2026-09-22T04:14:52.972414Z"
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۵",
+      "updated_at_iso": "2026-09-22T04:55:04.215939Z",
+      "stale": true
     },
     {
       "id": "vibefarsi-ir",
@@ -74,10 +73,8 @@
       "url": "https://vibefarsi.ir",
       "category": "توسعه نرم‌افزار",
       "tags": [
-        "وایب‌فارسی",
-        "کامپوننت فارسی",
-        "React",
-        "Nextjs",
+        "کامپوننت‌های",
+        "فارسی",
         "راست‌چین"
       ],
       "favicon": "https://vibefarsi.ir/favicon.ico?favicon.2vob68tjqpejf.ico",
@@ -97,17 +94,16 @@
       "read_time": "۲ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۵",
-      "updated_at_iso": "2026-09-22T04:15:51.999435Z"
+      "updated_at_iso": "2026-09-22T04:15:51.999435Z",
+      "stale": true
     },
     {
       "id": "blobatar-dev",
-      "name": "Blobatar",
+      "name": "blobatar",
       "url": "https://blobatar.dev/",
-      "category": "توسعه نرم‌افزار",
+      "category": "عمومی",
       "tags": [
-        "Blobatar",
-        "ری‌اکت",
-        "توسعه فرانت‌اند"
+        "blobatar"
       ],
       "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
       "page_title": "blobatar",
@@ -126,7 +122,8 @@
       "read_time": "۱ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۱۶",
-      "updated_at_iso": "2026-09-22T04:16:00.159239Z"
+      "updated_at_iso": "2026-09-22T04:16:00.159239Z",
+      "stale": true
     },
     {
       "id": "www-vengenceui-com",
@@ -134,9 +131,9 @@
       "url": "https://www.vengenceui.com",
       "category": "توسعه نرم‌افزار",
       "tags": [
-        "React",
-        "رابط کاربری",
-        "Next.js"
+        "Vengeance",
+        "Animated",
+        "React"
       ],
       "favicon": "https://www.vengenceui.com/favicon.ico?favicon.10hjg4d-xvq~f.ico?dpl=dpl_5zfjcpF8xdZg8SB45qVrkwdX6GQF",
       "page_title": "Vengeance UI - Animated React Components",
@@ -155,7 +152,8 @@
       "read_time": "۲ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۴۷",
-      "updated_at_iso": "2026-09-22T04:47:47.905436Z"
+      "updated_at_iso": "2026-09-22T04:47:47.905436Z",
+      "stale": true
     },
     {
       "id": "motionsites-ai",
@@ -163,9 +161,9 @@
       "url": "https://motionsites.ai",
       "category": "هوش مصنوعی",
       "tags": [
-        "پرامپت نویسی",
-        "طراحی سایت",
-        "هوش مصنوعی مولد"
+        "MotionSites",
+        "Official",
+        "Premium"
       ],
       "favicon": "https://motionsites.ai/favicon.ico",
       "page_title": "MotionSites AI — Official Premium AI Website Prompts",
@@ -184,7 +182,8 @@
       "read_time": "۱ دقیقه",
       "provider": "google",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۰۴:۵۲",
-      "updated_at_iso": "2026-09-22T04:52:12.407974Z"
+      "updated_at_iso": "2026-09-22T04:52:12.407974Z",
+      "stale": true
     }
   ]
 }
