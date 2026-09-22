@@ -210,7 +210,11 @@ def _clamp_summary(text):
     # اگر جمله‌بندی پیدا نشد، روی مرز کلمه
     sp = t.rfind(" ", 0, SUMMARY_MAX_CHARS)
     if sp > 40:
-        return t[:sp].rstrip(" ،,.") + "…"
+        cut = t[:sp].rstrip(" ،,.")
+        # جلوگیری از قطع وسط کلمه: آخرین کاراکتر حرف فارسی باشه
+        if re.search(r"[آ-ی]$", cut):
+            cut = cut.rstrip("آ-ی")
+        return cut + "…"
     return t[:SUMMARY_MAX_CHARS].rstrip(" ،,.") + "…"
 
 
@@ -413,8 +417,13 @@ def summarize_with_ai(site_info, site_meta, auto=False):
             content = PROVIDERS[p](prompt)
             parsed = clean_json_response(content)
             if parsed and parsed.get("summary"):
+                s = parsed["summary"].strip()
+                # گارد حداقل-طول: خلاصه الکی/ناقص رو رد کن
+                if len(s) < 60:
+                    print(f"  [-] {p}: summary too short ({len(s)} chars) — retrying")
+                    raise RuntimeError(f"summary too short ({len(s)} chars)")
                 print(f"  [+] Summary generated with {p}")
-                parsed["summary"] = _clamp_summary(parsed["summary"])
+                parsed["summary"] = _clamp_summary(s)
                 parsed["provider"] = p
                 return parsed
             raise RuntimeError("empty summary")
