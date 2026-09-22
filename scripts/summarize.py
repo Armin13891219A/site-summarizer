@@ -466,19 +466,31 @@ def summarize_with_ai(site_info, site_meta, auto=False):
     return fallback_extractive_summary(site_info, site_meta)
 
 
+def _is_latin(text):
+    """اگه بیشتر کاراکترها لاتین باشه، توضیحات انگلیسیه."""
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return False
+    latin = sum(1 for c in letters if ord(c) < 0x0500)
+    return latin / len(letters) > 0.6
+
+
 def fallback_extractive_summary(site_info, site_meta):
-    """خلاصه استخراجی هوشمند وقتی هیچ provider ای در دسترس نیست."""
+    """خلاصه استخراجی هوشمند وقتی هیچ provider ای در دسترس نیست — خودمونی و تمیز."""
     desc = site_info.get("description", "").strip()
     title = site_info.get("title", "").strip()
     name = site_meta.get("name", "این وب‌سایت")
     category = site_meta.get("category", "وب")
 
-    if desc and len(desc) > 40:
-        summary_text = f"با {name} می‌تونید توی حوزه {category} کار کنید. {desc}"
-    elif title:
+    # توضیحات انگلیسی خام را نما — جمله فارسی بساز
+    fa_desc = desc if (desc and not _is_latin(desc)) else ""
+
+    if fa_desc and len(fa_desc) > 40:
+        summary_text = f"با {name} می‌تونید توی حوزه {category} کار کنید. {fa_desc}"
+    elif title and not _is_latin(title):
         summary_text = f"{name} یه مرجع تخصصی با عنوان «{title}»ـه که محتوای {category} داره."
     else:
-        summary_text = f"{name} از مراجع فعال حوزه {category}ـه که تازه‌ترین مطالب رو پوشش میده."
+        summary_text = f"{name} از مراجع حوزه {category}ـه که تازه‌ترین مطالبش رو پوشش میده."
 
     tags = site_meta.get("tags", ["فناوری", "وب", "خدمات آنلاین"])
     return {
