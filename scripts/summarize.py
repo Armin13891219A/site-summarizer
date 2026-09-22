@@ -490,7 +490,7 @@ def fallback_extractive_summary(site_info, site_meta):
     elif title and not _is_latin(title):
         summary_text = f"{name} یه مرجع تخصصی با عنوان «{title}»ـه که محتوای {category} داره."
     else:
-        summary_text = f"{name} از مراجع حوزه {category}ـه که تازه‌ترین مطالبش رو پوشش میده."
+        summary_text = f"{name} یه سایت حوزه {category}ـه؛ دسته‌بندی‌شده و آماده‌ی مرور کردن."
 
     tags = site_meta.get("tags", ["فناوری", "وب", "خدمات آنلاین"])
     return {
