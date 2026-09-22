@@ -119,13 +119,14 @@ jobs:
           ADMIN_TOKEN: ${{ secrets.WORKER_ADMIN_TOKEN }}
         run: |
           python -c "
-          import json, os, urllib.request
+          import json, os, urllib.request, urllib.parse
           data = json.load(open('data/sites.json'))
           api = os.environ['WORKER_API'].rstrip('/')
           if not api.endswith('/api'): api += '/api'
           tok = os.environ['ADMIN_TOKEN']
           ok, fail = 0, 0
           for s in data.get('sites', []):
+              print('pushing:', s.get('id'), '|', s.get('provider'), flush=True)
               payload = json.dumps({
                   'id': s.get('id'), 'url': s.get('url'), 'name': s.get('name'),
                   'category': s.get('category','عمومی'), 'tags': s.get('tags',[]),
@@ -144,6 +145,7 @@ jobs:
                   urllib.request.urlopen(req, timeout=30)
                   ok += 1
               except Exception as e:
+                  print('PUT failed for', s.get('id'), ':', e, flush=True)
                   # اگر آپدیت نشد، بساز
                   req2 = urllib.request.Request(
                       api + '/sites', data=payload, method='POST',
@@ -155,6 +157,8 @@ jobs:
                       fail += 1
                       print('FAIL:', s.get('url'), e2)
           print(f'pushed {ok} ok, {fail} fail')
+          if fail:
+              raise SystemExit(f'::error::push failed for {fail} site(s)')
           "
 
       - name: Commit config + data

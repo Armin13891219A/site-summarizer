@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۸",
-    "last_updated_iso": "2026-09-21T19:38:04.040309Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۱",
+    "last_updated_iso": "2026-09-21T00:00:00Z",
     "total_sites": 4,
-    "generator": "multi-provider AI + GitHub Actions",
-    "version": "1.0.0"
+    "generator": "multi-provider AI + Cloudflare Workers",
+    "version": "2.0.0"
   },
   "sites": [
     {
@@ -36,7 +36,7 @@
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۱",
       "updated_at_iso": "2026-09-21T00:00:00Z",
-      "stale": true
+      "stale": false
     },
     {
       "id": "github-com",
@@ -46,22 +46,19 @@
       "tags": [
         "GitHub"
       ],
-      "favicon": "https://github.com/fluidicon.png",
-      "page_title": "GitHub - nextlevelbuilder/ui-ux-pro-max-skill: An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
-      "summary": "UI/UX Pro Max در حوزه طراحی و خلاقیت فعالیت دارد. An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه طراحی و خلاقیت",
-        "دسترسی مستقیم از طریق https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
-      ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "favicon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "page_title": "",
+      "summary": "این ریپازیتوری GitHub متعلق به پروژه UI/UX Pro Max Skill است که منابع، ابزارها و آموزش‌های تخصصی طراحی رابط کاربری و تجربه کاربری را ارائه می‌دهد.",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
       "key_topics": [
         "GitHub"
       ],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
-      "updated_at_iso": "2026-09-21T19:36:32.282714Z"
+      "read_time": "۳ دقیقه",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
     },
     {
       "id": "vibefarsi-ir",
@@ -74,45 +71,52 @@
         "راست",
         "چین"
       ],
-      "favicon": "https://vibefarsi.ir/favicon.ico?favicon.2vob68tjqpejf.ico",
-      "page_title": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی",
-      "summary": "کامپوننت‌های فارسی راست‌چین برای React · وایب‌فارسی در حوزه توسعه نرم‌افزار فعالیت دارد. کامپوننت‌های راست‌چین رایگان برای Next.js و React.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه توسعه نرم‌افزار",
-        "دسترسی مستقیم از طریق https://vibefarsi.ir",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
-      ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
+      "favicon": "https://www.google.com/s2/favicons?domain=vibefarsi.ir&sz=128",
+      "page_title": "",
+      "summary": "وب‌سایت وایب‌فارسی مجموعه کامپوننت‌های فارسی راست‌چین حرفه‌ای و آماده برای توسعه‌دهندگان فریم‌ورک React ارائه می‌دهد.",
+      "highlights": [],
+      "sentiment": "اطلاع‌رسانی",
       "key_topics": [
         "کامپوننت",
         "فارسی",
-        "راست"
+        "راست",
+        "چین"
       ],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
-      "updated_at_iso": "2026-09-21T19:36:35.656400Z"
+      "read_time": "۳ دقیقه",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
     },
     {
       "id": "blobatar-dev",
-      "name": "blobatar.dev",
+      "name": "Blobatar",
       "url": "https://blobatar.dev/",
-      "category": "عمومی",
-      "tags": [],
-      "favicon": "https://blobatar.dev/favicon-dkqn2j36.svg",
-      "page_title": "blobatar",
-      "summary": "blobatar.dev در حوزه عمومی فعالیت دارد. Deterministic geometric blobatars from any string. No dependencies, about 3.7 KB.",
-      "highlights": [
-        "ارائه محتوا و سرویس‌های تخصصی در حوزه عمومی",
-        "دسترسی مستقیم از طریق https://blobatar.dev/",
-        "پوشش تازه‌ترین عناوین و موضوعات دسته‌بندی‌شده"
+      "category": "����� ��������",
+      "tags": [
+        "�������� �����Ә���",
+        "������",
+        "��ǘ�"
       ],
-      "sentiment": "تخصصی و اطلاع‌رسانی",
-      "key_topics": [],
-      "read_time": "۲ دقیقه",
-      "provider": "fallback",
-      "updated_at": "۲۰۲۶/۰۹/۲۱ - ۱۹:۳۶",
-      "updated_at_iso": "2026-09-21T19:36:38.903647Z"
+      "favicon": "https://www.google.com/s2/favicons?domain=blobatar.dev&sz=128",
+      "page_title": "",
+      "summary": "�������� � �������� �����Ә��� � ������� ��ǘ� ��� �� �� �� ���� ����� ��������� ����� ��� ����� �흘�Ϻ ���� ����ʐ� � �� ���� ���� ? ��������.",
+      "highlights": [
+        "����� ������ ����� ��� �� �� ���",
+        "���� ����ʐ� �� ��� ���� ? ��������",
+        "������� ����� ��ǘ� � ��� �� npm"
+      ],
+      "sentiment": "������� � ��������������",
+      "key_topics": [
+        "�����Ә���",
+        "��ǘ�",
+        "������"
+      ],
+      "read_time": "? �����",
+      "provider": "g4f",
+      "updated_at": "۲۰۲۶/۰۹/۲۱",
+      "updated_at_iso": "2026-09-21T00:00:00Z",
+      "stale": false
     }
   ]
 }
