@@ -518,6 +518,77 @@ footer {
 }
 footer a { color: var(--brand); text-decoration: none; }
 
+/* ——— افکت‌های vibefarsi (پورت وانیلی: meteors / stars / sparkles / border-beam / shine) ——— */
+@property --beam-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes beam { to { --beam-angle: 360deg; } }
+@keyframes meteor {
+  0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(215deg) translateX(-420px); opacity: 0; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(90deg); }
+}
+@keyframes shine {
+  0% { transform: translateX(-120%) skewX(-15deg); }
+  60%, 100% { transform: translateX(220%) skewX(-15deg); }
+}
+
+.hero-meteors, .hero-stars {
+  pointer-events: none; position: absolute; inset: 0; overflow: hidden;
+}
+.meteor {
+  position: absolute; top: -10%; height: 1px; width: 6rem;
+  background: linear-gradient(to right, transparent, oklch(from var(--foreground) l c h / 60%), var(--foreground));
+}
+.meteor-head {
+  position: absolute; inset-inline-end: -2px; top: -2px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--foreground);
+  box-shadow: 0 0 8px 2px oklch(from var(--foreground) l c h / 40%);
+}
+.star {
+  position: absolute; border-radius: 50%; background: var(--foreground);
+}
+
+/* جرقه‌های دور بج هیرو */
+.badge { position: relative; }
+.sparkle-star {
+  position: absolute; width: 12px; height: 12px;
+  color: var(--brand); pointer-events: none;
+}
+
+/* حلقه نورانی چرخان دور جست‌وجو (BorderBeam) */
+.search-wrap.beam {
+  background: transparent; border-radius: 999px;
+  padding: 1px; overflow: hidden;
+}
+.search-wrap.beam::before {
+  content: ""; position: absolute; inset: -100%;
+  background: conic-gradient(from var(--beam-angle), transparent 0 78%, var(--brand) 92%, transparent 100%);
+  animation: beam 5s linear infinite;
+}
+.search-wrap.beam input { position: relative; border-color: transparent; }
+
+/* برق hover روی دکمه مشاهده */
+.visit { position: relative; overflow: hidden; }
+.visit::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+  background: linear-gradient(100deg, transparent, oklch(1 0 0 / 35%), transparent);
+  transform: translateX(-120%) skewX(-15deg);
+  pointer-events: none;
+}
+.visit:hover::after { animation: shine 0.8s var(--ease-out); }
+
 /* ——— ریسپانسیو کامل ——— */
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.9rem; }
@@ -559,4 +630,6 @@ footer a { color: var(--brand); text-decoration: none; }
   .gradient-text, .text-shimmer, .marquee-track, .aurora span, .typewriter-cursor { animation: none; }
   .blur-word, .wipe-word { animation: none; }
   .card.tilt { transform: none; }
+  .meteor, .star, .sparkle-star { animation: none !important; }
+  .search-wrap.beam::before, .visit:hover::after { animation: none; }
 }

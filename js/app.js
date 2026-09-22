@@ -136,6 +136,80 @@
     read();
   }
 
+  /* ——— افکت‌های هیرو: StarsBackground + Meteors + Sparkles + TextScramble (پورت وانیلی vibefarsi) ——— */
+  var POOL = "ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی";
+
+  function scramble(el, speed) {
+    var text = el.getAttribute("data-text") || el.textContent;
+    el.setAttribute("data-text", text);
+    el.setAttribute("aria-label", text);
+    var frame = 0, resolved = 0;
+    var chars = Array.from(text);
+    var id = setInterval(function () {
+      frame += 1;
+      if (frame % 2 === 0) resolved += 1;
+      el.textContent = chars.map(function (ch, i) {
+        if (i < resolved || ch === " " || ch === "‌") return ch;
+        return POOL[(frame * 7 + i * 13) % POOL.length];
+      }).join("");
+      if (resolved >= chars.length) clearInterval(id);
+    }, speed || 40);
+  }
+
+  function buildHeroFx() {
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    var starsBox = document.getElementById("hero-stars");
+    if (starsBox) {
+      var stars = "";
+      for (var i = 0; i < 50; i++) {
+        var sz = 1 + (i % 3);
+        stars += '<span class="star" style="left:' + ((i * 37) % 100) + "%;top:" + ((i * 53) % 100) +
+          "%;width:" + sz + "px;height:" + sz + "px;animation:twinkle " + (2 + ((i * 7) % 5)) +
+          "s ease-in-out " + (((i * 11) % 30) / 10) + 's infinite"></span>';
+      }
+      starsBox.innerHTML = stars;
+    }
+    var metBox = document.getElementById("hero-meteors");
+    if (metBox) {
+      var mets = "";
+      for (var j = 0; j < 10; j++) {
+        var dur = 3 + ((j * 17) % 40) / 10;
+        var delay = ((j * 37) % 60) / 10;
+        mets += '<span class="meteor" style="left:' + (((j * 53) % 100)) + "%;animation:meteor " +
+          dur + "s linear " + delay + 's infinite"><span class="meteor-head"></span></span>';
+      }
+      metBox.innerHTML = mets;
+    }
+    var badge = document.querySelector(".hero-inner .badge");
+    if (badge) {
+      var path = '<path fill="currentColor" d="M12 0c.6 6.9 5.1 11.4 12 12-6.9.6-11.4 5.1-12 12-.6-6.9-5.1-11.4-12-12 6.9-.6 11.4-5.1 12-12z"/>';
+      for (var k = 0; k < 7; k++) {
+        var r1 = (((k * 9973 + 1 * 7919) % 100) / 100);
+        var r2 = (((k * 9973 + 2 * 7919) % 100) / 100);
+        var r3 = (((k * 9973 + 3 * 7919) % 100) / 100);
+        var r4 = (((k * 9973 + 4 * 7919) % 100) / 100);
+        badge.insertAdjacentHTML("beforeend",
+          '<svg class="sparkle-star" viewBox="0 0 24 24" aria-hidden="true" style="left:' +
+          (r1 * 110 - 5) + "%;top:" + (r2 * 110 - 15) + "%;animation:sparkle " + (1.6 + r3) +
+          "s ease-in-out " + (r4 * 2) + 's infinite">' + path + "</svg>");
+      }
+      var label = badge.childNodes;
+      for (var n = 0; n < label.length; n++) {
+        if (label[n].nodeType === 3 && label[n].textContent.trim()) {
+          var span = document.createElement("span");
+          span.textContent = label[n].textContent.trim();
+          badge.replaceChild(span, label[n]);
+          scramble(span, 35);
+          break;
+        }
+      }
+    }
+    var search = document.querySelector(".search-wrap");
+    if (search) search.classList.add("beam");
+  }
+  buildHeroFx();
+
   /* ——— Favicon fallback چندلایه (گوگل → داکرداک → حرف اول) ——— */
   function faviconStack(url, name) {
     var host = "";
