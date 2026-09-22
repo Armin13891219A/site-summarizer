@@ -436,25 +436,31 @@ def summarize_with_ai(site_info, site_meta, auto=False):
 
     last_err = None
     for p in attempts:
-        try:
-            print(f"  -> provider: {p}")
-            content = PROVIDERS[p](prompt)
-            parsed = clean_json_response(content)
-            if parsed and parsed.get("summary"):
-                s = parsed["summary"].strip()
-                # گارد حداقل-طول: خلاصه الکی/ناقص رو رد کن
-                if len(s) < 60:
+        # تا ۳ بار امتحان کن — g4f گاهی وسط توکن قطع می‌کند
+        for attempt in range(1, 4):
+            try:
+                print(f"  -> provider: {p} (attempt {attempt})")
+                content = PROVIDERS[p](prompt)
+                parsed = clean_json_response(content)
+                if parsed and parsed.get("summary"):
+                    s = parsed["summary"].strip()
+                    # گارد حداقل-طول: خلاصه الکی/ناقص رو رد کن
+                    if len(s) >= 60:
+                        print(f"  [+] Summary generated with {p}")
+                        parsed["summary"] = _clamp_summary(s)
+                        parsed["provider"] = p
+                        return parsed
                     print(f"  [-] {p}: summary too short ({len(s)} chars) — retrying")
                     raise RuntimeError(f"summary too short ({len(s)} chars)")
-                print(f"  [+] Summary generated with {p}")
-                parsed["summary"] = _clamp_summary(s)
-                parsed["provider"] = p
-                return parsed
-            raise RuntimeError("empty summary")
-        except Exception as e:
-            last_err = e
-            print(f"  [-] {p} failed: {type(e).__name__}: {e}")
-            time.sleep(1)
+                raise RuntimeError("empty summary")
+            except Exception as e:
+                last_err = e
+                print(f"  [-] {p} failed: {type(e).__name__}: {e}")
+                time.sleep(1)
+                # اگه provider زنده ولی فقط کوتاه داده، دوباره امتحان کن
+                if "too short" in str(e) and attempt < 3:
+                    continue
+                break
 
     print("  [!] All providers failed — using fallback extractor.")
     return fallback_extractive_summary(site_info, site_meta)
