@@ -274,10 +274,10 @@ async function syncConfigToGitHub(env) {
 }
 
 /** روشن کردن ورک‌فلو خلاصه‌ساز */
-async function dispatchWorkflow(env) {
+async function dispatchWorkflow(env, force) {
   if (!env.GITHUB_TOKEN) return;
   try {
-    await fetch(
+    const res = await fetch(
       "https://api.github.com/repos/" + REPO + "/actions/workflows/summarize.yml/dispatches",
       {
         method: "POST",
@@ -287,9 +287,10 @@ async function dispatchWorkflow(env) {
           "User-Agent": "site-summarizer-worker",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ref: "main", inputs: { force: "false" } }),
+        body: JSON.stringify({ ref: "main", inputs: { force: force ? "true" : "false" } }),
       }
     );
+    if (!res.ok) console.error("dispatch failed:", res.status);
   } catch (e) {}
 }
 
@@ -387,6 +388,13 @@ export default {
     }
 
     if (path === "/api/admin/list") return handleListSites(env);
+
+    // بازتولید همه خلاصه‌ها (force=true → ignore cache)
+    if (path === "/api/refresh" && method === "POST") {
+      const body = await request.json().catch(() => ({}));
+      await dispatchWorkflow(env, !!body.force);
+      return json({ ok: true, force: !!body.force });
+    }
 
     return json({ error: "مسیر پیدا نشد.", path }, 404);
   },
