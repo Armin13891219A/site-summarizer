@@ -382,8 +382,11 @@ def normalize_category(cat, scraped=None, entry=None):
     return "عمومی"
 
 
-def _build_prompt(site_info, site_meta, auto=False):
+def _build_prompt(site_info, site_meta, auto=False, persian_retry=False):
     cats = "، ".join(VALID_CATEGORIES)
+    lang_note = ""
+    if persian_retry:
+        lang_note = "\n\n⚠️ تذکر مهم: خلاصه‌ی قبلی انگلیسی بود. این بار حتماً و حتماً به فارسی محاوره‌ای بنویس — حتی اگه سایت انگلیسی باشه، توضیحات باید فارسی باشه. کلمه‌ی انگلیسی مجازه ولی ساختار جمله فارسی."
     return f"""تو رفیق صمیمی کاربری هستی که لینک‌های جالب و کاربردی رو معرفی می‌کنی.
 دارن ازت می‌پرسن «این سایت چیه؟ به چه دردی می‌خوره؟» — مثل یه دوست که خودش سایت رو باز کرده و ذوق کرده، جواب بده. نه مثل ربات، نه مثل مقاله، نه مثل پشتیبانی رسمی.
 
@@ -428,12 +431,12 @@ def _build_prompt(site_info, site_meta, auto=False):
   "suggested_tags": ["تگ اول", "تگ دوم", "تگ سوم"],
   "read_time": "زمان تخمینی مطالعه (مثلاً: ۳ دقیقه)"
 }}
-"""
+{lang_note}"""
 
 
-def summarize_with_ai(site_info, site_meta, auto=False):
+def summarize_with_ai(site_info, site_meta, auto=False, persian_retry=False):
     """ارسال به provider فعال و دریافت خلاصه ساختاریافته فارسی."""
-    prompt = _build_prompt(site_info, site_meta, auto=auto)
+    prompt = _build_prompt(site_info, site_meta, auto=auto, persian_retry=persian_retry)
 
     chosen = SETTINGS.get("provider", "g4f")
     available = _available_providers()
@@ -659,6 +662,13 @@ def _summarize_one(entry, scraped, existing):
             prev = s
             break
     ai = summarize_with_ai(scraped, entry)
+    # ——— نگهبان زبان: اگه مدل انگلیسی نوشت، یه بار دیگه با تاکید سنگین‌تر ———
+    raw_summary = ai.get("summary", "") or ""
+    if raw_summary and _is_latin(raw_summary) and ai.get("provider") not in (None, "fallback"):
+        print(f"  [!] خلاصه انگلیسی شد — یه بار دیگه با تذکر زبان.")
+        ai2 = summarize_with_ai(scraped, entry, persian_retry=True)
+        if ai2 and not _is_latin(ai2.get("summary", "") or ""):
+            ai = ai2
     # دسته پیشنهادی مدل را اعتبارسنجی کن (نامعتبر/عمومی → حدس محلی)
     good_category = normalize_category(ai.get("suggested_category"), scraped, entry)
     good_tags = ai.get("suggested_tags") or entry.get("tags", [])
