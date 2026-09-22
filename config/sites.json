@@ -51,5 +51,16 @@
       "Animated",
       "React"
     ]
+  },
+  {
+    "id": "motionsites-ai",
+    "url": "https://motionsites.ai",
+    "name": "MotionSites AI",
+    "category": "هوش مصنوعی",
+    "tags": [
+      "MotionSites",
+      "Official",
+      "Premium"
+    ]
   }
 ]
