@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۲",
-    "last_updated_iso": "2026-09-22T13:52:56.767586Z",
+    "last_updated": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۹",
+    "last_updated_iso": "2026-09-22T13:59:49.400061Z",
     "total_sites": 6,
     "generator": "multi-provider AI + GitHub Actions",
     "version": "1.0.0"
@@ -35,7 +35,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۱",
-      "updated_at_iso": "2026-09-22T13:51:34.558449Z"
+      "updated_at_iso": "2026-09-22T13:51:34.558449Z",
+      "stale": true
     },
     {
       "id": "github-com",
@@ -66,7 +67,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۱",
-      "updated_at_iso": "2026-09-22T13:51:55.090169Z"
+      "updated_at_iso": "2026-09-22T13:51:55.090169Z",
+      "stale": true
     },
     {
       "id": "vibefarsi-ir",
@@ -97,7 +99,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۲",
-      "updated_at_iso": "2026-09-22T13:52:08.313608Z"
+      "updated_at_iso": "2026-09-22T13:52:08.313608Z",
+      "stale": true
     },
     {
       "id": "blobatar-dev",
@@ -128,7 +131,8 @@
       "read_time": "۱ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۲",
-      "updated_at_iso": "2026-09-22T13:52:22.204383Z"
+      "updated_at_iso": "2026-09-22T13:52:22.204383Z",
+      "stale": true
     },
     {
       "id": "www-vengenceui-com",
@@ -142,22 +146,22 @@
       ],
       "favicon": "https://www.vengenceui.com/favicon.ico?favicon.10hjg4d-xvq~f.ico?dpl=dpl_5zfjcpF8xdZg8SB45qVrkwdX6GQF",
       "page_title": "Vengeance UI - Animated React Components",
-      "summary": "Vengeance UI یه کتابخانه کامپوننت React و Next.",
+      "summary": "با Vengeance UI می‌تونید توی حوزه توسعه نرم‌افزار کار کنید. Animated React components and next-generation UI interactions for modern landing pages.",
       "highlights": [
-        "۴۶ کامپوننت انیمیشنی آماده برای React و Next.js",
-        "قابلیت نصب سریع با دستور CLI شادکن",
-        "افکت‌های تعاملی اختصاصی مثل هاور دیسپلیسمنت و کارت‌های اسکرول‌محور"
+        "محتوا و سرویس‌های تخصصی حوزه توسعه نرم‌افزار",
+        "دسترسی مستقیم از https://www.vengenceui.com",
+        "تازه‌ترین موضوعات دسته‌بندی‌شده"
       ],
-      "sentiment": "محاوره‌ای، حوزه توسعه نرم‌افزار و کتابخانه کامپوننت UI",
+      "sentiment": "خودمونی و کاربردی",
       "key_topics": [
-        "کتابخانه کامپوننت React",
-        "انیمیشن‌های UI تعاملی",
-        "توسعه لندینگ پیج با Next.js"
+        "React",
+        "UI کامپوننت",
+        "توسعه فرانت‌اند"
       ],
       "read_time": "۲ دقیقه",
-      "provider": "g4f",
-      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۲",
-      "updated_at_iso": "2026-09-22T13:52:37.431599Z"
+      "provider": "fallback",
+      "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۹",
+      "updated_at_iso": "2026-09-22T13:59:45.602687Z"
     },
     {
       "id": "motionsites-ai",
@@ -186,7 +190,8 @@
       "read_time": "۲ دقیقه",
       "provider": "g4f",
       "updated_at": "۲۰۲۶/۰۹/۲۲ - ۱۳:۵۲",
-      "updated_at_iso": "2026-09-22T13:52:56.267437Z"
+      "updated_at_iso": "2026-09-22T13:52:56.267437Z",
+      "stale": true
     }
   ]
 }

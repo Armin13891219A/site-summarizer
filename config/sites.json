@@ -6,19 +6,20 @@
     "category": "توسعه نرم‌افزار",
     "tags": [
       "React",
-      "کامپوننت React",
-      "رابط کاربری انیمیشنی"
+      "کامپوننت ری‌اکت",
+      "توسعه فرانت‌اند"
     ]
   },
   {
     "id": "github-com",
     "name": "GitHub",
     "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
-    "category": "طراحی و خلاقیت",
+    "category": "هوش مصنوعی",
     "tags": [
-      "هوش مصنوعی برای طراحی",
-      "سیستم طراحی UI/UX",
-      "ابزار رابط کاربری"
+      "هوش مصنوعی",
+      "طراحی UI/UX",
+      "اسکیل GitHub",
+      "سیستم طراحی"
     ]
   },
   {
@@ -28,8 +29,9 @@
     "category": "توسعه نرم‌افزار",
     "tags": [
       "React",
-      "RTL",
-      "تقویم شمسی"
+      "RTL فارسی",
+      "Next.js",
+      "توسعه فرانت‌اند"
     ]
   },
   {
@@ -38,10 +40,10 @@
     "url": "https://blobatar.dev",
     "category": "توسعه نرم‌افزار",
     "tags": [
+      "blobatar",
       "آواتار دیجیتال",
       "React",
-      "ابزار توسعه",
-      "UI/UX"
+      "توسعه وب"
     ]
   },
   {
@@ -50,8 +52,8 @@
     "url": "https://www.vengenceui.com",
     "category": "توسعه نرم‌افزار",
     "tags": [
-      "کامپوننت React",
-      "UI تعاملی",
+      "React",
+      "UI کامپوننت",
       "توسعه فرانت‌اند"
     ]
   },
@@ -59,11 +61,11 @@
     "id": "motionsites-ai",
     "name": "MotionSites AI",
     "url": "https://motionsites.ai",
-    "category": "طراحی و خلاقیت",
+    "category": "هوش مصنوعی",
     "tags": [
-      "پرامپت هوش مصنوعی",
-      "طراحی وب با AI",
-      "وب‌سایت 3دی"
+      "هوش مصنوعی",
+      "طراحی سایت",
+      "پرامپت AI"
     ]
   }
 ]
