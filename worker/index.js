@@ -354,6 +354,27 @@ async function handleSaveSettings(request, env) {
   return json({ ok: true });
 }
 
+/** کنسل کردن یک اجرای Actions (Worker توکن سالم دارد) */
+async function cancelRun(env, runId) {
+  if (!env.GITHUB_TOKEN || !runId) return { error: "missing token or runId" };
+  try {
+    const res = await fetch(
+      "https://api.github.com/repos/" + REPO + "/actions/runs/" + runId + "/cancel",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "token " + env.GITHUB_TOKEN,
+          Accept: "application/vnd.github+json",
+          "User-Agent": "site-summarizer-worker",
+        },
+      }
+    );
+    return { ok: res.ok, status: res.status };
+  } catch (e) {
+    return { error: String(e) };
+  }
+}
+
 /** مسیریابی */
 export default {
   async fetch(request, env) {
@@ -394,6 +415,13 @@ export default {
       const body = await request.json().catch(() => ({}));
       await dispatchWorkflow(env, !!body.force);
       return json({ ok: true, force: !!body.force });
+    }
+
+    // کنسل کردن اجرای گیرکرده: /api/cancel-run/:id
+    const cancelMatch = path.match(/^\/api\/cancel-run\/([^/]+)$/);
+    if (cancelMatch && method === "POST") {
+      const out = await cancelRun(env, cancelMatch[1]);
+      return json(out, out.ok ? 200 : 400);
     }
 
     return json({ error: "مسیر پیدا نشد.", path }, 404);

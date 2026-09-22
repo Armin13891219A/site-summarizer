@@ -137,7 +137,7 @@ def _chat_google(prompt):
     if genai is not None:
         try:
             client = genai.Client(api_key=GOOGLE_API_KEY)
-            interaction = client.interactions.create(model=model, input=prompt)
+            interaction = client.interactions.create(model=model, input=prompt, config={"http_options": {"timeout": 45_000}})
             text = (interaction.output_text or "").strip()
             if text:
                 return text
@@ -152,7 +152,7 @@ def _chat_google(prompt):
         "generationConfig": {"temperature": 0.95, "maxOutputTokens": 1200},
     }).encode("utf-8")
     req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=45) as r:
         data = json.loads(r.read().decode("utf-8"))
     try:
         return data["candidates"][0]["content"]["parts"][0]["text"].strip()
@@ -175,7 +175,7 @@ def _chat_openrouter(prompt):
         "Authorization": "Bearer " + OPENROUTER_API_KEY,
         "HTTP-Referer": "https://github.com/Armin13891219A/site-summarizer",
     })
-    with urllib.request.urlopen(req, timeout=60) as r:
+    with urllib.request.urlopen(req, timeout=45) as r:
         data = json.loads(r.read().decode("utf-8"))
     try:
         return data["choices"][0]["message"]["content"].strip()
