@@ -828,7 +828,18 @@ def run_pipeline(force=False, limit=None):
             continue
 
         try:
-            results.append(_summarize_one(site, scraped, existing))
+            new_entry = _summarize_one(site, scraped, existing)
+            # محافظ بازنویسی: اگه خلاصه‌ی جدید از قدیمی کوتاه‌تر و ناقص‌تره، قدیمی رو نگه دار
+            old = existing_summaries.get(url)
+            if old and old.get("summary") and old.get("provider") != "fallback":
+                ns, os_ = len(new_entry.get("summary", "")), len(old["summary"])
+                if ns < 80 and os_ > ns:
+                    print(f"  [!] خلاصه‌ی جدید کوتاه ({ns}) — نسخه‌ی قبلی نگه داشته شد ({os_}).")
+                    new_entry["summary"] = old["summary"]
+                    new_entry["highlights"] = old.get("highlights", new_entry.get("highlights"))
+                    new_entry["key_topics"] = old.get("key_topics", new_entry.get("key_topics"))
+                    new_entry["read_time"] = old.get("read_time", new_entry.get("read_time"))
+            results.append(new_entry)
         except Exception as e:
             print(f"  [!] Summarize failed ({e}) — fallback.")
             fb = fallback_extractive_summary(scraped, site)
