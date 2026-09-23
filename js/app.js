@@ -340,19 +340,43 @@
   }
   bindMagnetic();
 
-  /* ——— Favicon fallback چندلایه (گوگل → داکرداک → حرف اول) ——— */
+  /* ——— Blobatar وانیلی (zero-dep): آواتار هندسی قطعی از روی seed ——— */
+  function blobHash(str) {
+    var h = 0;
+    str = String(str == null ? "?" : str);
+    for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function blobFace(expr) {
+    var eye = '<circle cx="15" cy="18" r="2.6" fill="#fff"/><circle cx="29" cy="18" r="2.6" fill="#fff"/>';
+    if (expr === 1) eye = '<circle cx="15" cy="18" r="2.6" fill="#fff"/><path d="M26 18h6" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>';
+    if (expr === 3) eye = '<path d="M12 18q3 2.4 6 0M26 18q3 2.4 6 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+    var shades = '<g fill="#fff" opacity="0.92"><rect x="11" y="13.5" width="10" height="8" rx="2.5"/><rect x="23" y="13.5" width="10" height="8" rx="2.5"/><rect x="20" y="16" width="4" height="2.4" rx="1.2"/></g>';
+    var mouth = '<path d="M15 28q7 6 14 0" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+    if (expr === 3) mouth = '<circle cx="22" cy="29" r="2.4" stroke="#fff" stroke-width="2.4" fill="none"/>';
+    return '<svg viewBox="0 0 44 44" aria-hidden="true">' + (expr === 2 ? shades + mouth : eye + mouth) + "</svg>";
+  }
+  function blobatarHTML(seed) {
+    var h = blobHash(seed);
+    var hue = h % 360, hue2 = (hue + 40) % 360;
+    var shapes = ["50%", "26%", "38% 62% 55% 45% / 45% 42% 58% 55%"];
+    return '<span class="favicon-blob" aria-hidden="true" style="background:linear-gradient(135deg,hsl(' +
+      hue + ',60%,46%),hsl(' + hue2 + ',62%,34%));border-radius:' + shapes[h % 3] + '">' +
+      blobFace((h >> 3) % 4) + "</span>";
+  }
+
+  /* ——— Favicon fallback چندلایه (گوگل → داکرداک → Blobatar) ——— */
   function faviconStack(url, name) {
     var host = "";
     try { host = new URL(url).hostname.replace(/^www\./, ""); }
     catch (e) { host = url; }
-    var letter = (name || host).trim().charAt(0).toUpperCase();
     var g = "https://www.google.com/s2/favicons?domain=" + encodeURIComponent(host) + "&sz=128";
     var d = "https://icons.duckduckgo.com/ip3/" + encodeURIComponent(host) + ".ico";
     return (
       '<span class="favicon-wrap">' +
         '<img class="favicon" loading="lazy" alt="" src="' + g + '" ' +
           'data-fallback="' + d + '">' +
-        '<span class="favicon-letter" aria-hidden="true">' + esc(letter) + "</span>" +
+        blobatarHTML(name || host) +
       "</span>"
     );
   }
@@ -365,7 +389,7 @@
       img.addEventListener("error", function () {
         if (img.dataset.tried === "1") {
           img.remove();
-          var sib = img.parentElement.querySelector(".favicon-letter");
+          var sib = img.parentElement.querySelector(".favicon-blob");
           if (sib) sib.style.display = "flex";
           return;
         }
@@ -507,6 +531,13 @@
       .then(function (r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
+      })
+      .catch(function (e) {
+        /* fallback: اگه ورکر خواب بود، دیتای کامیت‌شده لوکال رو بخون */
+        return fetch("data/sites.json", { cache: "no-store" }).then(function (r2) {
+          if (!r2.ok) throw e;
+          return r2.json();
+        });
       });
   }
 

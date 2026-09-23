@@ -57,18 +57,13 @@ function rowToSite(r) {
   };
 }
 
-/** داده‌های عمومی برای سایت */
+/** داده‌های عمومی برای سایت — فقط meta و sites؛ هرگز settings (حاوی کلید API) */
 async function handlePublicData(env) {
   const rows = await env.DB.prepare(
     "SELECT * FROM sites ORDER BY updated_at DESC"
   ).all();
-  const settings = await env.DB.prepare(
-    "SELECT key, value FROM settings"
-  ).all();
   const meta = await env.DB.prepare("SELECT key, value FROM meta").all();
 
-  const settingsObj = {};
-  for (const s of settings.results || []) settingsObj[s.key] = s.value;
   const metaObj = {};
   for (const m of meta.results || []) metaObj[m.key] = m.value;
 
@@ -78,9 +73,8 @@ async function handlePublicData(env) {
       last_updated: metaObj.last_updated || "",
       total_sites: String((rows.results || []).length),
       generator: "multi-provider AI + Cloudflare Workers",
-      version: "2.0.0",
+      version: "2.0.1",
     },
-    settings: settingsObj,
     sites: (rows.results || []).map(rowToSite),
   });
 }

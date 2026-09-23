@@ -3,7 +3,7 @@
   "g4f_models": [
     "gpt-4"
   ],
-  "google_model": "gemini-3.8-flash",
+  "google_model": "gemini-2.0-flash",
   "openrouter_model": "google/gemini-2.0-flash-exp:free",
   "summary_max_chars": 180
 }

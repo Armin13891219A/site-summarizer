@@ -372,6 +372,14 @@ main { max-width: 1120px; margin-inline: auto; padding: 0 1.25rem 4rem; }
 }
 .card:hover::after { opacity: 1; }
 .card:hover { border-color: oklch(from var(--ring) l c h / 35%); }
+/* ——— Neon trace روی لبه بالایی کارت (vengence-ui animated-border، پورت وانیلی) ——— */
+.card::before {
+  content: ""; position: absolute; top: 0; inset-inline: 0; height: 2px; z-index: 2;
+  background: linear-gradient(to left, transparent, var(--brand), transparent);
+  transform: translateX(-100%); opacity: 0; pointer-events: none;
+  transition: transform 1s ease-in-out, opacity 0.3s var(--ease-out);
+}
+.card:hover::before { transform: translateX(100%); opacity: 1; }
 .card.tilt {
   transform: perspective(600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transform-style: preserve-3d;
@@ -390,16 +398,17 @@ main { max-width: 1120px; margin-inline: auto; padding: 0 1.25rem 4rem; }
   outline: 1px solid var(--img-outline);
   position: absolute; inset: 0;
 }
-.favicon-letter {
+/* ——— Blobatar: آواتار هندسی قطعی (جایگزین حرف اول وقتی فاوآیکون نیست) ——— */
+.favicon-blob {
   position: absolute; inset: 0;
   display: none;
   align-items: center; justify-content: center;
-  font-size: 1.15rem; font-weight: 800;
-  color: var(--brand);
-  background: var(--secondary);
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) + 2px);
+  overflow: hidden;
+  outline: 1px solid var(--img-outline);
 }
+.favicon-blob svg { width: 26px; height: 26px; }
+.card:hover .favicon-blob svg { animation: blob-wiggle 0.6s ease-in-out; }
+@keyframes blob-wiggle { 0%, 100% { transform: rotate(-7deg); } 50% { transform: rotate(7deg); } }
 .card-name { font-weight: 700; font-size: 1.02rem; margin: 0; text-wrap: balance; }
 
 /* BlurText */
@@ -481,10 +490,16 @@ main { max-width: 1120px; margin-inline: auto; padding: 0 1.25rem 4rem; }
   font: inherit; font-size: 0.87rem; font-weight: 700;
   text-decoration: none;
   min-height: 44px;
-  transition: scale 0.15s var(--ease-out), filter 0.2s var(--ease-out);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 25%), 0 10px 22px -12px oklch(from var(--brand) l c h / 65%);
+  transition: scale 0.15s var(--ease-out), filter 0.2s var(--ease-out), translate 0.2s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
-.visit:hover { filter: brightness(1.08); }
-.visit:active { scale: 0.96; }
+.visit::before {
+  content: ""; position: absolute; top: 0; inset-inline: 0; height: 50%;
+  background: linear-gradient(to bottom, oklch(1 0 0 / 22%), transparent);
+  border-radius: inherit; pointer-events: none;
+}
+.visit:hover { filter: brightness(1.08); translate: 0 -2px; scale: 1.02; }
+.visit:active { scale: 0.96; translate: 0 1px; }
 .visit svg { width: 16px; height: 16px; }
 
 .stale-flag {
@@ -640,4 +655,7 @@ body.gsap-on .card { transition: border-color 0.25s var(--ease-out); }
   .card.tilt { transform: none; }
   .meteor, .star, .sparkle-star { animation: none !important; }
   .search-wrap.beam::before, .visit:hover::after { animation: none; }
+  .card::before, .visit::before { animation: none !important; }
+  .card:hover .favicon-blob svg { animation: none; }
+  .visit:hover { translate: none; scale: none; }
 }

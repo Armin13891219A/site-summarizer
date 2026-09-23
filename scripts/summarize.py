@@ -63,7 +63,7 @@ HEADERS = {
 DEFAULT_SETTINGS = {
     "provider": "g4f",
     "g4f_models": ["gpt-4", "gpt-4o", "deepseek-chat", "llama-3.1-70b", "gpt-3.5-turbo"],
-    "google_model": "gemini-3.8-flash",
+    "google_model": "gemini-2.0-flash",
     "openrouter_model": "google/gemini-2.0-flash-exp:free",
     "summary_max_chars": 180,
 }
@@ -105,30 +105,28 @@ if os.environ.get("OPENROUTER_API_KEY", "").strip():
 def _chat_g4f(prompt):
     if not G4F_AVAILABLE:
         raise RuntimeError("g4f not installed")
-    import signal
+    # Thread-based timeout — روی ویندوز و لینوکس کار می‌کند (SIGALRM فقط POSIX است)
+    import concurrent.futures
 
-    class _Timeout(Exception):
-        pass
-
-    def _alarm(signum, frame):
-        raise _Timeout("g4f hard timeout")
+    def _call_once(client, model, prompt):
+        return client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=2500,
+            timeout=45,
+        )
 
     client = G4FClient()
     last_err = None
     for model in SETTINGS["g4f_models"]:
         try:
             print(f"  -> g4f / {model}")
-            signal.signal(signal.SIGALRM, _alarm)
-            signal.alarm(90)  # مرز سخت ۹۰ ثانیه — گیر نکنه
-            try:
-                resp = client.chat.completions.create(
-                    model=model,
-                    messages=[{"role": "user", "content": prompt}],
-                    max_tokens=2500,
-                    timeout=45,
-                )
-            finally:
-                signal.alarm(0)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as ex:
+                fut = ex.submit(_call_once, client, model, prompt)
+                try:
+                    resp = fut.result(timeout=90)  # مرز سخت ۹۰ ثانیه — گیر نکنه
+                except concurrent.futures.TimeoutError:
+                    raise RuntimeError("g4f hard timeout (90s)")
             content = resp.choices[0].message.content
             if content and content.strip():
                 return content.strip()
@@ -142,7 +140,7 @@ def _chat_g4f(prompt):
 def _chat_google(prompt):
     if not GOOGLE_API_KEY:
         raise RuntimeError("GOOGLE_API_KEY not set")
-    model = SETTINGS.get("google_model", "gemini-3.8-flash")
+    model = SETTINGS.get("google_model", "gemini-2.0-flash")
     # مسیر اصلی: google-genai SDK جدید (Interactions API)
     try:
         from google import genai
