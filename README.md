@@ -66,7 +66,8 @@ python scripts/summarize.py --add https://example.com
 فایل `.github/workflows/summarize.yml`:
 - `schedule` — هر روز ۰۹:۳۰ تهران
 - `push` به `config/` — خودکار پس از افزودن سایت
-- `workflow_dispatch` — اجرای دستی با گزینه‌های `force` و `add_url`
+- `workflow_dispatch` — اجرای دستی با گزینه `force`
+- کش خلاصه‌ها ۷ روز اعتبار دارد (`SUMMARY_CACHE_TTL_DAYS`)؛ بعد از آن خودکار بازتولید می‌شوند و تا وقتی خلاصه‌ای تازه نشود، کامیت روزانه‌ی خالی ساخته نمی‌شود
 
 ## ساختار پروژه
 
@@ -85,14 +86,19 @@ site-summarizer/
 ├── scripts/
 │   ├── summarize.py        # استخراج + خلاصه چندپایانه‌ای
 │   └── requirements.txt
+├── worker/                 # Cloudflare Worker API + دیتابیس D1 (پنل ادمین و داده زنده)
+│   ├── index.js
+│   ├── schema.sql
+│   └── wrangler.toml
 └── .github/workflows/      # اتوماسیون
 ```
 
 ## امنیت
 
-- توکن گیت‌هاب فقط در حافظه مرورگر می‌ماند
+- توکن ادمین فقط در `sessionStorage` مرورگر می‌ماند (با بستن تب پاک می‌شود)؛ نسخه‌های قدیمیِ ذخیره‌شده در `localStorage` هم خودکار پاک می‌شوند
 - صفحه admin با `noindex` علامت‌گذاری شده
-- کلیدهای API فقط در GitHub Secrets هستند
+- کلیدهای API فقط در GitHub Secrets هستند (`GOOGLE_API_KEY` / `OPENROUTER_API_KEY`) و ورک‌فلو مستقیم از آنجا می‌خواندشان؛ ورکر/D1 هیچ کلید APIای ذخیره نمی‌کند (تنظیمات ورکر allowlist دارد و ردیف‌های قدیمی کلید هنگام خواندن پاک می‌شوند)
+- اسکرپر با بررسی کامل گواهی TLS سایت‌ها را می‌خواند (`verify` فعال)
 
 ## لایسنس
 
