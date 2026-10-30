@@ -50,6 +50,14 @@ OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 # طول زیادی مجاز خلاصه (نهایتاً ۴ خط)
 SUMMARY_MAX_CHARS = 180
 
+# Cache TTL: cached summaries expire after this many days and are regenerated
+# (override with env SUMMARY_CACHE_TTL_DAYS). Previously the cache never expired,
+# so the daily run only bumped the timestamp and summaries went stale forever.
+try:
+    CACHE_TTL_DAYS = float(os.environ.get("SUMMARY_CACHE_TTL_DAYS", "7"))
+except Exception:
+    CACHE_TTL_DAYS = 7.0
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -209,25 +217,49 @@ def _available_providers():
     return out
 
 
+def _is_cache_fresh(entry):
+    """True only if the cached entry has a parseable updated_at_iso younger than CACHE_TTL_DAYS."""
+    if not entry:
+        return False
+    iso = entry.get("updated_at_iso") or ""
+    try:
+        ts = datetime.fromisoformat(str(iso).replace("Z", "+00:00"))
+    except Exception:
+        return False
+    if ts.tzinfo is None:
+        from datetime import timezone as _tz
+        ts = ts.replace(tzinfo=_tz.utc)
+    from datetime import timezone as _tz
+    age_days = (datetime.now(_tz.utc) - ts).total_seconds() / 86400.0
+    return age_days < CACHE_TTL_DAYS
+
+
+def _max_chars():
+    try:
+        return int(SETTINGS.get("summary_max_chars") or SUMMARY_MAX_CHARS)
+    except Exception:
+        return SUMMARY_MAX_CHARS
+
+
 def _clamp_summary(text):
     """خلاصه را به حداکثر ۴ خط (۱۸۰ کاراکتر) محدود می‌کند — بدون کات کردن وسط جمله."""
     t = (text or "").strip()
-    if len(t) <= SUMMARY_MAX_CHARS:
+    if len(t) <= _max_chars():
         return t
     # قطع روی مرز جمله (نقطه/؟/!) تا متن نامفهوم نشود
     for punct in ("۔", ".", "؟", "?", "!"):
-        pos = t.rfind(punct, 40, SUMMARY_MAX_CHARS)
+        pos = t.rfind(punct, 40, _max_chars())
         if pos != -1:
             return t[:pos + 1].strip()
     # اگر جمله‌بندی پیدا نشد، روی مرز کلمه
-    sp = t.rfind(" ", 0, SUMMARY_MAX_CHARS)
+    sp = t.rfind(" ", 0, _max_chars())
     if sp > 40:
         cut = t[:sp].rstrip(" ،,.")
         # جلوگیری از قطع وسط کلمه: آخرین کاراکتر حرف فارسی باشه
         if re.search(r"[آ-ی]$", cut):
             cut = cut.rstrip("آ-ی")
         return cut + "…"
-    return t[:SUMMARY_MAX_CHARS].rstrip(" ،,.") + "…"
+    return t[:_max_chars()].rstrip(" ،,.") + "…"
 
 
 # ——————————————————————————————————————————————————————
@@ -251,7 +283,7 @@ def extract_favicon(soup, base_url):
 def scrape_website(url):
     """دریافت صفحه و استخراج عنوان، توضیحات، کلیدواژه‌ها و متن تمیز."""
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15, verify=False)
+        resp = requests.get(url, headers=HEADERS, timeout=15)  # TLS verification stays ON
         resp.encoding = resp.apparent_encoding or "utf-8"
         html = resp.text
     except Exception as e:
@@ -786,13 +818,15 @@ def run_pipeline(force=False, limit=None):
         name = site.get("name", url)
         if not force and url in existing_summaries:
             cached = existing_summaries[url]
-            if cached.get("summary") and cached.get("highlights"):
+            if cached.get("summary") and cached.get("highlights") and _is_cache_fresh(cached):
                 print(f"  [*] {name}: cached")
                 cached["name"] = name
                 cached["category"] = site.get("category", cached.get("category", "عمومی"))
                 cached["tags"] = site.get("tags", cached.get("tags", []))
                 results.append(cached)
                 continue
+            elif cached.get("summary"):
+                print(f"  [*] {name}: cache expired (> {CACHE_TTL_DAYS:g} days) — regenerating")
         to_summarize.append(site)
 
     if to_summarize:
@@ -869,11 +903,15 @@ def run_pipeline(force=False, limit=None):
             })
         time.sleep(0.5)
 
+    # Only bump last_updated when at least one summary was actually (re)generated;
+    # otherwise keep the previous meta so the daily run creates no timestamp-only commits.
+    _old_meta = existing.get("meta", {}) if isinstance(existing, dict) else {}
+    _regenerated = len(to_summarize) > 0
     payload = {
         "meta": {
             "title": "داشبورد هوشمند خلاصه‌ساز وب‌سایت‌ها",
-            "last_updated": get_persian_date(),
-            "last_updated_iso": datetime.utcnow().isoformat() + "Z",
+            "last_updated": get_persian_date() if _regenerated else _old_meta.get("last_updated", get_persian_date()),
+            "last_updated_iso": (datetime.utcnow().isoformat() + "Z") if _regenerated else _old_meta.get("last_updated_iso", datetime.utcnow().isoformat() + "Z"),
             "total_sites": len(results),
             "generator": "multi-provider AI + GitHub Actions",
             "version": "1.0.0",
@@ -892,9 +930,6 @@ if __name__ == "__main__":
     parser.add_argument("--force", action="store_true", help="Force regenerate all summaries")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of sites")
     args = parser.parse_args()
-
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     if args.add:
         cmd_add(args.add)
