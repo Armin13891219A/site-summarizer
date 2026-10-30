@@ -134,22 +134,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
         کلیدهای API (GitHub Secrets)
       </h2>
-      <div class="field">
-        <label for="google-key">Google AI Studio Key</label>
-        <input type="password" id="google-key" dir="ltr" placeholder="AIza..." autocomplete="off">
-        <div class="hint">دریافت از <a href="https://aistudio.google.com/api-key" target="_blank" rel="noopener">aistudio.google.com/api-key</a></div>
-      </div>
-      <div class="field">
-        <label for="openrouter-key">OpenRouter Key</label>
-        <input type="password" id="openrouter-key" dir="ltr" placeholder="sk-or-..." autocomplete="off">
-        <div class="hint">دریافت از <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a></div>
-      </div>
-      <button class="btn" id="save-keys-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg>
-        ذخیره کلیدها
-      </button>
       <div class="token-note">
-        کلیدها امن ذخیره می‌شوند و خلاصه‌ساز خودکار از همین‌جا می‌خواندشان — نیازی به تنظیم دستی در گیت‌هاب نیست.
+        کلیدها دیگر در دیتابیس ورکر ذخیره نمی‌شوند. کلیدهای Google AI و OpenRouter را فقط به‌صورت
+        GitHub Secrets با نام‌های <b dir="ltr">GOOGLE_API_KEY</b> و <b dir="ltr">OPENROUTER_API_KEY</b>
+        در <a href="https://github.com/Armin13891219A/site-summarizer/settings/secrets/actions" target="_blank" rel="noopener">تنظیمات سکرت‌های ریپو</a> ثبت کن؛
+        ورک‌فلو مستقیم از همان‌جا می‌خواندشان. (برای provider پیش‌فرض g4f نیازی به کلید نیست.)
       </div>
     </section>
   </div>
