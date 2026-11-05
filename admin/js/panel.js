@@ -75,7 +75,7 @@
     token = t;
     $("token").value = "";
     api("/settings").then(function () {
-      try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {}
+      try { sessionStorage.setItem(TOKEN_KEY, token); } catch (e) {}
       lockUi(false);
       toast("پنل فعال شد", "ok");
       loadSites();
@@ -88,7 +88,7 @@
 
   function logout() {
     token = null;
-    try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+    try { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); } catch (e) {}
     lockUi(true);
     toast("از پنل خارج شدی", "ok");
   }
@@ -163,9 +163,12 @@
         }
         if (s.google_model) $("google-model").value = s.google_model;
         if (s.openrouter_model) $("openrouter-model").value = s.openrouter_model;
+        if (s.summary_max_chars) loadedMaxChars = String(s.summary_max_chars);
       })
       .catch(function (e) { toast("تنظیمات بارگذاری نشد: " + e.message, "err"); });
   }
+
+  var loadedMaxChars = "180";
 
   function saveSettings() {
     var settings = {
@@ -175,30 +178,11 @@
       ),
       google_model: $("google-model").value.trim(),
       openrouter_model: $("openrouter-model").value.trim(),
-      summary_max_chars: "180"
+      summary_max_chars: loadedMaxChars
     };
     api("/settings", { method: "PUT", body: JSON.stringify(settings) })
       .then(function () { toast("تنظیمات ذخیره شد", "ok"); })
       .catch(function (e) { toast("خطا در ذخیره: " + e.message, "err"); });
-  }
-
-  /* ——— ۶) کلیدهای API ——— */
-  function saveKeys() {
-    var g = $("google-key").value.trim();
-    var o = $("openrouter-key").value.trim();
-    if (!g && !o) { toast("حداقل یک کلید وارد کن.", "err"); return; }
-
-    var settings = {};
-    if (g) settings.google_api_key = g;
-    if (o) settings.openrouter_api_key = o;
-
-    api("/settings", { method: "PUT", body: JSON.stringify(settings) })
-      .then(function () {
-        toast("کلیدها ذخیره شدند", "ok");
-        $("google-key").value = "";
-        $("openrouter-key").value = "";
-      })
-      .catch(function (e) { toast("خطا در ذخیره کلید: " + e.message, "err"); });
   }
 
   /* ——— راه‌اندازی ——— */
@@ -209,7 +193,6 @@
   $("logout-btn").addEventListener("click", logout);
   $("add-btn").addEventListener("click", addSite);
   $("save-settings-btn").addEventListener("click", saveSettings);
-  $("save-keys-btn").addEventListener("click", saveKeys);
 
   /* ——— تم و رنگ تاکیدی ——— */
   function initTheme() {
@@ -258,7 +241,8 @@
 
   /* ——— نشست پایدار ——— */
   try {
-    var saved = localStorage.getItem(TOKEN_KEY);
+    var saved = sessionStorage.getItem(TOKEN_KEY);
+    try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} // purge legacy localStorage token
     if (saved) {
       token = saved;
       api("/settings").then(function () {
@@ -268,7 +252,7 @@
         loadSettings();
       }).catch(function () {
         token = null;
-        try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+        try { sessionStorage.removeItem(TOKEN_KEY); localStorage.removeItem(TOKEN_KEY); } catch (e) {}
       });
     }
   } catch (e) {}

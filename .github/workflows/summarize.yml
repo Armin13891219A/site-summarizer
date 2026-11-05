@@ -70,7 +70,7 @@ jobs:
                  for s in d.get("sites", [])]
           json.dump(cfg, open("config/sites.json","w",encoding="utf-8"), ensure_ascii=False, indent=2)
           print("synced", len(cfg), "sites from Worker")
-          # ——— سینک تنظیمات AI + کلیدها از ورکر (پنل ادمین) به CI ———
+          # ——— سینک تنظیمات AI از ورکر (پنل ادمین) به CI ———
           sreq = urllib.request.Request(base + "/settings", headers={
               "Authorization": "Bearer " + tok, "User-Agent": "site-summarizer-ci"})
           with opener.open(sreq, timeout=30) as r:
@@ -90,17 +90,13 @@ jobs:
                   f.write(f"GOOGLE_MODEL={sval('google_model')}\n")
               if settings.get("openrouter_model"):
                   f.write(f"OPENROUTER_MODEL={sval('openrouter_model')}\n")
-              if settings.get("google_api_key"):
-                  print("::add-mask::" + settings["google_api_key"])
-                  f.write(f"GOOGLE_API_KEY={settings['google_api_key']}\n")
-              if settings.get("openrouter_api_key"):
-                  print("::add-mask::" + settings["openrouter_api_key"])
-                  f.write(f"OPENROUTER_API_KEY={settings['openrouter_api_key']}\n")
           print("synced AI settings from Worker: provider=" + (sval('provider') or 'g4f'))
           EOF
 
       - name: Run AI summarizer
-        # AI_PROVIDER / GOOGLE_API_KEY / ... از استپ Sync (ورکر → GITHUB_ENV) می‌آیند
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           set -o pipefail
           if [ "${{ inputs.force }}" = "true" ]; then
@@ -120,7 +116,7 @@ jobs:
         run: |
           python -c "
           import json, os, urllib.request, urllib.parse
-          HEADERS = {'Content-Type':'application/json', 'Authorization':'Bearer '+os.environ['ADMIN_TOKEN'],
+          HEADERS = {'Content-Type':'application/json', 'Authorization':'***'+os.environ['ADMIN_TOKEN'],
                      'User-Agent':'site-summarizer-ci'}
           data = json.load(open('data/sites.json'))
           api = os.environ['WORKER_API'].rstrip('/')

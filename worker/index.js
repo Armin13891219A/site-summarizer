@@ -326,11 +326,21 @@ async function touchMeta(env) {
     .run();
 }
 
-/** تنظیمات */
+/** تنظیمات — فقط کلیدهای مجاز؛ کلیدهای API هرگز اینجا ذخیره/برگردانده نمی‌شوند
+ *  (آن‌ها فقط GitHub Secrets هستند). ردیف‌های قدیمی *_api_key هنگام خواندن پاک می‌شوند. */
+const SETTINGS_ALLOWLIST = ["provider", "g4f_models", "google_model", "openrouter_model", "summary_max_chars"];
+
 async function handleGetSettings(env) {
+  try {
+    await env.DB.prepare(
+      "DELETE FROM settings WHERE key IN ('google_api_key', 'openrouter_api_key')"
+    ).run();
+  } catch (e) {}
   const rows = await env.DB.prepare("SELECT key, value FROM settings").all();
   const obj = {};
-  for (const r of rows.results || []) obj[r.key] = r.value;
+  for (const r of rows.results || []) {
+    if (SETTINGS_ALLOWLIST.includes(r.key)) obj[r.key] = r.value;
+  }
   return json(obj);
 }
 
@@ -338,6 +348,7 @@ async function handleSaveSettings(request, env) {
   const body = await request.json().catch(() => ({}));
   const stmts = [];
   for (const [key, value] of Object.entries(body)) {
+    if (!SETTINGS_ALLOWLIST.includes(key)) continue; // API keys & unknown keys are rejected
     stmts.push(
       env.DB.prepare(
         "INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)"
